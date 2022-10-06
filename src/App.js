@@ -62,9 +62,9 @@ function App() {
       </Navbar>
       <div className='row'>
         {
-          resize >= 1080 ? <div className="col-md-2 col-sm-0"></div> : null 
+          resize >= 1080 ? <div className="col-md-4 col-sm-0"></div> : null 
         }
-        <div className='col-md-8'>
+        <div className='col-md-4'>
           <Suspense fallback={<div>로딩중임</div>}>
             <Routes>
               <Route path='/' element={
@@ -95,13 +95,13 @@ function App() {
                     <ContentsList />
                 } />
               <Route path='/test/:categoryName/:itemName' element={
-                    <TestContentsList />
+                    <ContentsList />
                 } />
             </Routes>
           </Suspense>
         </div>
         {
-          resize >= 1080 ? <div className="col-md-2 col-sm-0"></div> : null 
+          resize >= 1080 ? <div className="col-md-4 col-sm-0"></div> : null 
         }      
         </div>
     </div>

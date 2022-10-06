@@ -10,7 +10,7 @@ let data = [
         {
           id: no,
           image: 'https://media.bunjang.co.kr/product/200821868_1_1664634630_w512.jpg',
-          name: 'macbook m1 급처합니다',
+          name: '급처합니다급처합니다급처합니다급처합니다급처합니다',
           state: '판매중',
           price: 820000,
           like: 332,

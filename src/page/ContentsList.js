@@ -1,8 +1,13 @@
 import { useParams } from "react-router-dom";
-import Table from 'react-bootstrap/Table';
 import data from './../data.js'
 import { useState, useEffect } from "react";
-import Pagination from 'react-bootstrap/Pagination';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Badge from 'react-bootstrap/Badge';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 function ContentsList(props) {
   const [resize, setResize] = useState(window.innerWidth);
@@ -20,116 +25,131 @@ function ContentsList(props) {
 
 
   let { categoryName, itemName } = useParams();
-  let [totalData, setTotalData] = useState(data);
-
-  let contentsData = totalData.find(function (x) {
-    return x.category == categoryName & x.item == itemName
-  })
-
-  if (contentsData === undefined) {
-    return (
-      <div> 없는 제품입니다. </div>
-    )
-  }
+  let [totalData, setTotalData] = useState(data[0].contents);
 
   return(
     <div>
       <h4>{categoryName}</h4>
       <h6>{itemName}</h6>
-      <Table hover size="md" className="Table-row">
-        <TableHeader resize={resize} />
-        <tbody>
-          {
-            contentsData.contents.map((cData, idx)=>{
-              return(
-                <TableRow key={idx} cData={cData} resize={resize} />
-              )
-            })
-          }
-        </tbody>
-      </Table>
-      <Page />
+      <Row xs={1} md={1} className="g-4">
+      {
+        totalData.map((cData, idx)=>{
+          return(
+            <Contents key={idx} cData={cData} resize={resize} />
+          )
+        })
+      }
+      </Row>
+
+      <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
+        let copyData = [...totalData]
+        let sliceData = copyData.slice(0,12)
+        let dataCopy = [...copyData, ...sliceData]
+        setTotalData(dataCopy)
+      }}> More...</Button> 
     </div>
   )
 }
 
-function Page() {
+const getDateDiff = (d) => {
+  const date1 = new Date();
+  const date2 = new Date(d);
+  
+  const diffDate = date1.getTime() - date2.getTime();
+  
+  return Math.floor(diffDate / (1000 * 60 * 60 * 24));
+}
+
+
+const getHourDiff = (d) => {
+  const date1 = new Date();
+  const date2 = new Date(d);
+  
+  const diffDate = date1.getTime() - date2.getTime();
+  
+  return Math.floor(diffDate / (1000 * 60 * 60));
+}
+
+function Contents({cData, resize}){
+  let text_len = resize  >= 1080 ? 25 : 13
+  let data_name = cData.name.length >= text_len ? cData.name.substr(0, text_len) + "..." : cData.name
+  let price = cData.price;
+  let new_price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+  let dateDiff = getDateDiff(cData.date);
+  let hourDiff = getHourDiff(cData.date);
+  let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff = "시간 전"
+
   return(
-    <Pagination size="sm" style={{alignItems: 'center', justifyContent: 'center'}}>
-      <Pagination.First />
-      <Pagination.Prev />
-      <Pagination.Item active>{1}</Pagination.Item>
-      <Pagination.Item>{2}</Pagination.Item>
-      <Pagination.Item>{3}</Pagination.Item>
-      <Pagination.Item>{4}</Pagination.Item>
-      <Pagination.Item>{5}</Pagination.Item>
-      <Pagination.Next />
-      <Pagination.Last />
-    </Pagination>
+    <Col>
+        <Card style={{padding: "10px", textAlign: "left"}}>
+
+          <Row>
+            <Col xs={3} md={3}>
+              <Card.Img variant="top" src={cData.image} />
+            </Col>
+            <Col xs={9} md={9}>
+              <Row>
+                <Col xs={9} md={9}>
+                  <Badge bg='light' text="dark">{cData.source}</Badge>
+                  <ColoredBadge state={cData.state} />
+                </Col>
+                <Col xs={3} md={3} style={{textAlign: "right"}}>
+                  <small className="text-muted">{diffDate}</small>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <a style={{color: "black"}} target="_blank" href="https://codingapple.com/">
+                    <Card.Title>
+                      {data_name}
+                    </Card.Title>
+                  </a>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Card.Text>{new_price}원 </Card.Text>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <small className="text-muted">
+                    <Card.Text>
+                      원문 좋아요 {cData.like} 원문 댓글 {cData.comments}
+                    </Card.Text>
+                  </small>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+
+          <Row>
+            <InputGroup className="mb-1 mt-3">
+              <Form.Control
+                placeholder="의견 작성하기, 이용규칙을 지켜주세요."
+                aria-label="comment"
+                aria-describedby="basic-addon"
+              />
+              <Button variant="outline-secondary" id="button-addon">
+                작성
+              </Button>
+            </InputGroup>
+          </Row>
+      </Card>
+  </Col>
   )
 }
 
-function TableRow({cData, resize}){
-  if (resize >= 1080) {
-    return(
-      <tr>
-        <td>{cData.id}</td>
-        <td>
-          <img style={{width: "50px"}} src={cData.image} />
-        </td>
-        <td>{cData.name}</td>
-        <td>{cData.state}</td>
-        <td>{cData.price}</td>
-        <td>{cData.like}</td>
-        <td>{cData.comments}</td>
-        <td>{cData.source}</td>
-        <td>{cData.date}</td>
-      </tr>
-    )
+function ColoredBadge({state}) {
+  if (state == '판매완료'){
+    return <Badge bg="danger">{state}</Badge>
+  }
+  else if (state == '판매중') {
+    return <Badge bg="success">{state}</Badge>
   }
   else {
-    return (
-      <tr>
-        <td>{cData.name}</td>
-        <td>{cData.state}</td>
-        <td>{cData.price}</td>
-        <td>{cData.source}</td>
-      </tr>
-    )
-  }
-  
-}
-
-
-function TableHeader({resize}) {
-  if (resize >= 1024){
-    return (
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Image</th>
-          <th>Product Name</th>
-          <th>State</th>
-          <th>Price</th>
-          <th>Like</th>
-          <th>Comments</th>
-          <th>Source</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-    )
-  }
-  else {
-    return (
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>State</th>
-          <th>Price</th>
-          <th>Source</th>
-        </tr>
-      </thead>
-    )
+    return <Badge bg="warning">{state}</Badge>
   }
 }
 

@@ -34,7 +34,7 @@ function App() {
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand onClick={() => { navigate('/') }}><Badge bg="info">Fleas Man</Badge></Navbar.Brand>
+          <Navbar.Brand onClick={() => { navigate('/') }}><Badge bg="info">FleaMan</Badge></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -75,7 +75,7 @@ function App() {
                   </div>
                   <div style={{margin: "50px"}}>
                     <h2>
-                      중고물품 통합검색은 <Badge bg="info">Fleas Man</Badge>
+                      중고물품 통합검색은 <Badge bg="info">FleaMan</Badge>
                     </h2>
                   </div>
                   {/* <div style={

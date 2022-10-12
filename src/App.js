@@ -10,8 +10,11 @@ import coverimage from './img/bg.png'
 import CarouselFade from './Carousel';
 import Badge from 'react-bootstrap/Badge';
 
+
+
 const ContentsList = lazy(() => import('./page/ContentsList'))
-const TestContentsList = lazy(() => import('./page/TestContentsList'))
+const Login = lazy(() => import('./page/Login'))
+
 
 function App() {
   const [resize, setResize] = useState(window.innerWidth);
@@ -28,8 +31,34 @@ function App() {
   }, []);
 
   let navigate = useNavigate();
-  let [macbook_air, setMacbook_air] = useState(['M1']);
-
+  let [items, setItems] = useState(
+    [
+      {
+        category: "Mac", 
+        contents: ['Macbook Air', 'MacBook Pro', 'iMac 24"', 'Mac mini', 'Mac Studio', 'Mac Pro', 'Displays', 'Accessories']
+      },
+      {
+        category: "iPad", 
+        contents: ['iPad Pro', 'iPad Air', 'iPad', 'iPad mini']
+      },
+      {
+        category: "iPhone", 
+        contents: ['iPhone Pro Max', 'iPhone Pro', 'iPhone', 'iPhone mini', 'iPhone SE']
+      },
+      {
+        category: "Watch", 
+        contents: ['Apple Watch', 'Apple Watch SE']
+      },
+      {
+        category: "AirPods", 
+        contents: ['AirPods', 'AirPods Pro', 'AirPods Max']
+      },
+      {
+        category: "TV & Home", 
+        contents: ['Apple TV', 'HomePod', 'HomePod mini']
+      },
+    ]
+  );
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -38,24 +67,23 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {/* <NavDropdown title="MacBook Air" id="basic-nav-dropdown">
-                {
-                  macbook_air.map((m, idx)=>{
-                    return (
-                      <NavDropdown.Item key={idx} onClick={()=>{ navigate('/list/macbookair/'+m)}}>{m}</NavDropdown.Item>
-                    )
-                  })
-                }
-              </NavDropdown> */}
-              <NavDropdown title="MacBook Air" id="basic-nav-dropdown">
-                {
-                  macbook_air.map((m, idx)=>{
-                    return (
-                      <NavDropdown.Item key={idx} onClick={()=>{ navigate('/test/macbookair/'+m)}}>{m}</NavDropdown.Item>
-                    )
-                  })
-                }
-              </NavDropdown>
+              {
+                items.map((d, i)=>{
+                  return(
+                    <NavDropdown title={d.category} id="basic-nav-dropdown">
+                      {
+                        d.contents.map((content, idx)=>{
+                          return (
+                            <NavDropdown.Item key={idx} onClick={()=>{ navigate('/list/'+d.category+'/'+content)}}>{content}</NavDropdown.Item>
+                          )
+                        })
+                      }
+                    </NavDropdown>
+                  )
+                })
+              }
+              {/* <Nav.Link onClick={() => { navigate('/login') }}>Login</Nav.Link> */}
+
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -68,25 +96,15 @@ function App() {
           <Suspense fallback={<div>로딩중임</div>}>
             <Routes>
               <Route path='/' element={
-                // <div>홈입니다.</div>
                 <div>
                   <div style={{margin: "10px"}}>
                     <CarouselFade />
                   </div>
                   <div style={{margin: "50px"}}>
-                    <h2>
+                    <h3>
                       중고물품 통합검색은 <Badge bg="info">FleaMan</Badge>
-                    </h2>
+                    </h3>
                   </div>
-                  {/* <div style={
-                    { 
-                      height: resize >= 1080 ? "300px" : "200px", 
-                      width: 'auto', 
-                      backgroundSize: "cover", 
-                      backgroundPosition: "center", 
-                      backgroundImage: 'url(' + coverimage + ')' 
-                    }
-                  }></div> */}
                   
                 </div>
               }>
@@ -94,8 +112,9 @@ function App() {
               <Route path='/list/:categoryName/:itemName' element={
                     <ContentsList />
                 } />
-              <Route path='/test/:categoryName/:itemName' element={
-                    <ContentsList />
+
+              <Route path='/login' element={
+                    <Login />
                 } />
             </Routes>
           </Suspense>

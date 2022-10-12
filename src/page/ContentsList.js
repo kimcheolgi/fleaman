@@ -98,7 +98,7 @@ function Contents({cData, resize}){
                   <small className="text-muted">{diffDate}</small>
                 </Col>
               </Row>
-              <Row>
+              <Row className="mt-2">
                 <Col>
                   <a style={{color: "black"}} target="_blank" href="https://codingapple.com/">
                     <Card.Title>
@@ -124,7 +124,7 @@ function Contents({cData, resize}){
             </Col>
           </Row>
 
-          <Row>
+          {/* <Row>
             <InputGroup className="mb-1 mt-3">
               <Form.Control
                 placeholder="의견 작성하기, 이용규칙을 지켜주세요."
@@ -135,7 +135,7 @@ function Contents({cData, resize}){
                 작성
               </Button>
             </InputGroup>
-          </Row>
+          </Row> */}
       </Card>
   </Col>
   )

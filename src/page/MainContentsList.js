@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import data from './../data.js'
+import data from '../data.js'
 import { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Badge from 'react-bootstrap/Badge';
 
-function ContentsList(props) {
+function MainContentsList({searchItems}) {
   const [resize, setResize] = useState(window.innerWidth);
 
   const handleResize = () => {
@@ -21,9 +21,10 @@ function ContentsList(props) {
     };
   }, []);
 
-
   let { categoryName, itemName } = useParams();
-  let [totalData, setTotalData] = useState(data[0].contents);
+  // let [totalData, setTotalData] = useState(searchItems);
+  let totalData = searchItems
+
 
   return(
     <div>
@@ -39,12 +40,12 @@ function ContentsList(props) {
       }
       </Row>
 
-      <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
+      {/* <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
         let copyData = [...totalData]
         let sliceData = copyData.slice(0,12)
         let dataCopy = [...copyData, ...sliceData]
         setTotalData(dataCopy)
-      }}> More...</Button> 
+      }}> More...</Button>  */}
     </div>
   )
 }
@@ -151,4 +152,4 @@ function ColoredBadge({state}) {
   }
 }
 
-export default ContentsList;
+export default MainContentsList;

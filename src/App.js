@@ -9,10 +9,12 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import coverimage from './img/bg.png'
 import CarouselFade from './Carousel';
 import Badge from 'react-bootstrap/Badge';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import { NavbarBrand } from 'react-bootstrap';
 import { parseJwt} from './utils.js'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import MainContentsList from './page/MainContentsList';
+import data from './data.js'
 
 const ContentsList = lazy(() => import('./page/ContentsList'))
 const Login = lazy(() => import('./page/Login'))
@@ -25,6 +27,7 @@ function App() {
     setResize(window.innerWidth);
   };
 
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
@@ -32,7 +35,9 @@ function App() {
     };
   }, []);
 
+
   let navigate = useNavigate();
+
   let [items, setItems] = useState(
     [
       {
@@ -65,7 +70,16 @@ function App() {
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand onClick={() => { navigate('/') }}><Badge bg="info">FleaMan</Badge></Navbar.Brand>
+          <Navbar.Brand href="/">
+            <img
+              alt=""
+              src="/logo512.png"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{' '}
+            FleaMan
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -88,7 +102,7 @@ function App() {
             </Nav>
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">
-            <LoginButton navi={navigate}/>
+            <LoginButton/>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -102,7 +116,8 @@ function App() {
               <Route path='/' element={
                 <div>
                   <div style={{margin: "10px"}}>
-                    <CarouselFade />
+                    {/* <CarouselFade /> */}
+                    <SearchInput></SearchInput>
                   </div>
                   <div style={{margin: "50px"}}>
                     <h3>
@@ -114,11 +129,11 @@ function App() {
               }>
               </Route>
               <Route path='/list/:categoryName/:itemName' element={
-                    <ContentsList />
+                  <ContentsList />
                 } />
 
               <Route path='/login' element={
-                    <Login />
+                  <Login />
                 } />
             </Routes>
           </Suspense>
@@ -131,23 +146,65 @@ function App() {
   );
 }
 
-function LoginButton({ navi }) {
+function LoginButton() {
   let cred = localStorage.getItem('googleAccount')
+  let navigate = useNavigate();
+
   if (cred == undefined) {
     return(
-      <Navbar.Text onClick={() => { navi('/login') }}>
-        Login
+      <Navbar.Text onClick={() => { navigate('/login') }}>
+        <Button variant="outline-dark">Login</Button>
       </Navbar.Text>
     )
   }
   else {
     let userInfo = parseJwt(cred)
     return (
-      <Navbar.Text onClick={() => { navi('/login') }}>
-        Signed in as: {userInfo.name}
+      <Navbar.Text onClick={() => { navigate('/login') }}>
+        <Button variant="outline-dark">Signed in as: {userInfo.name}</Button>
       </Navbar.Text>
     )
   }
 }
+
+function SearchInput() {
+  let [inputValue, setInputValue] = useState('');
+  let [searchItems, setSearchItems] = useState([]);
+  
+  const getSearchItems = (searchKeyword) => {
+    console.log(searchKeyword)
+    if (searchKeyword == '') {
+      return []
+    }
+    return data[0].contents
+  }
+
+  return (
+    <div>
+      <InputGroup className="mb-3 mt-5">
+
+        <Form.Control
+          placeholder="검색어를 입력하세요"
+          aria-label="검색어를 입력하세요"
+          aria-describedby="basic-addon2"
+          onChange={(e)=>{ 
+            setInputValue(e.target.value)
+          }}
+        />
+        <Button 
+          variant="outline-secondary" 
+          id="button-addon2"
+          onClick={() => {
+            setSearchItems(getSearchItems(inputValue))
+          }}
+        >
+          검색
+        </Button>
+      </InputGroup>
+    <MainContentsList searchItems={searchItems}/>
+  </div>
+  )
+}
+
 
 export default App;

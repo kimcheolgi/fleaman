@@ -9,8 +9,10 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import coverimage from './img/bg.png'
 import CarouselFade from './Carousel';
 import Badge from 'react-bootstrap/Badge';
-
-
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { NavbarBrand } from 'react-bootstrap';
+import { parseJwt} from './utils.js'
 
 const ContentsList = lazy(() => import('./page/ContentsList'))
 const Login = lazy(() => import('./page/Login'))
@@ -39,23 +41,23 @@ function App() {
       },
       {
         category: "iPad", 
-        contents: ['iPad Pro', 'iPad Air', 'iPad', 'iPad mini']
+        contents: ['iPad Pro', 'iPad Air', 'iPad', 'iPad mini', 'Accessories']
       },
       {
         category: "iPhone", 
-        contents: ['iPhone Pro Max', 'iPhone Pro', 'iPhone', 'iPhone mini', 'iPhone SE']
+        contents: ['iPhone Pro Max', 'iPhone Pro', 'iPhone', 'iPhone mini', 'iPhone SE', 'Accessories']
       },
       {
         category: "Watch", 
-        contents: ['Apple Watch', 'Apple Watch SE']
+        contents: ['Apple Watch', 'Apple Watch SE', 'Accessories']
       },
       {
         category: "AirPods", 
-        contents: ['AirPods', 'AirPods Pro', 'AirPods Max']
+        contents: ['AirPods', 'AirPods Pro', 'AirPods Max', 'Accessories']
       },
       {
         category: "TV & Home", 
-        contents: ['Apple TV', 'HomePod', 'HomePod mini']
+        contents: ['Apple TV', 'HomePod', 'HomePod mini', 'Accessories']
       },
     ]
   );
@@ -70,11 +72,11 @@ function App() {
               {
                 items.map((d, i)=>{
                   return(
-                    <NavDropdown title={d.category} id="basic-nav-dropdown">
+                    <NavDropdown key={d.category} title={d.category} id="basic-nav-dropdown">
                       {
                         d.contents.map((content, idx)=>{
                           return (
-                            <NavDropdown.Item key={idx} onClick={()=>{ navigate('/list/'+d.category+'/'+content)}}>{content}</NavDropdown.Item>
+                            <NavDropdown.Item key={content} onClick={()=>{ navigate('/list/'+d.category+'/'+content)}}>{content}</NavDropdown.Item>
                           )
                         })
                       }
@@ -82,9 +84,11 @@ function App() {
                   )
                 })
               }
-              {/* <Nav.Link onClick={() => { navigate('/login') }}>Login</Nav.Link> */}
 
             </Nav>
+          </Navbar.Collapse>
+          <Navbar.Collapse className="justify-content-end">
+            <LoginButton navi={navigate}/>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -125,6 +129,25 @@ function App() {
         </div>
     </div>
   );
+}
+
+function LoginButton({ navi }) {
+  let cred = localStorage.getItem('googleAccount')
+  if (cred == undefined) {
+    return(
+      <Navbar.Text onClick={() => { navi('/login') }}>
+        Login
+      </Navbar.Text>
+    )
+  }
+  else {
+    let userInfo = parseJwt(cred)
+    return (
+      <Navbar.Text onClick={() => { navi('/login') }}>
+        Signed in as: {userInfo.name}
+      </Navbar.Text>
+    )
+  }
 }
 
 export default App;

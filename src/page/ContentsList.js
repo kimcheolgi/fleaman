@@ -90,11 +90,11 @@ function Contents({cData, resize}){
             </Col>
             <Col xs={9} md={9}>
               <Row>
-                <Col xs={9} md={9}>
+                <Col xs={8} md={8}>
                   <Badge bg='light' text="dark">{cData.source}</Badge>
                   <ColoredBadge state={cData.state} />
                 </Col>
-                <Col xs={3} md={3} style={{textAlign: "right"}}>
+                <Col xs={4} md={4} style={{textAlign: "right"}}>
                   <small className="text-muted">{diffDate}</small>
                 </Col>
               </Row>

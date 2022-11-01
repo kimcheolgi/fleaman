@@ -6,12 +6,12 @@ import './App.css';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
-import Badge from 'react-bootstrap/Badge';
 import { parseJwt} from './utils.js'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import MainContentsList from './page/MainContentsList';
+import Loader from './Loader';
 
 const ContentsList = lazy(() => import('./page/ContentsList'))
 const Login = lazy(() => import('./page/Login'))
@@ -103,7 +103,7 @@ function App() {
           resize >= 1080 ? <div className="col-md-4 col-sm-0"></div> : null 
         }
         <div className={resize >= 1080 ? 'col-md-4': ''}>
-          <Suspense fallback={<div>로딩중임</div>}>
+          <Suspense fallback={<Loader type="balls" color="#E5FFCC" message="로딩중입니다" />}>
             <Routes>
               <Route path='/' element={
                 <div>
@@ -166,7 +166,7 @@ function SearchInput() {
 
   return (
     <div>
-      <InputGroup className="mb-3 mt-5">
+      <InputGroup className="mb-5 mt-5">
 
         <Form.Control
           placeholder="검색어를 입력하세요"

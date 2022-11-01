@@ -18,6 +18,11 @@ const Login = lazy(() => import('./page/Login'))
 
 
 function App() {
+  useEffect(() => {
+    if (localStorage.getItem('watched') == undefined) {
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
+  }, [])
   const [resize, setResize] = useState(window.innerWidth);
 
   const handleResize = () => {

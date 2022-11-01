@@ -7,6 +7,11 @@ import ContentsComponent from "../ContentsComponent";
 import Nav from 'react-bootstrap/Nav';
 
 function MainContentsList({searchKeyword}) {
+  useEffect(() => {
+    if (localStorage.getItem('watched') == undefined) {
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
+  }, [])
   const [resize, setResize] = useState(window.innerWidth);
   let [searchItems, setSearchItems] = useState([]);
   let [isScrap, setIsScrap] = useState(true);

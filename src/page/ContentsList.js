@@ -1,13 +1,14 @@
-import { useParams } from "react-router-dom";
-import data from './../data.js'
+import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Badge from 'react-bootstrap/Badge';
+import axios from 'axios';
 
 function ContentsList(props) {
+  let { categoryName, itemName } = useParams();
   const [resize, setResize] = useState(window.innerWidth);
 
   const handleResize = () => {
@@ -20,10 +21,35 @@ function ContentsList(props) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  
+  let [totalData, setTotalData] = useState([]);
+  let [scrollId, setScrollId] = useState('first');
+  let [moreFlag, setMoreFlag] = useState(true)
+  let newItemName = itemName.replace(' ', '_')
+  
 
-
-  let { categoryName, itemName } = useParams();
-  let [totalData, setTotalData] = useState(data[0].contents);
+  useEffect(() => {
+    let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&scroll_id=first"
+    console.log(url)
+    axios.get(url)
+      .then((result) => {
+        let productData = result.data.data
+        let productScrollId = result.data.scroll_id
+        setTotalData(productData)
+        setScrollId(productScrollId)
+        if (productData.length == 0){
+          setMoreFlag(false)
+        }
+        else {
+          setMoreFlag(true)
+        }
+      })
+      .catch(() => {
+        console.log('데이터 로드 실패')
+      })
+    }, [categoryName, itemName]
+  )
+  
 
   return(
     <div>
@@ -39,12 +65,30 @@ function ContentsList(props) {
       }
       </Row>
 
-      <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
-        let copyData = [...totalData]
-        let sliceData = copyData.slice(0,12)
-        let dataCopy = [...copyData, ...sliceData]
-        setTotalData(dataCopy)
-      }}> More...</Button> 
+      {
+        moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
+          let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&scroll_id="+scrollId
+          axios.get(url)
+            .then((result) => {
+              let productData = result.data.data
+              let productScrollId = result.data.scroll_id
+              let copyData = [...totalData]
+              let dataCopy = [...copyData, ...productData]
+              setTotalData(dataCopy)
+              setScrollId(productScrollId)
+              if (productData.length == 0){
+                setMoreFlag(false)
+              }
+            })
+            .catch((error) => {
+              if (error.response.status == 500){
+                window.location.reload();
+              }
+            })
+          
+
+        }}> More...</Button> : null
+      }
     </div>
   )
 }
@@ -64,19 +108,19 @@ const getHourDiff = (d) => {
   const date2 = new Date(d);
   
   const diffDate = date1.getTime() - date2.getTime();
-  
+
   return Math.floor(diffDate / (1000 * 60 * 60));
 }
 
 function Contents({cData, resize}){
   let text_len = resize  >= 1080 ? 25 : 13
-  let data_name = cData.name.length >= text_len ? cData.name.substr(0, text_len) + "..." : cData.name
+  let data_name = cData.title.length >= text_len ? cData.title.substr(0, text_len) + "..." : cData.title
   let price = cData.price;
   let new_price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-  let dateDiff = getDateDiff(cData.date);
-  let hourDiff = getHourDiff(cData.date);
-  let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff = "시간 전"
+  let dateDiff = getDateDiff(cData.reg_date);
+  let hourDiff = getHourDiff(cData.reg_date);
+  let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff != 0 ? hourDiff + "시간 전" : "방금 전"
 
   return(
     <Col>
@@ -84,7 +128,7 @@ function Contents({cData, resize}){
 
           <Row>
             <Col xs={3} md={3}>
-              <Card.Img variant="top" src={cData.image} />
+              <Card.Img variant="top" src={cData.img_url} />
             </Col>
             <Col xs={9} md={9}>
               <Row>
@@ -98,7 +142,7 @@ function Contents({cData, resize}){
               </Row>
               <Row className="mt-2">
                 <Col>
-                  <a style={{color: "black"}} target="_blank" href="https://codingapple.com/">
+                  <a style={{color: "black"}} target="_blank" href={cData.link}>
                     <Card.Title>
                       {data_name}
                     </Card.Title>
@@ -114,7 +158,7 @@ function Contents({cData, resize}){
                 <Col>
                   <small className="text-muted">
                     <Card.Text>
-                      원문 좋아요 {cData.like} 원문 댓글 {cData.comments}
+                      원문 좋아요 {cData.like_cnt} 원문 댓글 {cData.comment_cnt}
                     </Card.Text>
                   </small>
                 </Col>

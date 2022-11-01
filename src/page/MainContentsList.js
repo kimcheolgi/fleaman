@@ -6,13 +6,43 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Badge from 'react-bootstrap/Badge';
+import axios from 'axios';
+import Loader from "../Loader.js";
 
-function MainContentsList({searchItems}) {
+function MainContentsList({searchKeyword}) {
   const [resize, setResize] = useState(window.innerWidth);
-
+  let [searchItems, setSearchItems] = useState([]);
   const handleResize = () => {
     setResize(window.innerWidth);
   };
+  let [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    
+    if (searchKeyword.length == 0){
+      setSearchItems([])
+    }
+    else{
+      setLoading(true)
+
+      let url = "https://api.fleaman.shop/product/main-search?keyword="+searchKeyword
+      axios.get(url)
+        .then((result) => {
+          let searchData = result.data
+          console.log(searchData)
+          setSearchItems(searchData)
+        })
+        .catch(() => {
+          console.log('데이터 로드 실패')
+        })  
+
+    }
+
+  }, [searchKeyword])
+
+  useEffect(() => {
+    setLoading(false)
+  }, [searchItems])
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -23,31 +53,34 @@ function MainContentsList({searchItems}) {
 
   let { categoryName, itemName } = useParams();
   // let [totalData, setTotalData] = useState(searchItems);
-  let totalData = searchItems
 
+  if (loading){
+    return <Loader type="balls" color="#E5FFCC" message="로딩중입니다" />
+  }
+  else {
+    return(
+      <div>
+        <h4>{categoryName}</h4>
+        <h6>{itemName}</h6>
+        <Row xs={1} md={1} className="g-4">
+        {
+          searchItems.map((cData, idx)=>{
+            return(
+              <Contents key={idx} cData={cData} resize={resize} />
+            )
+          })
+        }
+        </Row>
 
-  return(
-    <div>
-      <h4>{categoryName}</h4>
-      <h6>{itemName}</h6>
-      <Row xs={1} md={1} className="g-4">
-      {
-        totalData.map((cData, idx)=>{
-          return(
-            <Contents key={idx} cData={cData} resize={resize} />
-          )
-        })
-      }
-      </Row>
-
-      {/* <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
-        let copyData = [...totalData]
-        let sliceData = copyData.slice(0,12)
-        let dataCopy = [...copyData, ...sliceData]
-        setTotalData(dataCopy)
-      }}> More...</Button>  */}
-    </div>
-  )
+        {/* <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
+          let copyData = [...totalData]
+          let sliceData = copyData.slice(0,12)
+          let dataCopy = [...copyData, ...sliceData]
+          setTotalData(dataCopy)
+        }}> More...</Button>  */}
+      </div>
+    )
+  }
 }
 
 const getDateDiff = (d) => {
@@ -71,13 +104,13 @@ const getHourDiff = (d) => {
 
 function Contents({cData, resize}){
   let text_len = resize  >= 1080 ? 25 : 13
-  let data_name = cData.name.length >= text_len ? cData.name.substr(0, text_len) + "..." : cData.name
+  let data_name = cData.title.length >= text_len ? cData.title.substr(0, text_len) + "..." : cData.title
   let price = cData.price;
   let new_price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-  let dateDiff = getDateDiff(cData.date);
-  let hourDiff = getHourDiff(cData.date);
-  let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff = "시간 전"
+  let dateDiff = getDateDiff(cData.reg_date);
+  let hourDiff = getHourDiff(cData.reg_date);
+  let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff != 0 ? hourDiff + "시간 전" : "방금 전"
 
   return(
     <Col>
@@ -85,7 +118,7 @@ function Contents({cData, resize}){
 
           <Row>
             <Col xs={3} md={3}>
-              <Card.Img variant="top" src={cData.image} />
+              <Card.Img variant="top" src={cData.img_url} />
             </Col>
             <Col xs={9} md={9}>
               <Row>
@@ -99,7 +132,7 @@ function Contents({cData, resize}){
               </Row>
               <Row className="mt-2">
                 <Col>
-                  <a style={{color: "black"}} target="_blank" href="https://codingapple.com/">
+                  <a style={{color: "black"}} target="_blank" href={cData.link}>
                     <Card.Title>
                       {data_name}
                     </Card.Title>
@@ -115,7 +148,7 @@ function Contents({cData, resize}){
                 <Col>
                   <small className="text-muted">
                     <Card.Text>
-                      원문 좋아요 {cData.like} 원문 댓글 {cData.comments}
+                      원문 좋아요 {cData.like_cnt} 원문 댓글 {cData.comment_cnt}
                     </Card.Text>
                   </small>
                 </Col>

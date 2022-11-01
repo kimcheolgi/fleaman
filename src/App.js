@@ -6,15 +6,12 @@ import './App.css';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
-import coverimage from './img/bg.png'
-import CarouselFade from './Carousel';
 import Badge from 'react-bootstrap/Badge';
 import { parseJwt} from './utils.js'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import MainContentsList from './page/MainContentsList';
-import data from './data.js'
 
 const ContentsList = lazy(() => import('./page/ContentsList'))
 const Login = lazy(() => import('./page/Login'))
@@ -27,7 +24,6 @@ function App() {
     setResize(window.innerWidth);
   };
 
-
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
@@ -35,14 +31,14 @@ function App() {
     };
   }, []);
 
-
+ 
   let navigate = useNavigate();
 
   let [items, setItems] = useState(
     [
       {
         category: "Mac", 
-        contents: ['Macbook Air', 'MacBook Pro', 'iMac 24"', 'Mac mini', 'Mac Studio', 'Mac Pro', 'Displays', 'Accessories']
+        contents: ['Macbook Air', 'MacBook Pro', 'iMac 24"', 'Mac mini', 'Accessories']
       },
       {
         category: "iPad", 
@@ -59,10 +55,6 @@ function App() {
       {
         category: "AirPods", 
         contents: ['AirPods', 'AirPods Pro', 'AirPods Max', 'Accessories']
-      },
-      {
-        category: "TV & Home", 
-        contents: ['Apple TV', 'HomePod', 'HomePod mini', 'Accessories']
       },
     ]
   );
@@ -110,7 +102,7 @@ function App() {
         {
           resize >= 1080 ? <div className="col-md-4 col-sm-0"></div> : null 
         }
-        <div className='col-md-4'>
+        <div className={resize >= 1080 ? 'col-md-4': ''}>
           <Suspense fallback={<div>로딩중임</div>}>
             <Routes>
               <Route path='/' element={
@@ -119,11 +111,11 @@ function App() {
                     {/* <CarouselFade /> */}
                     <SearchInput></SearchInput>
                   </div>
-                  <div style={{margin: "50px"}}>
+                  {/* <div style={{margin: "50px"}}>
                     <h3>
                       중고물품 통합검색은 <Badge bg="info">FleaMan</Badge>
                     </h3>
-                  </div>
+                  </div> */}
                   
                 </div>
               }>
@@ -169,15 +161,8 @@ function LoginButton() {
 
 function SearchInput() {
   let [inputValue, setInputValue] = useState('');
-  let [searchItems, setSearchItems] = useState([]);
+  let [searchKeyword, setSearchKeyword] = useState('');
   
-  const getSearchItems = (searchKeyword) => {
-    console.log(searchKeyword)
-    if (searchKeyword == '') {
-      return []
-    }
-    return data[0].contents
-  }
 
   return (
     <div>
@@ -195,13 +180,14 @@ function SearchInput() {
           variant="outline-secondary" 
           id="button-addon2"
           onClick={() => {
-            setSearchItems(getSearchItems(inputValue))
+            setSearchKeyword(inputValue)
+            // setSearchItems(getSearchItems(inputValue))
           }}
         >
           검색
         </Button>
       </InputGroup>
-    <MainContentsList searchItems={searchItems}/>
+    <MainContentsList searchKeyword={searchKeyword}/>
   </div>
   )
 }

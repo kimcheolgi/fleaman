@@ -5,6 +5,7 @@ import axios from 'axios';
 import Loader from "../Loader.js";
 import ContentsComponent from "../ContentsComponent";
 import Nav from 'react-bootstrap/Nav';
+import Card from 'react-bootstrap/Card';
 
 function MainContentsList({searchKeyword}) {
   useEffect(() => {
@@ -21,13 +22,12 @@ function MainContentsList({searchKeyword}) {
   let [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    
     if (searchKeyword.length == 0){
-      setIsScrap(false)
+      setIsScrap(true)
       setSearchItems(JSON.parse(localStorage.getItem('watched')))
     }
     else{
-      setIsScrap(true)
+      setIsScrap(false)
       setLoading(true)
 
       let url = "https://api.fleaman.shop/product/main-search?keyword="+searchKeyword
@@ -56,33 +56,50 @@ function MainContentsList({searchKeyword}) {
     };
   }, []);
 
-  let { categoryName, itemName } = useParams();
 
   if (loading){
     return <Loader type="balls" color="#E5FFCC" message="로딩중입니다" />
   }
-  else {
+  else if (isScrap) {
     return(
       <div>
+        <Row xs={1} md={1} className="g-1">      
+          <Card
+            border="warning" 
+            className="mb-2"
+            style={{textAlign: "left"}}
+          >
+            <Card.Header>
+              <Card.Text>
+                즐겨찾기
+              </Card.Text>  
+            </Card.Header>
+            <Card.Body>
+            {
+              searchItems.map((cData, idx)=>{
 
-        <Row xs={1} md={1} className="g-1">
+                return(
+                  <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems}/> 
+                )
+              })
+            }
+            </Card.Body>
+          </Card>
+        </Row>
+      </div>
+    )
+  }
+  else if (!isScrap) {
+    return(
+      <div>
+        <Row xs={1} md={1} className="g-1">         
           {
-            isScrap ? null : <h3> 즐겨찾기 </h3>
+            searchItems.map((cData, idx)=>{
+              return(
+                <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems}/> 
+              )
+            })
           }
-        {
-          searchItems.map((cData, idx)=>{
-            if (isScrap) {
-              return(
-                <ContentsComponent key={idx} cData={cData} resize={resize} scrap={true}/> 
-              )
-            }
-            else {
-              return(
-                <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false}/> 
-              )
-            }
-          })
-        }
         </Row>
       </div>
     )

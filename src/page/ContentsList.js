@@ -57,7 +57,7 @@ function ContentsList(props) {
       {
         totalData.map((cData, idx)=>{
           return(
-            <ContentsComponent key={idx} cData={cData} resize={resize} scrap={true} />
+            <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} />
           )
         })
       }

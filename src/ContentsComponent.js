@@ -29,11 +29,11 @@ const getHourDiff = (d) => {
 }
 
 
-function ContentsComponent({cData, resize, scrap}){
+function ContentsComponent({cData, resize, scrap, setSearchItems}){
   let [accountFlag, setAccountFlag] = useState(false);
   let [accountInfo, setAccountInfo] = useState([]);
   let [checked, setChecked] = useState(false);
-
+  let [initCheck, setInitCheck] = useState(false);
 
   useEffect(() => {
     let cred = localStorage.getItem('googleAccount')
@@ -72,13 +72,21 @@ function ContentsComponent({cData, resize, scrap}){
       }
     }
     else {
-      if (itemLink.includes(String(cData.link)) != []) {
+      if (itemLink.includes(String(cData.link)) != [] && initCheck) {
         let newItems = watchedItems.filter((it) => it.link !== cData.link);
         localStorage.setItem('watched', JSON.stringify(newItems))
       }
+      if (!initCheck){
+        setInitCheck(!initCheck)
+      }
     }
-  }, [checked])
 
+    if (scrap){
+      setSearchItems(JSON.parse(localStorage.getItem('watched')))
+    }
+
+  }, [checked])
+  
 
   let text_len = resize  >= 1080 ? 25 : 13
   let data_name = cData.title.length >= text_len ? cData.title.substr(0, text_len) + "..." : cData.title
@@ -89,7 +97,7 @@ function ContentsComponent({cData, resize, scrap}){
   let hourDiff = getHourDiff(cData.reg_date);
   let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff != 0 ? hourDiff + "시간 전" : "방금 전"
 
-  if (!scrap){
+  if (scrap){
     return (
       <Col className='mt-2'>
         <Card style={{padding: "5px", textAlign: "left"}}>

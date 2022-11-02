@@ -180,6 +180,12 @@ function SearchInput() {
           onChange={(e)=>{ 
             setInputValue(e.target.value)
           }}
+          onKeyPress={(e) => {
+            if (e.key == 'Enter'){
+              setSearchKeyword(inputValue)
+            }
+            // setSearchItems(getSearchItems(inputValue))
+          }}
         />
         <Button 
           variant="outline-secondary" 

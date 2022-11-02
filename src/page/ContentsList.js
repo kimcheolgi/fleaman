@@ -53,7 +53,7 @@ function ContentsList(props) {
     <div>
       <h4>{categoryName}</h4>
       <h6>{itemName}</h6>
-      <Row xs={1} md={1} className="g-4">
+      <Row xs={1} md={1} className="g-1">
       {
         totalData.map((cData, idx)=>{
           return(

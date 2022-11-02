@@ -71,7 +71,7 @@ function MainContentsList({searchKeyword}) {
           >
             <Card.Header>
               <Card.Text>
-                즐겨찾기
+                스크랩
               </Card.Text>  
             </Card.Header>
             <Card.Body>

@@ -36,12 +36,12 @@ function ContentsComponent({cData, resize, scrap, setSearchItems}){
   let [initCheck, setInitCheck] = useState(false);
 
   useEffect(() => {
-    let cred = localStorage.getItem('googleAccount')
-    if (cred != undefined){
-      setAccountFlag(true)
-      let userInfo = parseJwt(cred)
-      setAccountInfo(userInfo)
-    }
+    // let cred = localStorage.getItem('googleAccount')
+    // if (cred != undefined){
+    //   setAccountFlag(true)
+    //   let userInfo = parseJwt(cred)
+    //   setAccountInfo(userInfo)
+    // }
     let watchedItems = JSON.parse(localStorage.getItem('watched'))
     let itemLink = []
     if (watchedItems != undefined){
@@ -85,6 +85,14 @@ function ContentsComponent({cData, resize, scrap, setSearchItems}){
       setSearchItems(JSON.parse(localStorage.getItem('watched')))
     }
 
+    if (watchedItems != undefined){
+      itemLink = watchedItems.map((data, idx)=>{
+        return data.link
+      })
+    }
+    if (itemLink.includes(String(cData.link)) != []) {
+      setChecked(true)
+    }
   }, [checked])
   
 
@@ -191,7 +199,7 @@ else{
                     </Card.Text>
                   </small>
                 </Col>
-                <Col xs={3} md={3} >
+                <Col xs={3} md={3} style={{textAlign: "right"}}>
                   <Button
                     className="mb-1"
                     size='sm'

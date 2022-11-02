@@ -58,7 +58,11 @@ function MainContentsList({searchKeyword}) {
 
 
   if (loading){
-    return <Loader type="balls" color="#E5FFCC" message="로딩중입니다" />
+    return (
+      <Row xs={1} md={1} className="g-1">      
+        <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
+      </Row>
+    )
   }
   else if (isScrap) {
     return(

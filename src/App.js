@@ -184,7 +184,6 @@ function SearchInput() {
             if (e.key == 'Enter'){
               setSearchKeyword(inputValue)
             }
-            // setSearchItems(getSearchItems(inputValue))
           }}
         />
         <Button 
@@ -192,7 +191,6 @@ function SearchInput() {
           id="button-addon2"
           onClick={() => {
             setSearchKeyword(inputValue)
-            // setSearchItems(getSearchItems(inputValue))
           }}
         >
           검색

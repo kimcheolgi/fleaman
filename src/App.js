@@ -136,7 +136,10 @@ function App() {
           </Suspense>
         </div>
         {
-          resize >= 1080 ? <div className="col-md-4 col-sm-0"></div> : null 
+          resize >= 1080 ? 
+          <div className="col-md-4 col-sm-0">
+          </div> 
+          : null 
         }      
         </div>
     </div>

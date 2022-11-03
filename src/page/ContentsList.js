@@ -23,7 +23,8 @@ function ContentsList(props) {
   let [totalData, setTotalData] = useState([]);
   let [scrollId, setScrollId] = useState('first');
   let [moreFlag, setMoreFlag] = useState(true)
-  let newItemName = itemName.replace(' ', '_')
+  let newItemName = itemName.replace(' ', '_').replace(' ', '_')
+  console.log(newItemName)
   
 
   useEffect(() => {

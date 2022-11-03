@@ -55,6 +55,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems}){
   }, [])
   
   useEffect(() => {
+
     let watchedItems = JSON.parse(localStorage.getItem('watched'))
     let itemLink = []
     if (watchedItems != undefined){
@@ -91,7 +92,8 @@ function ContentsComponent({cData, resize, scrap, setSearchItems}){
       })
     }
     if (itemLink.includes(String(cData.link)) != []) {
-      setChecked(true)
+      console.log('aa')
+      // setChecked(true)
     }
   }, [checked])
   
@@ -142,7 +144,6 @@ function ContentsComponent({cData, resize, scrap, setSearchItems}){
                         value="1"
                         onClick={(e) => {
                           setChecked(!e.currentTarget.checked)
-                        
                         }}
                       >
                         {checked ? "★" : "☆"}
@@ -209,7 +210,6 @@ else{
                     value="1"
                     onClick={(e) => {
                       setChecked(!e.currentTarget.checked)
-                     
                     }}
                   >
                     {checked ? "★" : "☆"}

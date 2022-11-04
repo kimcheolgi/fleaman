@@ -8,17 +8,17 @@
       "type": "image/x-icon"
     },
     {
-      "src": "android-chorme-192x192.png",
+      "src": "logo192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "android-chorme-512x512.png",
+      "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://fleaman.shop/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

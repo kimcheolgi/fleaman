@@ -70,7 +70,7 @@ function App() {
           <Navbar.Brand href="/">
             <img
               alt=""
-              src="/logo512.png"
+              src="/logo.png"
               width="30"
               height="30"
               className="d-inline-block align-top"

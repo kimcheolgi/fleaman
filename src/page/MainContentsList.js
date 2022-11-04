@@ -69,12 +69,19 @@ function MainContentsList({searchKeyword}) {
       <div>
         <Row xs={1} md={1} className="g-1">      
           <Card
-            border="warning" 
+            // border="warning" 
             className="mb-2"
             style={{textAlign: "left"}}
           >
             <Card.Header>
               <Card.Text>
+                <img
+                  alt=""
+                  src="/logo.png"
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{' '}
                 스크랩
               </Card.Text>  
             </Card.Header>

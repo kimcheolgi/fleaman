@@ -75,7 +75,21 @@ function App() {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-            FleaMan
+            <img
+              alt=""
+              src="/logo-white.png"
+              style={{backgroundColor: 'black'}}
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{' '}
+            <img
+              alt=""
+              src="/logo.png"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{' '}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -174,8 +188,14 @@ function SearchInput() {
 
   return (
     <div>
-      <InputGroup className="mb-5 mt-5">
-
+      <img
+          alt=""
+          src="/logo.png"
+          width="30"
+          height="30"
+          className="d-inline-block align-top"
+        />{' '} FleaMan
+      <InputGroup className="mb-5 mt-1">
         <Form.Control
           placeholder="검색어를 입력하세요"
           aria-label="검색어를 입력하세요"

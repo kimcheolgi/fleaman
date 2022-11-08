@@ -91,9 +91,9 @@ function ContentsComponent({cData, resize, scrap, setSearchItems}){
         return data.link
       })
     }
-    if (itemLink.includes(String(cData.link)) != []) {
+    if (itemLink.includes(String(cData.link)) != [] && scrap) {
       console.log('aa')
-      // setChecked(true)
+      setChecked(true)
     }
   }, [checked])
   

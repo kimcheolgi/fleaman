@@ -33,12 +33,14 @@ function SearchInput({main}) {
           onChange={(e)=>{ 
             setInputValue(e.target.value)
           }}
+          value={inputValue}
           onKeyPress={(e) => {
             if (e.key == 'Enter'){
               navigate({
                 pathname: ".",
                 search: '?query='+inputValue,
               });
+              setInputValue("")
             }
           }}
         />
@@ -51,6 +53,8 @@ function SearchInput({main}) {
               pathname: ".",
               search: '?query='+inputValue,
             });
+            setInputValue("")
+
           }}
         >
           검색

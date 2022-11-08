@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import ContentsComponent from "../ContentsComponent";
+import Loader from "../Loader.js";
 
 
 function TestContentsList() {
@@ -31,9 +32,13 @@ function TestContentsList() {
   let [scrollId, setScrollId] = useState('first');
   let [moreFlag, setMoreFlag] = useState(true)
   let newItemName = itemName.replace(' ', '_').replace(' ', '_')
-  
+  let [loading, setLoading] = useState(true)
+  let [empty, setEmpty] = useState(false)
+
 
   useEffect(() => {
+    setLoading(true)
+    setEmpty(false)
     let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id=first"
     console.log(url)
     axios.get(url)
@@ -44,6 +49,7 @@ function TestContentsList() {
         setScrollId(productScrollId)
         if (productData.length == 0){
           setMoreFlag(false)
+          setEmpty(true)
         }
         else {
           setMoreFlag(true)
@@ -54,46 +60,67 @@ function TestContentsList() {
       })
     }, [categoryName, itemName, searchKeyword]
   )
-  
 
-  return(
-    <div>
-      <Row xs={1} md={1} className="g-1">
-      {
-        totalData.map((cData, idx)=>{
-          return(
-            <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} />
-          )
-        })
-      }
+  useEffect(() => {
+    setLoading(false)
+  }, [totalData])
+
+  if (loading){
+    return (
+      <Row xs={1} md={1} className="g-1">      
+        <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
       </Row>
+    )
+  }
+  else if (empty){
+    return (
+      <div>
+        <h2>
+          검색 결과가 없습니다.
+        </h2>
+      </div>
+    )
+  }
+  else {
+    return(
+      <div>
+        <Row xs={1} md={1} className="g-1">
+        {
+          totalData.map((cData, idx)=>{
+            return(
+              <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} />
+            )
+          })
+        }
+        </Row>
 
-      {
-        moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
-          let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id="+scrollId
-          axios.get(url)
-            .then((result) => {
-              let productData = result.data.data
-              let productScrollId = result.data.scroll_id
-              let copyData = [...totalData]
-              let dataCopy = [...copyData, ...productData]
-              setTotalData(dataCopy)
-              setScrollId(productScrollId)
-              if (productData.length == 0){
-                setMoreFlag(false)
-              }
-            })
-            .catch((error) => {
-              if (error.response.status == 500){
-                window.location.reload();
-              }
-            })
-          
+        {
+          moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
+            let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id="+scrollId
+            axios.get(url)
+              .then((result) => {
+                let productData = result.data.data
+                let productScrollId = result.data.scroll_id
+                let copyData = [...totalData]
+                let dataCopy = [...copyData, ...productData]
+                setTotalData(dataCopy)
+                setScrollId(productScrollId)
+                if (productData.length == 0){
+                  setMoreFlag(false)
+                }
+              })
+              .catch((error) => {
+                if (error.response.status == 500){
+                  window.location.reload();
+                }
+              })
+            
 
-        }}> More...</Button> : null
-      }
-    </div>
-  )
+          }}> More...</Button> : null
+        }
+      </div>
+    )
+  }
 }
 
 export default TestContentsList;

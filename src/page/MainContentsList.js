@@ -35,7 +35,7 @@ function MainContentsList() {
     else{
       setIsScrap(false)
       setLoading(true)
-      
+      console.log(loading)
       let url = "https://api.fleaman.shop/product/main-search?keyword="+searchKeyword
       console.log(url)
       axios.get(url)

@@ -8,10 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import { parseJwt} from './utils.js'
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import MainContentsList from './page/MainContentsList';
 import Loader from './Loader';
+import SearchInput from './SearchInput';
 
 const ContentsList = lazy(() => import('./page/ContentsList'))
 const Login = lazy(() => import('./page/Login'))
@@ -128,7 +126,7 @@ function App() {
                 <div>
                   <div style={{margin: "10px"}}>
                     {/* <CarouselFade /> */}
-                    <SearchInput></SearchInput>
+                    <SearchInput main={true}></SearchInput>
                   </div>
                   {/* <div style={{margin: "50px"}}>
                     <h3>
@@ -181,48 +179,7 @@ function LoginButton() {
   }
 }
 
-function SearchInput() {
-  let [inputValue, setInputValue] = useState('');
-  let [searchKeyword, setSearchKeyword] = useState('');
-  
 
-  return (
-    <div>
-      <img
-          alt=""
-          src="/logo.png"
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
-        />{' '} FleaMan
-      <InputGroup className="mb-5 mt-1">
-        <Form.Control
-          placeholder="검색어를 입력하세요"
-          aria-label="검색어를 입력하세요"
-          aria-describedby="basic-addon2"
-          onChange={(e)=>{ 
-            setInputValue(e.target.value)
-          }}
-          onKeyPress={(e) => {
-            if (e.key == 'Enter'){
-              setSearchKeyword(inputValue)
-            }
-          }}
-        />
-        <Button 
-          variant="outline-secondary" 
-          id="button-addon2"
-          onClick={() => {
-            setSearchKeyword(inputValue)
-          }}
-        >
-          검색
-        </Button>
-      </InputGroup>
-    <MainContentsList searchKeyword={searchKeyword}/>
-  </div>
-  )
-}
 
 
 export default App;

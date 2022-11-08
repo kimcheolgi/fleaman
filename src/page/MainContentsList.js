@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
@@ -7,7 +7,13 @@ import ContentsComponent from "../ContentsComponent";
 import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
-function MainContentsList({searchKeyword}) {
+function MainContentsList() {
+  const location = useLocation()
+  let searchKeyword = location.search.split("query=")[1]
+  console.log(searchKeyword)
+  if (searchKeyword == "" || searchKeyword == undefined){
+    searchKeyword = '_'
+  }
   useEffect(() => {
     if (localStorage.getItem('watched') == undefined) {
       localStorage.setItem('watched', JSON.stringify([]))
@@ -22,15 +28,16 @@ function MainContentsList({searchKeyword}) {
   let [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (searchKeyword.length == 0){
+    if (searchKeyword.length == 0 || searchKeyword == '_'){
       setIsScrap(true)
       setSearchItems(JSON.parse(localStorage.getItem('watched')))
     }
     else{
       setIsScrap(false)
       setLoading(true)
-
+      
       let url = "https://api.fleaman.shop/product/main-search?keyword="+searchKeyword
+      console.log(url)
       axios.get(url)
         .then((result) => {
           let searchData = result.data

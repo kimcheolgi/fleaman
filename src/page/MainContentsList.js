@@ -22,6 +22,7 @@ function MainContentsList() {
   const [resize, setResize] = useState(window.innerWidth);
   let [searchItems, setSearchItems] = useState([]);
   let [isScrap, setIsScrap] = useState(true);
+  let [isError, setIsError] = useState(false);
   const handleResize = () => {
     setResize(window.innerWidth);
   };
@@ -37,15 +38,16 @@ function MainContentsList() {
       setLoading(true)
       console.log(loading)
       let url = "https://api.fleaman.shop/product/main-search?keyword="+searchKeyword
-      console.log(url)
       axios.get(url)
         .then((result) => {
           let searchData = result.data
           console.log(searchData)
           setSearchItems(searchData)
+          setIsError(false)
         })
         .catch(() => {
           console.log('데이터 로드 실패')
+          setIsError(true)
         })  
 
     }
@@ -63,8 +65,16 @@ function MainContentsList() {
     };
   }, []);
 
-
-  if (loading){
+  if (isError){
+    return (
+      <div>
+        <h2>
+          잠시 후 다시 시도해주세요.
+        </h2>
+      </div>
+    )
+  }
+  else if (loading){
     return (
       <Row xs={1} md={1} className="g-1">      
         <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />

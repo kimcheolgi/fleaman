@@ -166,7 +166,7 @@ else{
 
           <Row>
             <Col xs={3} md={3}>
-              <Card.Img variant="top" src={cData.img_url} />
+              <Card.Img referrerPolicy='no-referrer' variant="top" src={cData.img_url} />
             </Col>
             <Col xs={9} md={9}>
               <Row>

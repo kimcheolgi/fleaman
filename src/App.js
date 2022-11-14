@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Loader from './Loader';
 import SearchInput from './SearchInput';
 
+
 const ContentsList = lazy(() => import('./page/ContentsList'))
 const Login = lazy(() => import('./page/Login'))
 
@@ -120,7 +121,10 @@ function App() {
           resize >= 1080 ? <div className="col-md-4 col-sm-0"></div> : null 
         }
         <div className={resize >= 1080 ? 'col-md-4': ''}>
-          <Suspense fallback={<Loader type="balls" color="#E5FFCC" message="로딩중입니다" />}>
+          <Suspense 
+            fallback={
+              <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
+            }>
             <Routes>
               <Route path='/' element={
                 <div>
@@ -150,6 +154,7 @@ function App() {
         {
           resize >= 1080 ? 
           <div className="col-md-4 col-sm-0">
+            <TopButton></TopButton>
           </div> 
           : null 
         }      
@@ -179,6 +184,40 @@ function LoginButton() {
   }
 }
 
+function TopButton() {
+
+  const [showButton, setShowButton] = useState(false);
+
+  const scrollToTop = () => {
+      window.scroll({
+          top: 0,
+          behavior: 'smooth'
+      })
+
+  }
+  useEffect(() => {
+      const handleShowButton = () => {
+          if (window.scrollY > 500) {
+              setShowButton(true)
+          } else {
+              setShowButton(false)
+          }
+      }
+
+      console.log(window.scrollY)
+      window.addEventListener("scroll", handleShowButton)
+      return () => {
+          window.removeEventListener("scroll", handleShowButton)
+      }
+  }, [])
+
+  return showButton && (
+      <div className="scroll__container">
+          <button id="top" onClick={scrollToTop} type="button" > Top</button>
+      </div>
+
+  )
+}
 
 
 

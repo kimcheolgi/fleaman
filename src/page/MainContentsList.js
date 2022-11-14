@@ -6,6 +6,7 @@ import Loader from "../Loader.js";
 import ContentsComponent from "../ContentsComponent";
 import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
+import TopButton from "../TopButton.js";
 
 function MainContentsList() {
   const location = useLocation()
@@ -129,6 +130,10 @@ function MainContentsList() {
             })
           }
         </Row>
+        {
+          resize < 1080 ? 
+          <TopButton></TopButton> : null
+        }
       </div>
     )
   }

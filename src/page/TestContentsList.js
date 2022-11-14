@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import ContentsComponent from "../ContentsComponent";
 import Loader from "../Loader.js";
-
+import TopButton from "../TopButton";
 
 function TestContentsList() {
   const location = useLocation()
@@ -117,6 +117,10 @@ function TestContentsList() {
             
 
           }}> More...</Button> : null
+        }
+        {
+          resize < 1080 ? 
+          <TopButton></TopButton> : null
         }
       </div>
     )

@@ -10,7 +10,7 @@ import { parseJwt} from './utils.js'
 import Button from 'react-bootstrap/Button';
 import Loader from './Loader';
 import SearchInput from './SearchInput';
-
+import TopButton from './TopButton';
 
 const ContentsList = lazy(() => import('./page/ContentsList'))
 const Login = lazy(() => import('./page/Login'))
@@ -183,42 +183,5 @@ function LoginButton() {
     )
   }
 }
-
-function TopButton() {
-
-  const [showButton, setShowButton] = useState(false);
-
-  const scrollToTop = () => {
-      window.scroll({
-          top: 0,
-          behavior: 'smooth'
-      })
-
-  }
-  useEffect(() => {
-      const handleShowButton = () => {
-          if (window.scrollY > 500) {
-              setShowButton(true)
-          } else {
-              setShowButton(false)
-          }
-      }
-
-      console.log(window.scrollY)
-      window.addEventListener("scroll", handleShowButton)
-      return () => {
-          window.removeEventListener("scroll", handleShowButton)
-      }
-  }, [])
-
-  return showButton && (
-      <div className="scroll__container">
-          <button id="top" onClick={scrollToTop} type="button" > Top</button>
-      </div>
-
-  )
-}
-
-
 
 export default App;

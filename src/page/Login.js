@@ -34,7 +34,7 @@ function Login() {
   if (cred == undefined){
     return (
       <div>
-        <h3>로그인 안해도 문제없습니다. 구글 계정없으면 하지마세요.</h3>
+        <h3>Login</h3>
         <div style={{
           display: 'flex',
           justifyContent: 'center',

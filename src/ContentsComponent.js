@@ -99,7 +99,9 @@ function ContentsComponent({cData, resize, scrap, setSearchItems}){
   
 
   let text_len = resize  >= 1080 ? 25 : 13
-  let data_name = cData.title.length >= text_len ? cData.title.substr(0, text_len) + "..." : cData.title
+  // let data_name = cData.title.length >= text_len ? cData.title.substr(0, text_len) + "..." : cData.title
+  let data_name = cData.title
+
   let price = cData.price;
   let new_price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
@@ -190,6 +192,11 @@ else{
               <Row>
                 <Col>
                   <Card.Text>{new_price}원 </Card.Text>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Card.Text>{cData.location} </Card.Text>
                 </Col>
               </Row>
               <Row>

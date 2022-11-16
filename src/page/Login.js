@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import GoogleLogin from '../GoogleLogin';
 import {handleCredentialResponse, parseJwt} from '../utils.js'
 import Button from 'react-bootstrap/Button';
+import MetaTag from '../SEOMetaTag';
 
 function Login() {
   let cred = localStorage.getItem('googleAccount')
@@ -34,6 +35,7 @@ function Login() {
   if (cred == undefined){
     return (
       <div>
+        <MetaTag title="Login" desc="플리맨 로그인" url="https://fleaman.shop/login"/>
         <h3>Login</h3>
         <div style={{
           display: 'flex',
@@ -47,8 +49,8 @@ function Login() {
     let userInfo = parseJwt(cred)
     return (
       <div>
+        <MetaTag title="My Page" desc="플리맨 마이 페이지" url="https://fleaman.shop/login"/>
         <h3>{userInfo.name} My Page</h3>
-        <iframe src="https://anoki.fleaman.shop/goto/15e9d640-64c3-11ed-938a-c341476de754?auth_provider_hint=anonymous1" height="600" width="500"></iframe>
         <Button onClick={ onGoogleSignOut } variant="dark">Sign Out</Button> 
       </div>
     )

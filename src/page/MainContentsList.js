@@ -7,6 +7,8 @@ import ContentsComponent from "../ContentsComponent";
 import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 import TopButton from "../TopButton.js";
+import MetaTag from "../SEOMetaTag.js";
+
 
 function MainContentsList() {
   const location = useLocation()
@@ -121,6 +123,8 @@ function MainContentsList() {
   else if (!isScrap) {
     return(
       <div>
+        <MetaTag title={searchKeyword} desc="플리맨 통합 검색" url={"https://fleaman.shop/?query=" + searchKeyword}/>
+        {/* <MetaTag title={searchKeyword}/> */}
         <Row xs={1} md={1} className="g-1">         
           {
             searchItems.map((cData, idx)=>{

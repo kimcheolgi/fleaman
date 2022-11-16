@@ -11,9 +11,12 @@ import Button from 'react-bootstrap/Button';
 import Loader from './Loader';
 import SearchInput from './SearchInput';
 import TopButton from './TopButton';
+import MetaTag from './SEOMetaTag';
+import ContentsList from './page/ContentsList';
+import Login from './page/Login';
 
-const ContentsList = lazy(() => import('./page/ContentsList'))
-const Login = lazy(() => import('./page/Login'))
+// const ContentsList = lazy(() => import('./page/ContentsList'))
+// const Login = lazy(() => import('./page/Login'))
 
 
 function App() {
@@ -67,6 +70,7 @@ function App() {
   );
   return (
     <div className="App">
+      <MetaTag title="FleaMan" desc="중고물품 통합 검색 플랫폼" url="https://fleaman.shop/"/>
       <Navbar bg="light" expand="lg">
         <Container>
           <Navbar.Brand href="/">

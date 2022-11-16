@@ -37,6 +37,7 @@ function TestContentsList() {
   let [empty, setEmpty] = useState(false)
   let [avgPrice, setAvgPrice] = useState(0)
   let [perPrice, setPerPrice] = useState([0, 0, 0])
+  let priceState = ['저렴', '적당', '비쌈']
 
   useEffect(() => {
     setLoading(true)
@@ -133,7 +134,7 @@ function TestContentsList() {
               <tr>
                 {
                   Object.keys(perPrice).map((key, i)=>{
-                    return <th>{key}%</th>
+                    return <th>{priceState[i]}</th>
                   })
                 }
               </tr>

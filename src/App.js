@@ -21,6 +21,9 @@ function App() {
     if (localStorage.getItem('watched') == undefined) {
       localStorage.setItem('watched', JSON.stringify([]))
     }
+    if (localStorage.getItem('searched') == undefined) {
+      localStorage.setItem('searched', JSON.stringify([]))
+    }
   }, [])
   const [resize, setResize] = useState(window.innerWidth);
 

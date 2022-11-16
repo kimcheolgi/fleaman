@@ -134,7 +134,7 @@ function TestContentsList() {
               <tr>
                 {
                   Object.keys(perPrice).map((key, i)=>{
-                    return <th>{priceState[i]}</th>
+                    return <th key={i}>{priceState[i]}</th>
                   })
                 }
               </tr>
@@ -143,7 +143,7 @@ function TestContentsList() {
               <tr>
                 {
                   Object.values(perPrice).map((value, i)=>{
-                    return <td>{getNewPrice(value)}원</td>
+                    return <td key={i}>{getNewPrice(value)}원</td>
                   })
                 }            
               </tr>

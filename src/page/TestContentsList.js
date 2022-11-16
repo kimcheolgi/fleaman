@@ -6,6 +6,7 @@ import axios from 'axios';
 import ContentsComponent from "../ContentsComponent";
 import Loader from "../Loader.js";
 import TopButton from "../TopButton";
+import Table from 'react-bootstrap/Table';
 
 function TestContentsList() {
   const location = useLocation()
@@ -34,7 +35,8 @@ function TestContentsList() {
   let newItemName = itemName.replace(' ', '_').replace(' ', '_')
   let [loading, setLoading] = useState(true)
   let [empty, setEmpty] = useState(false)
-
+  let [avgPrice, setAvgPrice] = useState(0)
+  let [perPrice, setPerPrice] = useState([0, 0, 0])
 
   useEffect(() => {
     setLoading(true)
@@ -45,8 +47,12 @@ function TestContentsList() {
       .then((result) => {
         let productData = result.data.data
         let productScrollId = result.data.scroll_id
+        let productAvgPrice = result.data.agg_res.avg_aggs.value
+        let productPerPrice = result.data.agg_res.percent_aggs.values
         setTotalData(productData)
         setScrollId(productScrollId)
+        setAvgPrice(productAvgPrice)
+        setPerPrice(productPerPrice)
         if (productData.length == 0){
           setMoreFlag(false)
           setEmpty(true)
@@ -64,6 +70,16 @@ function TestContentsList() {
   useEffect(() => {
     setLoading(false)
   }, [totalData])
+
+  
+  function getNewPrice(price) {
+    let nPrice = Math.round(price / 1000) * 1000
+    nPrice = nPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return nPrice
+  }
+
+  let new_price = getNewPrice(avgPrice);
+
 
   if (loading){
     return (
@@ -85,13 +101,62 @@ function TestContentsList() {
     return(
       <div>
         <Row xs={1} md={1} className="g-1">
-        {
-          totalData.map((cData, idx)=>{
-            return(
-              <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} />
-            )
-          })
-        }
+          <Table striped bordered className="mb-3">
+            <thead>
+              <tr>
+                <th colSpan={3}>
+                  <img
+                    alt=""
+                    src="/logo.png"
+                    width="30"
+                    height="30"
+                    className="d-inline-block align-top"
+                  />{' '}
+                  평균 가격
+                  <img
+                    alt=""
+                    src="/logo.png"
+                    width="30"
+                    height="30"
+                    className="d-inline-block align-top"
+                  />{' '}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colSpan={3}>{new_price}원</td>
+              </tr>
+            </tbody>
+
+            <thead>
+              <tr>
+                {
+                  Object.keys(perPrice).map((key, i)=>{
+                    return <th>{key}%</th>
+                  })
+                }
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {
+                  Object.values(perPrice).map((value, i)=>{
+                    return <td>{getNewPrice(value)}원</td>
+                  })
+                }            
+              </tr>
+            </tbody>
+
+          </Table>
+          
+          {
+            totalData.map((cData, idx)=>{
+              return(
+                <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} />
+              )
+            })
+          }
         </Row>
 
         {

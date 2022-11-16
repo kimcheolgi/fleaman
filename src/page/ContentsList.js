@@ -24,7 +24,7 @@ function ContentsList({searchKeyword}) {
       <div>
         <h4>{categoryName}</h4>
         <h6>{itemName}</h6>
-        { resize >= 1470 ? <Kibana></Kibana> : null}
+        {/* { resize >= 1470 ? <Kibana></Kibana> : null} */}
         <SearchInput main={false}></SearchInput>
       </div>
     )

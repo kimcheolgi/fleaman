@@ -25,7 +25,7 @@ function SearchInput({main}) {
           height="30"
           className="d-inline-block align-top"
         />{' '} FleaMan
-      <InputGroup className="mb-5 mt-1">
+      <InputGroup className="mb-3 mt-1">
         <Form.Control
           placeholder="검색어를 입력하세요"
           aria-label="검색어를 입력하세요"

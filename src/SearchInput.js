@@ -19,12 +19,25 @@ function SearchInput({main}) {
   let [keyUp, setKeyUp] = useState(false)
 
   useEffect(() => {
+    if (localStorage.getItem('searched') == undefined) {
+      setSearchedKeyword([])
+    }
+  }, [])
+
+  useEffect(() => {
     console.log(searchKeyword)
     if (searchKeyword != '_'){
       let searchedItems = JSON.parse(localStorage.getItem('searched'))
-      let newItems = [searchKeyword, ...searchedItems].slice(0,10)
-      localStorage.setItem('searched', JSON.stringify(newItems))
-      setSearchedKeyword(newItems)
+      if (searchedItems == undefined) {
+        localStorage.setItem('searched', JSON.stringify([searchKeyword])) 
+        setSearchedKeyword([searchKeyword])
+      }
+      else{
+        let newItems = [searchKeyword, ...searchedItems].slice(0,10)
+        localStorage.setItem('searched', JSON.stringify(newItems))
+        setSearchedKeyword(newItems)
+      } 
+      
     }
 
   }, [searchKeyword])

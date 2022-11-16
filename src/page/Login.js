@@ -48,6 +48,7 @@ function Login() {
     return (
       <div>
         <h3>{userInfo.name} My Page</h3>
+        <iframe src="https://anoki.fleaman.shop/goto/15e9d640-64c3-11ed-938a-c341476de754?auth_provider_hint=anonymous1" height="600" width="500"></iframe>
         <Button onClick={ onGoogleSignOut } variant="dark">Sign Out</Button> 
       </div>
     )

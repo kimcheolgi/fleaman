@@ -66,11 +66,15 @@ function App() {
         category: "AirPods", 
         contents: ['AirPods', 'AirPods Pro', 'AirPods Max', 'Accessories']
       },
+      {
+        category: "GPU", 
+        contents: ['1000Gen', '2000Gen', '3000Gen', '4000Gen']
+      },
     ]
   );
   return (
     <div className="App">
-      
+
       <MetaTag title="FleaMan" desc="중고물품 통합 검색 플랫폼" url="https://fleaman.shop/"/>
       <Navbar bg="light" expand="lg">
         <Container>

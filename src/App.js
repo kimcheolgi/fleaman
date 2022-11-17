@@ -70,6 +70,7 @@ function App() {
   );
   return (
     <div className="App">
+      
       <MetaTag title="FleaMan" desc="중고물품 통합 검색 플랫폼" url="https://fleaman.shop/"/>
       <Navbar bg="light" expand="lg">
         <Container>

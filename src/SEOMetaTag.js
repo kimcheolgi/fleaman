@@ -11,10 +11,12 @@ const MetaTag = props => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <meta name="description" content={props.desc} />
+        <meta name="keywords" content={'중고거래, 플리맨, FleaMan' + props.keywords} />
         <meta name="naver-site-verification" content="69b2856597e9e025d8bcf572bdf5b21315723762" />
         <meta property="og:type" content="website" /> 
         <meta property="og:title" content={props.title} />
         <meta property="og:description" content={props.desc} />
+        <meta name="og:keywords" content={'중고거래, 플리맨, FleaMan' + props.keywords} />
         <meta property="og:image" content="https://fleaman.shop/logo.png" />
         <meta property="og:url" content={props.url} />
 

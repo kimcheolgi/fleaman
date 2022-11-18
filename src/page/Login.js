@@ -35,7 +35,7 @@ function Login() {
   if (cred == undefined){
     return (
       <div>
-        <MetaTag title="Login" desc="플리맨 로그인" url="https://fleaman.shop/login"/>
+        <MetaTag title="Login" desc="플리맨 로그인 FleaMan Login" url="https://fleaman.shop/login" keywords=", Login" />
         <h3>Login</h3>
         <div style={{
           display: 'flex',
@@ -49,7 +49,7 @@ function Login() {
     let userInfo = parseJwt(cred)
     return (
       <div>
-        <MetaTag title="My Page" desc="플리맨 마이 페이지" url="https://fleaman.shop/login"/>
+        <MetaTag title="My Page" desc="플리맨 마이 페이지 FleaMan My Page" url="https://fleaman.shop/login" keywords=", My Page"/>
         <h3>{userInfo.name} My Page</h3>
         <Button onClick={ onGoogleSignOut } variant="dark">Sign Out</Button> 
       </div>

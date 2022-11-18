@@ -23,7 +23,7 @@ function ContentsList({searchKeyword}) {
 
   return(
     <div>
-      <MetaTag title={cate} desc="플리맨 카테고리 검색" url={"https://fleaman.shop/" + categoryName + "/" + itemName}/>
+      <MetaTag title={cate} desc={"플리맨 카테고리 검색 " + categoryName + " " + itemName} url={"https://fleaman.shop/" + categoryName + "/" + itemName} keywords={", " + categoryName + ", " + itemName} />
 
       {/* <MetaTag title={cate}/> */}
       <h4>{categoryName}</h4>

@@ -68,7 +68,7 @@ function App() {
       },
       {
         category: "GPU", 
-        contents: ['1000Gen', '2000Gen', '3000Gen', '4000Gen']
+        contents: ['gtx10', 'rtx20', 'rtx30', 'rtx40']
       },
     ]
   );

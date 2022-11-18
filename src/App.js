@@ -68,7 +68,7 @@ function App() {
       },
       {
         category: "GPU", 
-        contents: ['gtx10', 'rtx20', 'rtx30', 'rtx40']
+        contents: ['GTX10', 'RTX20', 'RTX30', 'RTX40']
       },
     ]
   );

@@ -28,6 +28,15 @@
 
       gtag('config', 'G-T4Z7Z3FQF5');
     </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js").then(function(reg) {
+          console.log("register", reg);
+        }).catch(function(err) {
+          console.log("err", err);
+        });
+      }
+    </script>
   </head>
   <body>
     <noscript>중고물품 통합 검색 플랫폼 플리맨 FleaMan</noscript>

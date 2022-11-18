@@ -1,6 +1,6 @@
 {
-  "short_name": "FleaMan",
-  "name": "Create FleaMan App Sample",
+  "short_name": "플리맨",
+  "name": "중고물품 통합 검색 플랫폼 플리맨",
   "icons": [
     {
       "src": "favicon.ico",

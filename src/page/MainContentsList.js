@@ -8,6 +8,7 @@ import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 import TopButton from "../TopButton.js";
 import MetaTag from "../SEOMetaTag.js";
+import Button from 'react-bootstrap/Button';
 
 
 function MainContentsList() {
@@ -24,14 +25,17 @@ function MainContentsList() {
   }, [])
   const [resize, setResize] = useState(window.innerWidth);
   let [searchItems, setSearchItems] = useState([]);
+  let [viewItems, setViewItems] = useState([]);
   let [isScrap, setIsScrap] = useState(true);
   let [isError, setIsError] = useState(false);
   const handleResize = () => {
     setResize(window.innerWidth);
   };
   let [loading, setLoading] = useState(false)
+  let [moreFlag, setMoreFlag] = useState(true)
 
   useEffect(() => {
+    setMoreFlag(true)
     if (searchKeyword.length == 0 || searchKeyword == '_'){
       setIsScrap(true)
       setSearchItems(JSON.parse(localStorage.getItem('watched')))
@@ -44,8 +48,8 @@ function MainContentsList() {
       axios.get(url)
         .then((result) => {
           let searchData = result.data
-          console.log(searchData)
           setSearchItems(searchData)
+          setViewItems(searchData.slice(0, 20))
           setIsError(false)
         })
         .catch(() => {
@@ -107,7 +111,7 @@ function MainContentsList() {
             </Card.Header>
             <Card.Body>
             {
-              searchItems.map((cData, idx)=>{
+              viewItems.map((cData, idx)=>{
 
                 return(
                   <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems}/> 
@@ -127,13 +131,23 @@ function MainContentsList() {
         {/* <MetaTag title={searchKeyword}/> */}
         <Row xs={1} md={1} className="g-1">         
           {
-            searchItems.map((cData, idx)=>{
+            viewItems.map((cData, idx)=>{
               return(
                 <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems}/> 
               )
             })
           }
         </Row>
+        {
+          moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
+            let itemsLen = viewItems.length
+            setViewItems(searchItems.slice(0, itemsLen + 20))
+            if (itemsLen + 20 >= searchItems.length){
+              setMoreFlag(false)
+            }            
+
+          }}> More...</Button> : null
+        }
         {
           resize < 1080 ? 
           <TopButton></TopButton> : null

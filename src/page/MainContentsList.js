@@ -111,7 +111,7 @@ function MainContentsList() {
             </Card.Header>
             <Card.Body>
             {
-              viewItems.map((cData, idx)=>{
+              searchItems.map((cData, idx)=>{
 
                 return(
                   <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems}/> 

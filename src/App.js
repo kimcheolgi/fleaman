@@ -20,6 +20,7 @@ import Login from './page/Login';
 
 
 function App() {
+  console.log(navigator.language)
   useEffect(() => {
     if (localStorage.getItem('watched') == undefined) {
       localStorage.setItem('watched', JSON.stringify([]))

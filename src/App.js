@@ -126,9 +126,9 @@ function App() {
 
             </Nav>
           </Navbar.Collapse>
-          <Navbar.Collapse className="justify-content-end">
+          {/* <Navbar.Collapse className="justify-content-end">
             <LoginButton/>
-          </Navbar.Collapse>
+          </Navbar.Collapse> */}
         </Container>
       </Navbar>
       <div className='row'>

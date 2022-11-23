@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 <url> <loc>https://fleaman.shop/</loc> </url>
-<url> <loc>https://fleaman.shop/list/:categoryName/:itemName</loc> </url>
-<url> <loc>https://fleaman.shop/login</loc> </url>
+<url> <loc>https://fleaman.shop/list/Mac/Macbook%20Air</loc> </url>
+<url> <loc>https://fleaman.shop/list/Mac/Macbook%20Pro</loc> </url>
+<url> <loc>https://fleaman.shop/list/Mac/iMac%2024"</loc> </url>
+<url> <loc>https://fleaman.shop/list/Mac/Mac%20mini</loc> </url>
+<url> <loc>https://fleaman.shop/list/Mac/Accessories</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPad/iPad%20Pro</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPad/iPad%20Air</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPad/iPad%</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPad/iPad%20mini</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPad/Accessories</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPhone/iPhone%20Pro%20Max</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPhone/iPhone%20Pro</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPhone/iPhone</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPhone/iPhone%20mini</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPhone/iPhone%20SE</loc> </url>
+<url> <loc>https://fleaman.shop/list/iPhone/Accessories</loc> </url>
+<url> <loc>https://fleaman.shop/list/Watch/Apple%20Watch</loc> </url>
+<url> <loc>https://fleaman.shop/list/Watch/Apple%20Watch%20SE</loc> </url>
+<url> <loc>https://fleaman.shop/list/Watch/Accessories</loc> </url>
+<url> <loc>https://fleaman.shop/list/AirPods/AirPods</loc> </url>
+<url> <loc>https://fleaman.shop/list/AirPods/AirPods%20Pro</loc> </url>
+<url> <loc>https://fleaman.shop/list/AirPods/AirPods%20Max</loc> </url>
+<url> <loc>https://fleaman.shop/list/AirPods/Accessories</loc> </url>
+<url> <loc>https://fleaman.shop/list/GPU/GTX10</loc> </url>
+<url> <loc>https://fleaman.shop/list/GPU/RTX20</loc> </url>
+<url> <loc>https://fleaman.shop/list/GPU/RTX30</loc> </url>
+<url> <loc>https://fleaman.shop/list/GPU/RTX40</loc> </url>
 </urlset>

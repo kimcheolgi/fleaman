@@ -165,7 +165,7 @@ function MainContentsList() {
               }
               </Tab>
 
-            <Tab eventKey="ipad" title="Ipad">
+            <Tab eventKey="ipad" title="iPad">
               {
                 recommendItems.ipad.map((item, idx) => {
                   return (
@@ -174,7 +174,7 @@ function MainContentsList() {
                 })
               }
             </Tab>
-            <Tab eventKey="iphone" title="Iphone">
+            <Tab eventKey="iphone" title="iPhone">
               {
                 recommendItems.iphone.map((item, idx) => {
                   return (

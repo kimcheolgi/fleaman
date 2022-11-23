@@ -29,12 +29,11 @@ const getHourDiff = (d) => {
 }
 
 
-function ContentsComponent({cData, resize, scrap, setSearchItems}){
+function ContentsComponent({cData, resize, scrap, setSearchItems, reco}){
   let [accountFlag, setAccountFlag] = useState(false);
   let [accountInfo, setAccountInfo] = useState([]);
   let [checked, setChecked] = useState(false);
   let [initCheck, setInitCheck] = useState(false);
-
   useEffect(() => {
     // let cred = localStorage.getItem('googleAccount')
     // if (cred != undefined){
@@ -195,33 +194,37 @@ else{
                 </Col>
               </Row>
               <Row>
-                <Col>
+                <Col xs={9} md={9} >
                   <Card.Text>{cData.location} </Card.Text>
                 </Col>
-              </Row>
-              <Row>
-                <Col xs={9} md={9} >
+              {/* </Row> */}
+              {/* <Row> */}
+                {/* <Col xs={9} md={9} >
                   <small className="text-muted">
                     <Card.Text>
                       원문 좋아요 {cData.like_cnt} 원문 댓글 {cData.comment_cnt}
                     </Card.Text>
                   </small>
-                </Col>
-                <Col xs={3} md={3} style={{textAlign: "right"}}>
-                  <Button
-                    className="mb-1"
-                    size='sm'
-                    type="checkbox"
-                    variant="outline-warning"
-                    checked={checked}
-                    value="1"
-                    onClick={(e) => {
-                      setChecked(!e.currentTarget.checked)
-                    }}
-                  >
-                    {checked ? "★" : "☆"}
-                  </Button>
-                </Col>
+                </Col> */}
+                {
+                  reco ? null :
+                
+                  <Col xs={3} md={3} style={{textAlign: "right"}}>
+                    <Button
+                      className="mb-1"
+                      size='sm'
+                      type="checkbox"
+                      variant="outline-warning"
+                      checked={checked}
+                      value="1"
+                      onClick={(e) => {
+                        setChecked(!e.currentTarget.checked)
+                      }}
+                    >
+                      {checked ? "★" : "☆"}
+                    </Button>
+                  </Col>
+                }
               </Row>
             </Col>
           </Row>

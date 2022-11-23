@@ -15,12 +15,14 @@ import MetaTag from './SEOMetaTag';
 import ContentsList from './page/ContentsList';
 import Login from './page/Login';
 
+
+import "./App.css";
+
 // const ContentsList = lazy(() => import('./page/ContentsList'))
 // const Login = lazy(() => import('./page/Login'))
 
 
 function App() {
-  console.log(navigator.language)
   useEffect(() => {
     if (localStorage.getItem('watched') == undefined) {
       localStorage.setItem('watched', JSON.stringify([]))
@@ -75,7 +77,7 @@ function App() {
   );
   return (
     <div className="App">
-
+      
       <MetaTag title="플리맨" desc="중고물품 통합 검색 플랫폼 플리맨 FleaMan" url="https://fleaman.shop/" keywords=""/>
       <Navbar bg="light" expand="lg">
         <Container>
@@ -143,15 +145,8 @@ function App() {
               <Route path='/' element={
                 <div>
                   <div style={{margin: "10px"}}>
-                    {/* <CarouselFade /> */}
                     <SearchInput main={true}></SearchInput>
                   </div>
-                  {/* <div style={{margin: "50px"}}>
-                    <h3>
-                      중고물품 통합검색은 <Badge bg="info">FleaMan</Badge>
-                    </h3>
-                  </div> */}
-                  
                 </div>
               }>
               </Route>
@@ -162,6 +157,7 @@ function App() {
               <Route path='/login' element={
                   <Login />
                 } />
+
             </Routes>
           </Suspense>
         </div>

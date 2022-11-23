@@ -9,19 +9,29 @@ import Card from 'react-bootstrap/Card';
 import TopButton from "../TopButton.js";
 import MetaTag from "../SEOMetaTag.js";
 import Button from 'react-bootstrap/Button';
-
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 function MainContentsList() {
   const location = useLocation()
   let searchKeyword = location.search.split("query=")[1]
-  console.log(searchKeyword)
   if (searchKeyword == "" || searchKeyword == undefined){
     searchKeyword = '_'
   }
+  let [recommendItems, setRecommendItems] = useState({"mac": [], "ipad": [], "iphone": [], 'gpu': []})
   useEffect(() => {
     if (localStorage.getItem('watched') == undefined) {
       localStorage.setItem('watched', JSON.stringify([]))
     }
+    let url = "https://api.fleaman.shop/product/recommend"
+      axios.get(url)
+        .then((result) => {
+          let recommendData = result.data
+          setRecommendItems(recommendData)
+        })
+        .catch(() => {
+          console.log('데이터 로드 실패')
+        })
   }, [])
   const [resize, setResize] = useState(window.innerWidth);
   let [searchItems, setSearchItems] = useState([]);
@@ -119,6 +129,71 @@ function MainContentsList() {
               })
             }
             </Card.Body>
+          </Card>
+        </Row>
+        <Row xs={1} md={1} className="g-1">      
+          <Card
+            // border="warning" 
+            className="mb-2"
+            style={{textAlign: "left"}}
+          >
+            <Card.Header>
+              <Card.Text>
+                <img
+                  alt=""
+                  src="/logo.png"
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{' '}
+                플리추천
+              </Card.Text>  
+            </Card.Header>
+            <Card.Body>
+          <Tabs
+            defaultActiveKey="mac"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+          >
+              <Tab eventKey="mac" title="Mac">
+              {
+                recommendItems.mac.map((item, idx) => {
+                  return (
+                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} setSearchItems={setSearchItems} reco={true}/> 
+                  )
+                })
+              }
+              </Tab>
+
+            <Tab eventKey="ipad" title="Ipad">
+              {
+                recommendItems.ipad.map((item, idx) => {
+                  return (
+                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} setSearchItems={setSearchItems} reco={true}/> 
+                  )
+                })
+              }
+            </Tab>
+            <Tab eventKey="iphone" title="Iphone">
+              {
+                recommendItems.iphone.map((item, idx) => {
+                  return (
+                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} setSearchItems={setSearchItems} reco={true}/> 
+                  )
+                })
+              }
+            </Tab>
+            <Tab eventKey="gpu" title="GPU">
+              {
+                recommendItems.gpu.map((item, idx) => {
+                  return (
+                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} setSearchItems={setSearchItems} reco={true}/> 
+                  )
+                })
+              }
+            </Tab>
+          </Tabs>
+          </Card.Body>
           </Card>
         </Row>
       </div>

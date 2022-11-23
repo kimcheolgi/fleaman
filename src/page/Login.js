@@ -5,6 +5,7 @@ import {handleCredentialResponse, parseJwt} from '../utils.js'
 import Button from 'react-bootstrap/Button';
 import MetaTag from '../SEOMetaTag';
 
+
 function Login() {
   let cred = localStorage.getItem('googleAccount')
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ function Login() {
           justifyContent: 'center',
           alignItems: 'center',
         }}><GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" /></div>
+
       </div>
     );
   }

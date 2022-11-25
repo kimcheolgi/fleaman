@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 import Loader from "../Loader.js";
 import ContentsComponent from "../ContentsComponent";
@@ -11,6 +12,9 @@ import MetaTag from "../SEOMetaTag.js";
 import Button from 'react-bootstrap/Button';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+
+
+
 
 function MainContentsList() {
   const location = useLocation()
@@ -82,6 +86,51 @@ function MainContentsList() {
     };
   }, []);
 
+  let [linkHash, setLinkHash] = useState("")
+  const handleScrapShare = async () => {
+    let scrapData = JSON.parse(localStorage.getItem('watched'))
+    if (scrapData.length == 0) {
+      alert("스크랩된 물품이 없습니다.")
+    }
+    else {
+      // const requestOptions = {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ data_list: scrapData })
+      // };
+      // fetch('https://api.fleaman.shop/share/scrap', requestOptions)
+      //     .then(response => response.json())
+      //     .then(data => 
+      //       console.log(data)
+      //       // linkHash = data.data
+      //       );
+  
+      axios.post("https://api.fleaman.shop/share/scrap", {
+        data_list: scrapData
+      }).then(function (response) {
+        linkHash = response.data;
+        setLinkHash(linkHash)
+        console.log(linkHash)
+      }).catch(function (error) {
+        alert('링크 복사에 실패하였습니다.');
+      });
+    }
+  
+  };
+  
+  
+  const handleCopyClipBoard = async (hash) => {
+    try {
+      await navigator.clipboard.writeText("https://fleaman.shop/scrap/share/" + hash);
+      alert('링크가 복사되었습니다.');
+    } catch (error) {
+      alert('링크 복사에 실패하였습니다.');
+    }
+  };
+
+
+
+
   if (isError){
     return (
       <div>
@@ -108,7 +157,7 @@ function MainContentsList() {
             style={{textAlign: "left"}}
           >
             <Card.Header>
-              <Card.Text>
+              {/* <Card.Text>
                 <img
                   alt=""
                   src="/logo.png"
@@ -117,7 +166,30 @@ function MainContentsList() {
                   className="d-inline-block align-top"
                 />{' '}
                 스크랩
-              </Card.Text>  
+              </Card.Text> */}
+              <Row>
+                  <Col md={8}>
+                    <img
+                    alt=""
+                    src="/logo.png"
+                    width="30"
+                    height="30"
+                    className="d-inline-block align-top"
+                  />{' '}
+                    스크랩
+                  </Col>
+                  <Col md={4} style={{textAlign: "right"}}>
+                    <Button 
+                      variant="secondary" 
+                      style={{padding: "2px"}}
+                      onClick={() => {
+                        handleScrapShare()
+                        handleCopyClipBoard(linkHash)
+                      }}> 
+                    공유 링크 
+                    </Button>
+                  </Col>
+                </Row>
             </Card.Header>
             <Card.Body>
             {

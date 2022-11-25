@@ -9,6 +9,23 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import React, { useState, lazy, Suspense, useEffect } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
+
+const handleCopyClipBoard = async (data) => {
+  let cred = localStorage.getItem('googleAccount')
+  if (cred == undefined) {
+    alert("로그인이 필요한 기능입니다.")
+  }
+  else {
+    try {
+      await navigator.clipboard.writeText(data.link);
+      alert('링크가 복사되었습니다.');
+    } catch (error) {
+      alert('링크 복사에 실패하였습니다.');
+    }
+  }
+};
+
+
 const getDateDiff = (d) => {
   const date1 = new Date();
   const date2 = new Date(d);
@@ -34,6 +51,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco}){
   let [accountInfo, setAccountInfo] = useState([]);
   let [checked, setChecked] = useState(false);
   let [initCheck, setInitCheck] = useState(false);
+
   useEffect(() => {
     // let cred = localStorage.getItem('googleAccount')
     // if (cred != undefined){
@@ -189,12 +207,12 @@ else{
                 </Col>
               </Row>
               <Row>
-                <Col>
+                <Col xs={8} md={8}>
                   <Card.Text>{new_price}원 </Card.Text>
                 </Col>
               </Row>
               <Row>
-                <Col xs={9} md={9} >
+                <Col xs={8} md={8} >
                   <Card.Text>{cData.location} </Card.Text>
                 </Col>
               {/* </Row> */}
@@ -208,22 +226,32 @@ else{
                 </Col> */}
                 {
                   reco ? null :
-                
-                  <Col xs={3} md={3} style={{textAlign: "right"}}>
-                    <Button
-                      className="mb-1"
-                      size='sm'
-                      type="checkbox"
-                      variant="outline-warning"
-                      checked={checked}
-                      value="1"
-                      onClick={(e) => {
-                        setChecked(!e.currentTarget.checked)
-                      }}
-                    >
-                      {checked ? "★" : "☆"}
-                    </Button>
-                  </Col>
+                    <Col xs={4} md={4} style={{textAlign: "right"}}>
+                      {/* <Button
+                        className="mb-1"
+                        size='sm'
+                        variant="outline-warning"
+                        style={{margin:"1px"}}
+                        onClick={(e) => {
+                          handleCopyClipBoard(cData)
+                        }}
+                      >
+                        추천
+                      </Button> */}
+                      <Button
+                        className="mb-1"
+                        size='sm'
+                        type="checkbox"
+                        variant="outline-warning"
+                        checked={checked}
+                        value="1"
+                        onClick={(e) => {
+                          setChecked(!e.currentTarget.checked)
+                        }}
+                      >
+                        {checked ? "★" : "☆"}
+                      </Button>
+                    </Col>
                 }
               </Row>
             </Col>

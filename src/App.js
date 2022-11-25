@@ -14,7 +14,7 @@ import TopButton from './TopButton';
 import MetaTag from './SEOMetaTag';
 import ContentsList from './page/ContentsList';
 import Login from './page/Login';
-
+import ScrapShare from './page/ScrapShare';
 
 import "./App.css";
 
@@ -153,7 +153,9 @@ function App() {
               <Route path='/list/:categoryName/:itemName' element={
                   <ContentsList />
                 } />
-
+              <Route path='/share/scrap/:hash' element={
+                  <ScrapShare />
+                } />
               <Route path='/login' element={
                   <Login />
                 } />
@@ -180,7 +182,7 @@ function LoginButton() {
   if (cred == undefined) {
     return(
       <Navbar.Text onClick={() => { navigate('/login') }}>
-        <Button variant="outline-dark">Login</Button>
+        <Button variant="outline-secondary">Login</Button>
       </Navbar.Text>
     )
   }
@@ -188,7 +190,7 @@ function LoginButton() {
     let userInfo = parseJwt(cred)
     return (
       <Navbar.Text onClick={() => { navigate('/login') }}>
-        <Button variant="outline-dark">Signed in as: {userInfo.name}</Button>
+        <Button variant="outline-secondary">Signed in as: {userInfo.family_name} 플리</Button>
       </Navbar.Text>
     )
   }

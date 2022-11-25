@@ -4,6 +4,7 @@ import GoogleLogin from '../GoogleLogin';
 import {handleCredentialResponse, parseJwt} from '../utils.js'
 import Button from 'react-bootstrap/Button';
 import MetaTag from '../SEOMetaTag';
+import Row from 'react-bootstrap/Row';
 
 
 function Login() {
@@ -49,11 +50,29 @@ function Login() {
   }
   else {
     let userInfo = parseJwt(cred)
+    console.log(userInfo)
     return (
       <div>
         <MetaTag title="My Page" desc="플리맨 마이 페이지 FleaMan My Page" url="https://fleaman.shop/login" keywords=", My Page"/>
-        <h3>{userInfo.name} My Page</h3>
-        <Button onClick={ onGoogleSignOut } variant="dark">Sign Out</Button> 
+        <h4 className='mt-5'>
+        <img
+              alt=""
+              src="/logo.png"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{' '}
+          {userInfo.family_name} 플리 Page</h4>
+        <div>
+          <img
+                alt=""
+                src={userInfo.picture}
+                width="100"
+                height="100"
+                className="d-inline-block align-top"
+              />
+        </div>
+        <Button className='mt-5' onClick={ onGoogleSignOut } variant="outline-secondary">Sign Out</Button> 
       </div>
     )
   }

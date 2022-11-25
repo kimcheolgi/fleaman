@@ -121,7 +121,7 @@ function MainContentsList() {
   
   const handleCopyClipBoard = async (hash) => {
     try {
-      await navigator.clipboard.writeText("https://fleaman.shop/scrap/share/" + hash);
+      await navigator.clipboard.writeText("https://fleaman.shop/share/scrap/" + hash);
       alert('링크가 복사되었습니다.');
     } catch (error) {
       alert('링크 복사에 실패하였습니다.');

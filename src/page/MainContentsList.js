@@ -115,20 +115,22 @@ function MainContentsList() {
         alert('링크 복사에 실패하였습니다.');
       });
     }
-  
   };
   
-  
   const handleCopyClipBoard = async (hash) => {
-    try {
-      await navigator.clipboard.writeText("https://fleaman.shop/share/scrap/" + hash);
-      alert('링크가 복사되었습니다.');
-    } catch (error) {
-      alert('링크 복사에 실패하였습니다.');
+    if (hash != ""){
+      try {
+        await navigator.clipboard.writeText("https://fleaman.shop/share/scrap/" + hash);
+        alert('링크가 복사되었습니다.');
+      } catch (error) {
+        alert('링크 복사에 실패하였습니다.');
+      }
     }
   };
 
-
+  useEffect(() => {
+    handleCopyClipBoard(linkHash)
+  }, [linkHash])
 
 
   if (isError){
@@ -184,7 +186,7 @@ function MainContentsList() {
                       style={{padding: "2px"}}
                       onClick={() => {
                         handleScrapShare()
-                        handleCopyClipBoard(linkHash)
+                        // handleCopyClipBoard(linkHash)
                       }}> 
                     공유 링크 
                     </Button>

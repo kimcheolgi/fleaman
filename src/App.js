@@ -126,9 +126,9 @@ function App() {
 
             </Nav>
           </Navbar.Collapse>
-          {/* <Navbar.Collapse className="justify-content-end">
+          <Navbar.Collapse className="justify-content-end">
             <LoginButton/>
-          </Navbar.Collapse> */}
+          </Navbar.Collapse>
         </Container>
       </Navbar>
       <div className='row'>
@@ -177,6 +177,8 @@ function App() {
 
 function LoginButton() {
   let cred = localStorage.getItem('googleAccount')
+  let nick = localStorage.getItem('userNickName')
+
   let navigate = useNavigate();
 
   if (cred == undefined) {
@@ -190,7 +192,7 @@ function LoginButton() {
     let userInfo = parseJwt(cred)
     return (
       <Navbar.Text onClick={() => { navigate('/login') }}>
-        <Button variant="outline-secondary">Signed in as: {userInfo.family_name} 플리</Button>
+        <Button variant="outline-secondary">My Page </Button>
       </Navbar.Text>
     )
   }

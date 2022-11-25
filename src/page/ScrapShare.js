@@ -11,6 +11,7 @@ function ScrapShare() {
   const navigate = useNavigate();
   let { hash } = useParams();
   const [resize, setResize] = useState(window.innerWidth);
+  let [inputValue, setInputValue] = useState('');
 
   const handleResize = () => {
     setResize(window.innerWidth);

@@ -5,10 +5,14 @@ import {handleCredentialResponse, parseJwt} from '../utils.js'
 import Button from 'react-bootstrap/Button';
 import MetaTag from '../SEOMetaTag';
 import Row from 'react-bootstrap/Row';
-
+import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 function Login() {
   let cred = localStorage.getItem('googleAccount')
+  let nick = localStorage.getItem('userNickName')
   const navigate = useNavigate();
   let [isLogin, setIsLogin] = useState(cred != undefined);
   let [isUpdate, setIsUpdate] = useState(false);
@@ -17,12 +21,22 @@ function Login() {
     const { credential } = res;
     console.log(handleCredentialResponse(res))
     localStorage.setItem('googleAccount', credential)
+    axios.post("https://api.fleaman.shop/user/login", {
+        google_token: credential
+      }).then(function (response) {
+        let nickName = response.data.nick_name;
+        localStorage.setItem('userNickName', nickName)
+        console.log(nickName)
+      }).catch(function (error) {
+        alert('유저 정보를 가져오는데 실패했습니다.');
+      });
     setIsUpdate(true);
     setIsLogin(true);
   };
 
   const onGoogleSignOut = () => {
     localStorage.removeItem('googleAccount')
+    localStorage.removeItem('userNickName')
     setIsUpdate(true);
     setIsLogin(false);
   };
@@ -62,23 +76,89 @@ function Login() {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-          {userInfo.family_name} 플리 Page</h4>
+          "{nick}"님의 페이지</h4>
         <div>
           <img
                 alt=""
-                src={userInfo.picture}
+                src="/logo.png"
                 width="100"
                 height="100"
                 className="d-inline-block align-top"
               />
         </div>
-        <Button className='mt-5' onClick={ onGoogleSignOut } variant="outline-secondary">Sign Out</Button> 
+        <div>
+          <NickNameModal credential={cred} ></NickNameModal>
+        {/* <Button className='mt-5' onClick={ onGoogleSignOut } variant="outline-secondary">닉네임 수정</Button>  */}
+        </div>
+        
+        <Button className='mt-1' onClick={ onGoogleSignOut } variant="outline-secondary">Sign Out</Button> 
       </div>
     )
   }
 
 }
 
+
+function NickNameModal({ credential }) {
+  const navigate = useNavigate();
+  const value = 'sm-down';
+  const [fullscreen, setFullscreen] = useState(true);
+  const [show, setShow] = useState(false);
+  const [inputValue, setInputValue] = useState("")
+  function handleShow(breakpoint) {
+    setFullscreen(breakpoint);
+    setShow(true);
+  }
+
+  return (
+    <>
+      <Button className='mt-5' 
+      onClick={() => handleShow(value)}
+      variant="outline-secondary">닉네임 수정</Button> 
+
+      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>닉네임 수정</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <InputGroup className="mb-3 mt-1">
+            <Form.Control
+              aria-describedby="basic-addon2"
+              onChange={(e)=>{ 
+                setInputValue(e.target.value)
+              }}
+              value={inputValue}
+            />
+            <Button 
+              variant="outline-secondary" 
+              id="button-addon2"
+              onClick={() => {
+                axios.post("https://api.fleaman.shop/user/edit-nickname", {
+                  google_token: credential,
+                  nick_name: inputValue
+                }).then(function (response) {
+                  let status = response.data;
+                  if (status == 'S'){
+                    localStorage.setItem('userNickName', inputValue)
+                    window.location.reload();
+                  }
+                  else if (status == 'D'){
+                    alert("이미 존재하는 닉네임입니다.")
+                  }  
+                }).catch(function (error) {
+                  alert('닉네임 변경에 실패했습니다.');
+                });
+
+              }}
+            >
+              수정
+            </Button>
+          </InputGroup>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
 
 export default Login;
 

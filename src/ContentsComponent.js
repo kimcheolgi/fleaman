@@ -12,21 +12,6 @@ import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import ReactTooltip from "react-tooltip";
 
-const handleCopyClipBoard = async (data) => {
-  let cred = localStorage.getItem('googleAccount')
-  if (cred == undefined) {
-    alert("로그인이 필요한 기능입니다.")
-  }
-  else {
-    try {
-      await navigator.clipboard.writeText(data.link);
-      alert('링크가 복사되었습니다.');
-    } catch (error) {
-      alert('링크 복사에 실패하였습니다.');
-    }
-  }
-};
-
 
 const getDateDiff = (d) => {
   const date1 = new Date();
@@ -160,7 +145,6 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
   useEffect(() => {
     handleCopyClipBoard(linkHash)
   }, [linkHash])
-
 
 
 
@@ -353,7 +337,8 @@ else{
                               let google_token = localStorage.getItem('googleAccount')
                               axios.post("https://api.fleaman.shop/product/delete-comment", {
                                 google_token: google_token,
-                                comment_id: comment._id
+                                comment_id: comment._id,
+                                link: comment.product_link
                               }).then(function (response) {
                                 let copyData = [...comments]
                                 let filteredData = copyData.filter(x => x._id != comment._id)

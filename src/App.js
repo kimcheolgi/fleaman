@@ -91,7 +91,7 @@ function App() {
             />{' '}
             <img
               alt=""
-              src="/logo-white.png"
+              src="/black_bg.jpeg"
               style={{backgroundColor: 'black'}}
               width="30"
               height="30"

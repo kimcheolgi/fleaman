@@ -13,11 +13,15 @@ function Loader({type, color, message}) {
       }}>
 
       <h2>{message}</h2>
-      <ReactLoading
+      <img 
+        src='/spin1.gif' 
+        style={{width: "50%", height: "50%"}}
+      />
+      {/* <ReactLoading
         type={type}
         color={color}
         height={'80%'}
-        width={'80%'} />
+        width={'80%'} /> */}
       </div>
     </div>
   );

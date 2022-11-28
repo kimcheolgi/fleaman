@@ -103,7 +103,7 @@ function TestContentsList() {
       <div>
         <Row xs={1} md={1} className="g-1">
           <Table striped bordered className="mb-3">
-            <thead>
+            {/* <thead>
               <tr>
                 <th colSpan={3}>
                   <img
@@ -128,7 +128,7 @@ function TestContentsList() {
               <tr>
                 <td colSpan={3}>{new_price}원</td>
               </tr>
-            </tbody>
+            </tbody> */}
 
             <thead>
               <tr>
@@ -154,7 +154,7 @@ function TestContentsList() {
           {
             totalData.map((cData, idx)=>{
               return(
-                <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} />
+                <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} cate={true}/>
               )
             })
           }

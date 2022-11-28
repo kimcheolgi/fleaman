@@ -8,7 +8,9 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import React, { useState, lazy, Suspense, useEffect } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-
+import axios from 'axios';
+import Table from 'react-bootstrap/Table';
+import ReactTooltip from "react-tooltip";
 
 const handleCopyClipBoard = async (data) => {
   let cred = localStorage.getItem('googleAccount')
@@ -46,19 +48,21 @@ const getHourDiff = (d) => {
 }
 
 
-function ContentsComponent({cData, resize, scrap, setSearchItems, reco}){
+function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
   let [accountFlag, setAccountFlag] = useState(false);
   let [accountInfo, setAccountInfo] = useState([]);
   let [checked, setChecked] = useState(false);
   let [initCheck, setInitCheck] = useState(false);
+  let [onComment, setOnComment] = useState(false);
+  let [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    // let cred = localStorage.getItem('googleAccount')
-    // if (cred != undefined){
-    //   setAccountFlag(true)
-    //   let userInfo = parseJwt(cred)
-    //   setAccountInfo(userInfo)
-    // }
+    let cred = localStorage.getItem('googleAccount')
+    if (cred != undefined){
+      setAccountFlag(true)
+      let userInfo = parseJwt(cred)
+      setAccountInfo(userInfo)
+    }
     let watchedItems = JSON.parse(localStorage.getItem('watched'))
     let itemLink = []
     if (watchedItems != undefined){
@@ -69,6 +73,20 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco}){
     if (itemLink.includes(String(cData.link)) != []) {
       setChecked(true)
     }
+  }, [])
+
+  let [comments, setComments] = useState([]);
+  useEffect(() => {
+    let url = "https://api.fleaman.shop/product/get-comment?product_link=" + cData.link
+    console.log(url)
+    axios.get(url)
+      .then((result) => {
+        let comments = result.data
+        setComments(comments)
+      })
+      .catch(() => {
+        console.log('댓글 로드 실패')
+      })
   }, [])
   
   useEffect(() => {
@@ -125,7 +143,6 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco}){
   let dateDiff = getDateDiff(cData.reg_date);
   let hourDiff = getHourDiff(cData.reg_date);
   let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff != 0 ? hourDiff + "시간 전" : "방금 전"
-
   if (scrap){
     return (
       <Col className='mt-2'>
@@ -207,13 +224,13 @@ else{
                 </Col>
               </Row>
               <Row>
-                <Col xs={8} md={8}>
+                <Col xs={9} md={9}>
                   <Card.Text>{new_price}원 </Card.Text>
                 </Col>
               </Row>
               <Row>
                 <Col xs={8} md={8} >
-                  <Card.Text>{cData.location} </Card.Text>
+                  <Card.Text> {cData.location} </Card.Text>
                 </Col>
               {/* </Row> */}
               {/* <Row> */}
@@ -224,56 +241,133 @@ else{
                     </Card.Text>
                   </small>
                 </Col> */}
+                <Col xs={4} md={4} style={{textAlign: "right"}}>
                 {
-                  reco ? null :
-                    <Col xs={4} md={4} style={{textAlign: "right"}}>
-                      {/* <Button
+                  !reco ? 
+                  <Button
                         className="mb-1"
                         size='sm'
                         variant="outline-warning"
-                        style={{margin:"1px"}}
+                        style={{margin:"1px", padding: "3px"}}
                         onClick={(e) => {
-                          handleCopyClipBoard(cData)
+                          setOnComment(!onComment)
                         }}
                       >
-                        추천
-                      </Button> */}
+                        {onComment ? "접기" : "댓글"+comments.length}
+                      </Button> : null
+                }
+                {
+                  reco ? null :
                       <Button
                         className="mb-1"
                         size='sm'
                         type="checkbox"
+                        style={{margin:"1px", padding: "3px"}}
                         variant="outline-warning"
                         checked={checked}
                         value="1"
+                        data-for="scrap"
+                        data-tip
                         onClick={(e) => {
                           setChecked(!e.currentTarget.checked)
                         }}
                       >
                         {checked ? "★" : "☆"}
                       </Button>
-                    </Col>
+                      
                 }
+                <ReactTooltip 
+                  id='scrap'
+                  getContent={dataTip => "스크랩"}
+                />
+                </Col>
               </Row>
             </Col>
           </Row>
+          {
+            comments.length != 0 && onComment?
 
-          {/* {
-            accountFlag ?   
+          
+          <Card body={false} border={onComment ? "#dee2e6": "light" } style={{padding: "5px"}}>
+            {
+              onComment ? 
+                comments.map((comment, idx) => {
+                  return (
+                    <Row key={idx}>
+                      <Col xs={3} md={3} style={{textAlign: "center", fontWeight: "bold"}}>
+                        {comment.nick_name}
+                      </Col>
+                      <Col xs={7} md={7} style={{textAlign: "left"}}>
+                        {comment.comment}
+                      </Col>
+                      <Col xs={2} md={2} style={{ textAlign: "right" }}>
+                        { 
+                          accountInfo.email == comment.email ? 
+                          <Button
+                            size='sm'
+                            // style={{margin:"1px", padding: "3px"}}
+                            variant="outline-secondary"
+                            onClick={(e) => {
+                              let google_token = localStorage.getItem('googleAccount')
+                              axios.post("https://api.fleaman.shop/product/delete-comment", {
+                                google_token: google_token,
+                                comment_id: comment._id
+                              }).then(function (response) {
+                                let copyData = [...comments]
+                                let filteredData = copyData.filter(x => x._id != comment._id)
+                                setComments(filteredData)
+                              }).catch(function (error) {
+                                alert('댓글 삭제에 실패하였습니다.');
+                              });
+                            }}
+                          >
+                            삭제
+                          </Button> : null
+                        }
+                      </Col>
+                    </Row>
+                  )
+                })
+                : null
+            }
+            </Card> : null
+          }
+
+
+          {
+            accountFlag && onComment?   
               <Row>
                 <InputGroup className="mb-1 mt-3">
                   <Form.Control
-                    placeholder="의견 작성하기, 이용규칙을 지켜주세요."
+                    placeholder="의견 작성하기(50자 미만)"
                     aria-label="comment"
                     aria-describedby="basic-addon"
+                    onChange={(e)=>{ 
+                      setInputValue(e.target.value)
+                    }}
                   />
-                  <Button variant="outline-secondary" id="button-addon">
+                  <Button variant="outline-secondary" id="button-addon" size='sm'
+                    onClick={() => {
+                      let google_token = localStorage.getItem('googleAccount')
+                      axios.post("https://api.fleaman.shop/product/insert-comment", {
+                        google_token: google_token,
+                        comment: inputValue,
+                        product_link: cData.link
+                      }).then(function (response) {
+                        let commentsData = response.data
+                        setComments(commentsData)
+                      }).catch(function (error) {
+                        alert('링크 복사에 실패하였습니다.');
+                      });
+                    }}
+                  >
                     작성
                   </Button>
                 </InputGroup>
               </Row>
             :
             null
-          } */}
+          }
       </Card>
     </Col>
     )

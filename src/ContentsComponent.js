@@ -355,9 +355,14 @@ else{
                         product_link: cData.link
                       }).then(function (response) {
                         let commentsData = response.data
-                        setComments(commentsData)
+                        if (commentsData == "F"){
+                          alert('글자수 규칙에 위반됩니다.');
+                        }
+                        else {
+                          setComments(commentsData)
+                        }
                       }).catch(function (error) {
-                        alert('링크 복사에 실패하였습니다.');
+                        alert('댓글 달기에 실패하였습니다.');
                       });
                     }}
                   >

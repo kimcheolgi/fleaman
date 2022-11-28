@@ -53,6 +53,7 @@ function Login() {
       <div>
         <MetaTag title="Login" desc="플리맨 로그인 FleaMan Login" url="https://fleaman.shop/login" keywords=", Login" />
         <h3>Login</h3>
+        <h6>로그인하시고 플리맨 커뮤니티에 동참해보세요!</h6>
         <div style={{
           display: 'flex',
           justifyContent: 'center',

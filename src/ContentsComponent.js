@@ -379,6 +379,7 @@ else{
                       axios.post("https://api.fleaman.shop/product/insert-comment", {
                         google_token: google_token,
                         comment: inputValue,
+                        data: cData,
                         product_link: cData.link
                       }).then(function (response) {
                         let commentsData = response.data

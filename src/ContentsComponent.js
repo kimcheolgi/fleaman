@@ -412,8 +412,10 @@ else{
                   </Button>
                 </InputGroup>
               </Row>
-            :
-            null
+            : onComment ? <Row>
+              <Col style={{textAlign: "center", color: "gray"}}> 댓글 달기는 로그인이 필요한 서비스입니다.</Col>
+          </Row> : null
+            
           }
       </Card>
     </Col>

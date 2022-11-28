@@ -18,6 +18,7 @@ import ScrapShare from './page/ScrapShare';
 import ProductShare from './page/ProductShare';
 
 import "./App.css";
+import CommentedProductList from './page/CommentProductList';
 
 // const ContentsList = lazy(() => import('./page/ContentsList'))
 // const Login = lazy(() => import('./page/Login'))
@@ -124,6 +125,7 @@ function App() {
                   )
                 })
               }
+              <Nav.Link href="/commented">댓글 달린 물건</Nav.Link>
 
             </Nav>
           </Navbar.Collapse>
@@ -159,6 +161,9 @@ function App() {
                 } />
               <Route path='/share/product/:hash' element={
                   <ProductShare />
+                } />
+              <Route path='/commented' element={
+                  <CommentedProductList />
                 } />
               <Route path='/login' element={
                   <Login />

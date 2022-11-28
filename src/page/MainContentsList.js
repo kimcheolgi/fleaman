@@ -93,18 +93,6 @@ function MainContentsList() {
       alert("스크랩된 물품이 없습니다.")
     }
     else {
-      // const requestOptions = {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ data_list: scrapData })
-      // };
-      // fetch('https://api.fleaman.shop/share/scrap', requestOptions)
-      //     .then(response => response.json())
-      //     .then(data => 
-      //       console.log(data)
-      //       // linkHash = data.data
-      //       );
-  
       axios.post("https://api.fleaman.shop/share/scrap", {
         data_list: scrapData
       }).then(function (response) {

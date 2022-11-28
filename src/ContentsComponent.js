@@ -133,6 +133,37 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
   }, [checked])
   
 
+
+  let [linkHash, setLinkHash] = useState("")
+  const handleScrapShare = async (productData) => {
+    axios.post("https://api.fleaman.shop/share/product", {
+      data_list: productData
+    }).then(function (response) {
+      linkHash = response.data;
+      setLinkHash(linkHash)
+    }).catch(function (error) {
+      alert('링크 복사에 실패하였습니다.');
+    });
+  };
+  
+  const handleCopyClipBoard = async (hash) => {
+    if (hash != ""){
+      try {
+        await navigator.clipboard.writeText("https://fleaman.shop/share/product/" + hash);
+        alert('링크가 복사되었습니다.');
+      } catch (error) {
+        alert('링크 복사에 실패하였습니다.');
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleCopyClipBoard(linkHash)
+  }, [linkHash])
+
+
+
+
   let text_len = resize  >= 1080 ? 25 : 13
   // let data_name = cData.title.length >= text_len ? cData.title.substr(0, text_len) + "..." : cData.title
   let data_name = cData.title
@@ -208,7 +239,18 @@ else{
               <Row>
                 <Col xs={8} md={8}>
                   <Badge bg='light' text="dark">{cData.source}</Badge>
-                  <ColoredBadge state={cData.state} />
+                  <ColoredBadge state={cData.state}/>
+                  {
+                    reco ? null 
+                    : <Button variant="outline-secondary" size='sm' style={{padding: "1px", margin: "2px"}}
+                    onClick={() => {
+                     handleScrapShare([cData])
+                    }}
+                   >
+                     공유 링크
+                   </Button>
+                  }
+                  
                 </Col>
                 <Col xs={4} md={4} style={{textAlign: "right"}}>
                   <small className="text-muted">{diffDate}</small>

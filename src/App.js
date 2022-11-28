@@ -15,6 +15,7 @@ import MetaTag from './SEOMetaTag';
 import ContentsList from './page/ContentsList';
 import Login from './page/Login';
 import ScrapShare from './page/ScrapShare';
+import ProductShare from './page/ProductShare';
 
 import "./App.css";
 
@@ -155,6 +156,9 @@ function App() {
                 } />
               <Route path='/share/scrap/:hash' element={
                   <ScrapShare />
+                } />
+              <Route path='/share/product/:hash' element={
+                  <ProductShare />
                 } />
               <Route path='/login' element={
                   <Login />

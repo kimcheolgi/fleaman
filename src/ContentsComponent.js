@@ -163,7 +163,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
   let dateDiff = getDateDiff(cData.reg_date);
   let hourDiff = getHourDiff(cData.reg_date);
   let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff != 0 ? hourDiff + "시간 전" : "방금 전"
-  let imgUrl = cData.img_url.substring(0, 8) != "https://" ? "https://" + cData.img_url : cData.img_url
+  let imgUrl = cData.img_url
   if (scrap){
     return (
       <Col className='mt-2'>

@@ -261,7 +261,7 @@ else{
               </Row>
               <Row>
                 <Col xs={9} md={9}>
-                  {!reco ? <Card.Text>{new_price}원 </Card.Text> : null}
+                  {reco ? null : <Card.Text>{new_price}원 </Card.Text>}
                 </Col>
               </Row>
               {

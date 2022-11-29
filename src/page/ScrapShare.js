@@ -75,7 +75,7 @@ function ScrapShare() {
         {
           shareItems.map((cData, idx)=>{
             return(
-              <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} setSearchItems={setShareItems} reco={true}/> 
+              <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} setSearchItems={setShareItems} reco={false}/> 
             )
           })
         }

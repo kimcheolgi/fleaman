@@ -54,8 +54,8 @@ function SearchInput({main}) {
       <div>
       <InputGroup className="mb-3 mt-1">
         <Form.Control
-          placeholder={main ? "검색어를 입력하세요" : "카테고리 안에서 검색"}
-          aria-label={main ? "검색어를 입력하세요" : "카테고리 안에서 검색"}
+          placeholder={main ? "중고물품 통합검색" : "카테고리 안에서 검색"}
+          aria-label={main ? "중고물품 통합검색" : "카테고리 안에서 검색"}
           aria-describedby="basic-addon2"
           onChange={(e)=>{ 
             setInputValue(e.target.value)

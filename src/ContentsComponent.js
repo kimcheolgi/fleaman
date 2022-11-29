@@ -151,13 +151,19 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
   let text_len = resize  >= 1080 ? 25 : 13
   // let data_name = cData.title.length >= text_len ? cData.title.substr(0, text_len) + "..." : cData.title
   let data_name = cData.title
+  let new_price = 0
 
-  let price = cData.price;
-  let new_price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
+  if (!reco) {
+    let price = cData.price;
+    new_price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  else {
+    new_price = 0
+  }
   let dateDiff = getDateDiff(cData.reg_date);
   let hourDiff = getHourDiff(cData.reg_date);
   let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff != 0 ? hourDiff + "시간 전" : "방금 전"
+  let imgUrl = cData.img_url.substring(0, 8) != "https://" ? "https://" + cData.img_url : cData.img_url
   if (scrap){
     return (
       <Col className='mt-2'>
@@ -217,13 +223,17 @@ else{
 
           <Row>
             <Col xs={3} md={3}>
-              <Card.Img referrerPolicy='no-referrer' variant="top" src={cData.img_url} />
+              <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl} height="100"/>
             </Col>
             <Col xs={9} md={9}>
               <Row>
                 <Col xs={8} md={8}>
-                  <Badge bg='light' text="dark">{cData.source}</Badge>
-                  <ColoredBadge state={cData.state}/>
+                  
+                  <Badge bg='light' text="dark">{reco ? cData.source1 : cData.source}</Badge>
+                  {
+                    !reco ? <ColoredBadge state={cData.state}/> : <Badge bg='light' text="dark">{cData.source2}</Badge>
+                  }
+                  
                   {
                     reco ? null 
                     : <Button variant="outline-secondary" size='sm' style={{padding: "1px", margin: "2px"}}
@@ -251,22 +261,24 @@ else{
               </Row>
               <Row>
                 <Col xs={9} md={9}>
-                  <Card.Text>{new_price}원 </Card.Text>
+                  {!reco ? <Card.Text>{new_price}원 </Card.Text> : null}
                 </Col>
               </Row>
-              <Row>
-                <Col xs={8} md={8} >
-                  <Card.Text> {cData.location} </Card.Text>
-                </Col>
-              {/* </Row> */}
-              {/* <Row> */}
-                {/* <Col xs={9} md={9} >
+              {
+                reco ? <Row>
+                  <Col xs={9} md={9} >
                   <small className="text-muted">
                     <Card.Text>
                       원문 좋아요 {cData.like_cnt} 원문 댓글 {cData.comment_cnt}
                     </Card.Text>
                   </small>
-                </Col> */}
+                </Col>
+                </Row>: null
+              }
+              <Row>
+                <Col xs={8} md={8} >
+                  <Card.Text> {cData.location} </Card.Text>
+                </Col>
                 <Col xs={4} md={4} style={{textAlign: "right"}}>
                 {
                   !reco ? 

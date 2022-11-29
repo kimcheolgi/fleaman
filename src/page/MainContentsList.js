@@ -22,16 +22,19 @@ function MainContentsList() {
   if (searchKeyword == "" || searchKeyword == undefined){
     searchKeyword = '_'
   }
-  let [recommendItems, setRecommendItems] = useState({"mac": [], "ipad": [], "iphone": [], 'gpu': []})
+  let [recommendItems, setRecommendItems] = useState([])
+  let [viewItems, setViewItems] = useState([]);
+
   useEffect(() => {
     if (localStorage.getItem('watched') == undefined) {
       localStorage.setItem('watched', JSON.stringify([]))
     }
-    let url = "https://api.fleaman.shop/product/recommend"
+    let url = "https://api.fleaman.shop/product/hotdeal"
       axios.get(url)
         .then((result) => {
           let recommendData = result.data
           setRecommendItems(recommendData)
+          setViewItems(recommendData.slice(0, 20))
         })
         .catch(() => {
           console.log('데이터 로드 실패')
@@ -39,7 +42,6 @@ function MainContentsList() {
   }, [])
   const [resize, setResize] = useState(window.innerWidth);
   let [searchItems, setSearchItems] = useState([]);
-  let [viewItems, setViewItems] = useState([]);
   let [isScrap, setIsScrap] = useState(true);
   let [isError, setIsError] = useState(false);
   const handleResize = () => {
@@ -208,56 +210,39 @@ function MainContentsList() {
                   height="30"
                   className="d-inline-block align-top"
                 />{' '}
-                플리추천
+                핫딜 정보
               </Card.Text>  
             </Card.Header>
             <Card.Body>
-          <Tabs
-            defaultActiveKey="mac"
-            id="uncontrolled-tab-example"
-            className="mb-3"
-          >
-              <Tab eventKey="mac" title="Mac">
-              {
-                recommendItems.mac.map((item, idx) => {
-                  return (
-                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} setSearchItems={setSearchItems} reco={true}/> 
-                  )
-                })
-              }
-              </Tab>
 
-            <Tab eventKey="ipad" title="iPad">
               {
-                recommendItems.ipad.map((item, idx) => {
+                viewItems.map((item, idx) => {
                   return (
-                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} setSearchItems={setSearchItems} reco={true}/> 
+                    <Row xs={1} md={1} className="mt-2">
+
+                      <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} setSearchItems={setSearchItems} reco={true}/> 
+                    </Row>
+
                   )
                 })
               }
-            </Tab>
-            <Tab eventKey="iphone" title="iPhone">
-              {
-                recommendItems.iphone.map((item, idx) => {
-                  return (
-                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} setSearchItems={setSearchItems} reco={true}/> 
-                  )
-                })
-              }
-            </Tab>
-            <Tab eventKey="gpu" title="GPU">
-              {
-                recommendItems.gpu.map((item, idx) => {
-                  return (
-                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} setSearchItems={setSearchItems} reco={true}/> 
-                  )
-                })
-              }
-            </Tab>
-          </Tabs>
           </Card.Body>
           </Card>
         </Row>
+      {
+          moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
+            let itemsLen = viewItems.length
+            setViewItems(recommendItems.slice(0, itemsLen + 20))
+            if (itemsLen + 20 >= recommendItems.length){
+              setMoreFlag(false)
+            }            
+
+          }}> More...</Button> : null
+        }
+        {
+          resize < 1080 ? 
+          <TopButton></TopButton> : null
+        }
       </div>
     )
   }

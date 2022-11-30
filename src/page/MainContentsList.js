@@ -205,7 +205,7 @@ function MainContentsList() {
               <Card.Text>
                 <img
                   alt=""
-                  src="/logo.png"
+                  src="/spin4.gif"
                   width="30"
                   height="30"
                   className="d-inline-block align-top"

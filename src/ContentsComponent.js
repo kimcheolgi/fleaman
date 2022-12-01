@@ -356,7 +356,7 @@ else{
                   console.log(comment)
                   let dateDiffComment = getDateDiffComment(comment.create_date);
                   let hourDiffComment = getHourDiffComment(comment.create_date);
-                  let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "d" : hourDiffComment != 0 ? hourDiffComment + "h" : "방금"
+                  let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "d" : hourDiffComment > 0 ? hourDiffComment + "h" : "방금"
                   return (
                     <Row key={idx} style={{fontSize: "0.8rem"}}>
                       <Col xs={3} md={3} style={{textAlign: "center", fontWeight: "bold"}}>

@@ -163,6 +163,9 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
   let dateDiff = getDateDiff(cData.reg_date);
   let hourDiff = getHourDiff(cData.reg_date);
   let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff != 0 ? hourDiff + "시간 전" : "방금 전"
+
+
+  
   let imgUrl = cData.img_url
   if (scrap){
     return (
@@ -328,42 +331,50 @@ else{
           
           <Card body={false} border={onComment ? "#dee2e6": "light" } style={{padding: "5px"}}>
             {
+              
               onComment ? 
                 comments.map((comment, idx) => {
+                  let dateDiffComment = getDateDiff(comment.create_date);
+                  let hourDiffComment = getHourDiff(comment.create_date);
+                  let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "일 전" : hourDiffComment != 0 ? hourDiffComment + "시간 전" : "방금 전"
                   return (
                     <Row key={idx}>
                       <Col xs={3} md={3} style={{textAlign: "center", fontWeight: "bold"}}>
                         {comment.nick_name}
                       </Col>
-                      <Col xs={7} md={7} style={{textAlign: "left"}}>
+                      <Col xs={accountInfo.email == comment.email ? 5 : 7} md={accountInfo.email == comment.email ? 5:7} style={{textAlign: "left"}}>
                         {comment.comment}
                       </Col>
-                      <Col xs={2} md={2} style={{ textAlign: "right" }}>
+                      <Col xs={2} md={2} style={{textAlign: "right", color: "gray"}}>
+                        {diffDateComment}
+                      </Col>
                         { 
                           accountInfo.email == comment.email ? 
-                          <Button
-                            size='sm'
-                            // style={{margin:"1px", padding: "3px"}}
-                            variant="outline-secondary"
-                            onClick={(e) => {
-                              let google_token = localStorage.getItem('googleAccount')
-                              axios.post("https://api.fleaman.shop/product/delete-comment", {
-                                google_token: google_token,
-                                comment_id: comment._id,
-                                link: comment.product_link
-                              }).then(function (response) {
-                                let copyData = [...comments]
-                                let filteredData = copyData.filter(x => x._id != comment._id)
-                                setComments(filteredData)
-                              }).catch(function (error) {
-                                alert('댓글 삭제에 실패하였습니다.');
-                              });
-                            }}
-                          >
-                            삭제
-                          </Button> : null
+                          <Col xs={2} md={2} style={{ textAlign: "right"}}>
+                            <Button
+                              size='sm'
+                              // style={{margin:"1px", padding: "3px"}}
+                              variant="outline-secondary"
+                              onClick={(e) => {
+                                let google_token = localStorage.getItem('googleAccount')
+                                axios.post("https://api.fleaman.shop/product/delete-comment", {
+                                  google_token: google_token,
+                                  comment_id: comment._id,
+                                  link: comment.product_link
+                                }).then(function (response) {
+                                  let copyData = [...comments]
+                                  let filteredData = copyData.filter(x => x._id != comment._id)
+                                  setComments(filteredData)
+                                }).catch(function (error) {
+                                  alert('댓글 삭제에 실패하였습니다.');
+                                });
+                              }}
+                            >
+                              삭제
+                            </Button>
+                          </Col>
+                           : null
                         }
-                      </Col>
                     </Row>
                   )
                 })

@@ -142,7 +142,16 @@ function App() {
                   )
                 })
               }
-              <Nav.Link href="/commented">댓글 달린 물건</Nav.Link>
+              <Nav.Link href="/commented">
+                <img
+                  alt=""
+                  src="/spin4.gif"
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{' '}
+                핫딜 정보
+              </Nav.Link>
 
             </Nav>
           </Navbar.Collapse>
@@ -159,7 +168,7 @@ function App() {
           </div>
           : null 
         }
-        <div className={resize > 1080 ? 'col-md-6': ''} style={{padding: "5%"}}>
+        <div className={resize > 1080 ? 'col-md-6': ''} style={{padding: "3%"}}>
           <Suspense 
             fallback={
               <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />

@@ -29,17 +29,16 @@ function CommentedProductList() {
   let [moreFlag, setMoreFlag] = useState(true)
   let [loading, setLoading] = useState(true)
   let [empty, setEmpty] = useState(false)
-  let [offset, setOffset] = useState(0)
-
+  let [viewItems, setViewItems] = useState([])
   useEffect(() => {
     setLoading(true)
     setEmpty(false)
-    let url = "https://api.fleaman.shop/product/get-product?offset="+offset+"&count=20"
+    let url = "https://api.fleaman.shop/product/hotdeal"
     axios.get(url)
       .then((result) => {
         let productData = result.data
         setTotalData(productData)
-        setOffset(offset + 20)
+        setViewItems(productData.slice(0, 10))
         if (productData.length == 0){
           setMoreFlag(false)
           setEmpty(true)
@@ -88,8 +87,8 @@ function CommentedProductList() {
         <MetaTag title="commeted" desc={"플리맨 댓글 달린 물건들"} url={"https://fleaman.shop/commented"} keywords={", 댓글, 중고물품"} />
 
         
-        <h4>댓글 달린 물건들</h4>
-        <h6>어떤 물건에 댓글이 달렸는지 확인해보세요</h6>
+        <h4>핫딜 정보</h4>
+        <h6>유용한 핫딜 정보를 확인해보세요</h6>
         <img
           alt=""
           src="/logo.png"
@@ -99,9 +98,10 @@ function CommentedProductList() {
         />{' '} FleaMan
         <Row xs={1} md={1} className="g-1">
           {
-            totalData.map((cData, idx)=>{
+            viewItems.map((cData, idx)=>{
               return(
-                <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} cate={true}/>
+                <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={true}/> 
+
               )
             })
           }
@@ -109,23 +109,11 @@ function CommentedProductList() {
 
         {
           moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
-            let url = "https://api.fleaman.shop/product/get-product?offset="+offset+"&count=20"
-            axios.get(url)
-              .then((result) => {
-                let productData = result.data
-                let copyData = [...totalData]
-                let dataCopy = [...copyData, ...productData]
-                setTotalData([...new Set(dataCopy)])
-                setOffset(offset + 20)
-                if (productData.length == 0){
-                  setMoreFlag(false)
-                }
-              })
-              .catch((error) => {
-                if (error.response.status == 500){
-                  window.location.reload();
-                }
-              })
+            let itemsLen = viewItems.length
+            setViewItems(totalData.slice(0, itemsLen + 10))
+            if (itemsLen + 10 >= totalData.length){
+              setMoreFlag(false)
+            }
             
 
           }}> More...</Button> : null

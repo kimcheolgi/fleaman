@@ -24,17 +24,19 @@ function MainContentsList() {
   }
   let [recommendItems, setRecommendItems] = useState([])
   let [viewItems, setViewItems] = useState([]);
-
+  let [offset, setOffset] = useState(0)
+  let count = 10
   useEffect(() => {
     if (localStorage.getItem('watched') == undefined) {
       localStorage.setItem('watched', JSON.stringify([]))
     }
-    let url = "https://api.fleaman.shop/product/hotdeal"
+    let url = "https://api.fleaman.shop/product/get-product?offset="+offset+"&count="+count
+
       axios.get(url)
         .then((result) => {
           let recommendData = result.data
-          setRecommendItems(recommendData)
-          setViewItems(recommendData.slice(0, 10))
+          setOffset(offset + count)
+          setViewItems(recommendData)
         })
         .catch(() => {
           console.log('데이터 로드 실패')
@@ -205,12 +207,12 @@ function MainContentsList() {
               <Card.Text>
                 <img
                   alt=""
-                  src="/spin4.gif"
+                  src="/spin3.gif"
                   width="30"
                   height="30"
                   className="d-inline-block align-top"
                 />{' '}
-                핫딜 정보
+                최근 댓글 달린 물건
               </Card.Text>  
             </Card.Header>
             <Card.Body>
@@ -219,8 +221,8 @@ function MainContentsList() {
                 viewItems.map((item, idx) => {
                   return (
                     <Row xs={1} md={1} className="mt-2">
-
-                      <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} setSearchItems={setSearchItems} reco={true}/> 
+                      <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} cate={true}/>
+                      
                     </Row>
 
                   )
@@ -231,12 +233,24 @@ function MainContentsList() {
         </Row>
       {
           moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
-            let itemsLen = viewItems.length
-            setViewItems(recommendItems.slice(0, itemsLen + 10))
-            if (itemsLen + 10 >= recommendItems.length){
-              setMoreFlag(false)
-            }            
-
+                        
+            let url = "https://api.fleaman.shop/product/get-product?offset="+offset+"&count="+count
+            axios.get(url)
+              .then((result) => {
+                let productData = result.data
+                let copyData = [...viewItems]
+                let dataCopy = [...copyData, ...productData]
+                setViewItems([...new Set(dataCopy)])
+                setOffset(offset + count)
+                if (productData.length == 0){
+                  setMoreFlag(false)
+                }
+              })
+              .catch((error) => {
+                if (error.response.status == 500){
+                  window.location.reload();
+                }
+              })
           }}> More...</Button> : null
         }
         {

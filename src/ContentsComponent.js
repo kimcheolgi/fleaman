@@ -239,7 +239,7 @@ else{
                   
                   {
                     reco ? null 
-                    : <Button variant="outline-secondary" size='sm' style={{padding: "1px", margin: "2px"}}
+                    : <Button variant="outline-secondary" size='sm' style={{padding: "1px", margin: "2px", fontSize: "0.6rem"}}
                     onClick={() => {
                      handleScrapShare([cData])
                     }}
@@ -289,7 +289,7 @@ else{
                         className="mb-1"
                         size='sm'
                         variant="outline-warning"
-                        style={{margin:"1px", padding: "3px"}}
+                        style={{margin:"1px", padding: "1px"}}
                         onClick={(e) => {
                           setOnComment(!onComment)
                         }}
@@ -303,7 +303,7 @@ else{
                         className="mb-1"
                         size='sm'
                         type="checkbox"
-                        style={{margin:"1px", padding: "3px"}}
+                        style={{margin:"1px", padding: "1px"}}
                         variant="outline-warning"
                         checked={checked}
                         value="1"
@@ -336,9 +336,9 @@ else{
                 comments.map((comment, idx) => {
                   let dateDiffComment = getDateDiff(comment.create_date);
                   let hourDiffComment = getHourDiff(comment.create_date);
-                  let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "일 전" : hourDiffComment != 0 ? hourDiffComment + "시간 전" : "방금 전"
+                  let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "d" : hourDiffComment != 0 ? hourDiffComment + "h" : "방금"
                   return (
-                    <Row key={idx}>
+                    <Row key={idx} style={{fontSize: "0.8rem"}}>
                       <Col xs={3} md={3} style={{textAlign: "center", fontWeight: "bold"}}>
                         {comment.nick_name}
                       </Col>
@@ -353,7 +353,7 @@ else{
                           <Col xs={2} md={2} style={{ textAlign: "right"}}>
                             <Button
                               size='sm'
-                              // style={{margin:"1px", padding: "3px"}}
+                              style={{fontSize: "0.2rem"}}
                               variant="outline-secondary"
                               onClick={(e) => {
                                 let google_token = localStorage.getItem('googleAccount')
@@ -370,7 +370,7 @@ else{
                                 });
                               }}
                             >
-                              삭제
+                              Del
                             </Button>
                           </Col>
                            : null

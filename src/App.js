@@ -168,7 +168,7 @@ function App() {
           </div>
           : null 
         }
-        <div className={resize > 1080 ? 'col-md-6': ''} style={{padding: "3%"}}>
+        <div className={resize > 1080 ? 'col-md-6': ''}>
           <Suspense 
             fallback={
               <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />

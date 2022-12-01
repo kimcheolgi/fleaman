@@ -220,7 +220,7 @@ function MainContentsList() {
               {
                 viewItems.map((item, idx) => {
                   return (
-                    <Row xs={1} md={1} className="mt-2">
+                    <Row className="mt-2">
                       <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} cate={true}/>
                       
                     </Row>

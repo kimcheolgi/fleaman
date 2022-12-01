@@ -77,6 +77,23 @@ function App() {
       },
     ]
   );
+
+  useEffect(()=>{
+    let ins = document.createElement('ins');
+    let scr = document.createElement('script');
+    ins.className = 'kakao_ad_area';
+    ins.style = "display:none;";
+    scr.async = 'true';
+    scr.type = "text/javascript";
+    scr.src = "//t1.daumcdn.net/kas/static/ba.min.js";
+    ins.setAttribute('data-ad-width','300');
+    ins.setAttribute('data-ad-height','250');
+    ins.setAttribute('data-ad-unit','DAN-SW7c6hDuKSq24TvA');
+    document.querySelector('.adfit').appendChild(ins);
+    document.querySelector('.adfit').appendChild(scr);
+
+  }, [])
+
   return (
     <div className="App">
       
@@ -136,8 +153,11 @@ function App() {
       </Navbar>
       <div className='row'>
         {
-          resize > 1080 ? <div className="col-md-3 col-sm-0">
-          </div> : null 
+          resize > 1080 ?
+          <div className="col-md-3 col-sm-0">
+            {/* <div className="adfit adfit_left"></div> */}
+          </div>
+          : null 
         }
         <div className={resize > 1080 ? 'col-md-6': ''} style={{padding: "5%"}}>
           <Suspense 
@@ -175,9 +195,11 @@ function App() {
         {
           resize > 1080 ? 
           <div className="col-md-3 col-sm-0">
+            <div className="adfit adfit_right"></div>
             <TopButton></TopButton>
           </div> 
-          : null 
+          : 
+          <div className="adfit"></div>
         }      
         </div>
     </div>

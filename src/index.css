@@ -20,6 +20,21 @@ code {
   z-index: 1;
 }
 
+.adfit_right{
+  position: fixed;
+  right: 5%;
+  bottom: 40%;
+  z-index: 1;
+}
+
+
+.adfit_left{
+  position: fixed;
+  left: 5%;
+  bottom: 40%;
+  z-index: 1;
+}
+
 
 .iframe__container{
   position: fixed;

@@ -34,7 +34,7 @@ function MainContentsList() {
         .then((result) => {
           let recommendData = result.data
           setRecommendItems(recommendData)
-          setViewItems(recommendData.slice(0, 20))
+          setViewItems(recommendData.slice(0, 10))
         })
         .catch(() => {
           console.log('데이터 로드 실패')
@@ -65,7 +65,7 @@ function MainContentsList() {
         .then((result) => {
           let searchData = result.data
           setSearchItems(searchData)
-          setViewItems(searchData.slice(0, 20))
+          setViewItems(searchData.slice(0, 10))
           setIsError(false)
         })
         .catch(() => {
@@ -232,8 +232,8 @@ function MainContentsList() {
       {
           moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
             let itemsLen = viewItems.length
-            setViewItems(recommendItems.slice(0, itemsLen + 20))
-            if (itemsLen + 20 >= recommendItems.length){
+            setViewItems(recommendItems.slice(0, itemsLen + 10))
+            if (itemsLen + 10 >= recommendItems.length){
               setMoreFlag(false)
             }            
 
@@ -263,8 +263,8 @@ function MainContentsList() {
         {
           moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
             let itemsLen = viewItems.length
-            setViewItems(searchItems.slice(0, itemsLen + 20))
-            if (itemsLen + 20 >= searchItems.length){
+            setViewItems(searchItems.slice(0, itemsLen + 10))
+            if (itemsLen + 10 >= searchItems.length){
               setMoreFlag(false)
             }            
 
@@ -274,6 +274,7 @@ function MainContentsList() {
           resize <= 1080 ? 
           <TopButton></TopButton> : null
         }
+        
       </div>
     )
   }

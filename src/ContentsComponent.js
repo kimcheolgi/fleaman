@@ -32,6 +32,25 @@ const getHourDiff = (d) => {
   return Math.floor(diffDate / (1000 * 60 * 60));
 }
 
+const getDateDiffComment = (d) => {
+  const date1 = new Date();
+  const date2 = new Date(d);
+  
+  const diffDate = date1.getTime() - date2.getTime();
+  
+  return Math.floor((diffDate - (9 * 60 * 60 * 1000)) / (1000 * 60 * 60 * 24));
+}
+
+
+const getHourDiffComment = (d) => {
+  const date1 = new Date();
+  const date2 = new Date(d);
+  
+  const diffDate = date1.getTime() - date2.getTime();
+
+  return Math.floor((diffDate  - (9 * 60 * 60 * 1000)) / (1000 * 60 * 60));
+}
+
 
 function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
   let [accountFlag, setAccountFlag] = useState(false);
@@ -334,8 +353,9 @@ else{
               
               onComment ? 
                 comments.map((comment, idx) => {
-                  let dateDiffComment = getDateDiff(comment.create_date);
-                  let hourDiffComment = getHourDiff(comment.create_date);
+                  console.log(comment)
+                  let dateDiffComment = getDateDiffComment(comment.create_date);
+                  let hourDiffComment = getHourDiffComment(comment.create_date);
                   let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "d" : hourDiffComment != 0 ? hourDiffComment + "h" : "방금"
                   return (
                     <Row key={idx} style={{fontSize: "0.8rem"}}>

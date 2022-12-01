@@ -271,7 +271,7 @@ function MainContentsList() {
           }}> More...</Button> : null
         }
         {
-          resize < 1080 ? 
+          resize <= 1080 ? 
           <TopButton></TopButton> : null
         }
       </div>

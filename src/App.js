@@ -136,10 +136,10 @@ function App() {
       </Navbar>
       <div className='row'>
         {
-          resize > 1080 ? <div className="col-md-4 col-sm-0">
+          resize > 1080 ? <div className="col-md-3 col-sm-0">
           </div> : null 
         }
-        <div className={resize > 1080 ? 'col-md-4': ''}>
+        <div className={resize > 1080 ? 'col-md-6': ''} style={{padding: "5%"}}>
           <Suspense 
             fallback={
               <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
@@ -174,7 +174,7 @@ function App() {
         </div>
         {
           resize > 1080 ? 
-          <div className="col-md-4 col-sm-0">
+          <div className="col-md-3 col-sm-0">
             <TopButton></TopButton>
           </div> 
           : null 

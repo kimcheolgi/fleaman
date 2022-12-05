@@ -30,11 +30,27 @@ function MainContentsList() {
     if (localStorage.getItem('watched') == undefined) {
       localStorage.setItem('watched', JSON.stringify([]))
     }
+    let watchedItems = JSON.parse(localStorage.getItem('watched'))
+    let itemLink = []
+    if (watchedItems != undefined){
+      itemLink = watchedItems.map((data, idx)=>{
+        return data.link
+      })
+    }
+    
     let url = "https://api.fleaman.shop/product/get-product?offset="+offset+"&count="+count
 
       axios.get(url)
         .then((result) => {
           let recommendData = result.data
+          recommendData.map((reData, idx) => {
+            if (itemLink.includes(String(reData.link)) != []) {
+              reData.check = true
+            }
+            else{
+              reData.check = false
+            }
+          })
           setOffset(offset + count)
           setViewItems(recommendData)
         })
@@ -190,7 +206,8 @@ function MainContentsList() {
               searchItems.map((cData, idx)=>{
 
                 return(
-                  <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems}/> 
+                  <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} real={true}/> 
+
                 )
               })
             }
@@ -221,10 +238,8 @@ function MainContentsList() {
                 viewItems.map((item, idx) => {
                   return (
                     <Row className="mt-2">
-                      <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} cate={true}/>
-                      
+                      <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true}/>
                     </Row>
-
                   )
                 })
               }

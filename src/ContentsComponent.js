@@ -52,7 +52,7 @@ const getHourDiffComment = (d) => {
 }
 
 
-function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
+function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, real }){
   let [accountFlag, setAccountFlag] = useState(false);
   let [accountInfo, setAccountInfo] = useState([]);
   let [checked, setChecked] = useState(false);
@@ -95,7 +95,6 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
   }, [])
   
   useEffect(() => {
-
     let watchedItems = JSON.parse(localStorage.getItem('watched'))
     let itemLink = []
     if (watchedItems != undefined){
@@ -124,6 +123,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
 
     if (scrap){
       setSearchItems(JSON.parse(localStorage.getItem('watched')))
+      // setViewItems(viewItems)
     }
 
     if (watchedItems != undefined){
@@ -131,13 +131,12 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
         return data.link
       })
     }
-    if (itemLink.includes(String(cData.link)) != [] && scrap) {
-      console.log('aa')
-      setChecked(true)
-    }
+    // if (itemLink.includes(String(cData.link)) != [] && scrap) {
+    //   console.log('aa')
+    //   setChecked(true)
+    // }
   }, [checked])
   
-
 
   let [linkHash, setLinkHash] = useState("")
   const handleScrapShare = async (productData) => {
@@ -189,59 +188,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
 
   
   let imgUrl = cData.img_url
-  if (scrap){
-    return (
-      <Col className='mt-2'>
-        <Card style={{padding: "5px", textAlign: "left"}}>
-          <Row>
-            <Col>
-              <Row>
-                <Col xs={8} md={8}>
-                  <Badge bg='light' text="dark">{cData.source}</Badge>
-                  <ColoredBadge state={cData.state} />
-                </Col>
-                <Col xs={4} md={4} style={{textAlign: "right"}}>
-                  <small className="text-muted">{diffDate}</small>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={8} md={8}>
-                  <a style={{color: "black"}} target="_blank" href={cData.link}>
-                    <Card.Title>
-                      {data_name}
-                    </Card.Title>
-                  </a>
-                </Col>
-                <Col xs={4} md={4} style={{textAlign: "right"}}>
-                  <Row>
-                    <Card.Text>{new_price}원 </Card.Text>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Button
-                        size='sm'
-                        type="checkbox"
-                        variant="outline-warning"
-                        checked={checked}
-                        value="1"
-                        onClick={(e) => {
-                          setChecked(!e.currentTarget.checked)
-                        }}
-                      >
-                        {checked ? "★" : "☆"}
-                      </Button>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-              
-            </Col>
-          </Row>
-        </Card>
-    </Col>
-  )
-}
-else{
+  
   return(
     <Col>
         <Card style={{padding: "10px", textAlign: "left"}}>
@@ -331,6 +278,9 @@ else{
                         data-tip
                         onClick={(e) => {
                           setChecked(!e.currentTarget.checked)
+                          if (real){
+                            window.location.reload();
+                          }
                         }}
                       >
                         {checked ? "★" : "☆"}
@@ -451,7 +401,6 @@ else{
     </Col>
     )
   }
-}
 
 function ColoredBadge({state}) {
   if (state == '판매완료'){

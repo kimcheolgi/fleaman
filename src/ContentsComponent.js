@@ -205,6 +205,9 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                   {
                     !hotdeal ? <ColoredBadge state={cData.state}/> : <Badge bg='light' text="dark">{cData.source2}</Badge>
                   }
+                  {
+                    hotdeal ? <Badge bg='danger'> 핫딜 </Badge> : <Badge bg='light' text="dark">{cData.source2}</Badge>
+                  }
                   
                   <Button variant="outline-secondary" size='sm' style={{padding: "1px", margin: "2px", fontSize: "0.6rem"}}
                     onClick={() => {

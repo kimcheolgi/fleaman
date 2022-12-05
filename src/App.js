@@ -16,6 +16,7 @@ import ContentsList from './page/ContentsList';
 import Login from './page/Login';
 import ScrapShare from './page/ScrapShare';
 import ProductShare from './page/ProductShare';
+import Tables from './page/Community';
 
 import "./App.css";
 import CommentedProductList from './page/CommentProductList';
@@ -78,21 +79,21 @@ function App() {
     ]
   );
 
-  useEffect(()=>{
-    let ins = document.createElement('ins');
-    let scr = document.createElement('script');
-    ins.className = 'kakao_ad_area';
-    ins.style = "display:none;";
-    scr.async = 'true';
-    scr.type = "text/javascript";
-    scr.src = "//t1.daumcdn.net/kas/static/ba.min.js";
-    ins.setAttribute('data-ad-width','300');
-    ins.setAttribute('data-ad-height','250');
-    ins.setAttribute('data-ad-unit','DAN-SW7c6hDuKSq24TvA');
-    document.querySelector('.adfit').appendChild(ins);
-    document.querySelector('.adfit').appendChild(scr);
+  // useEffect(()=>{
+  //   let ins = document.createElement('ins');
+  //   let scr = document.createElement('script');
+  //   ins.className = 'kakao_ad_area';
+  //   ins.style = "display:none;";
+  //   scr.async = 'true';
+  //   scr.type = "text/javascript";
+  //   scr.src = "//t1.daumcdn.net/kas/static/ba.min.js";
+  //   ins.setAttribute('data-ad-width','300');
+  //   ins.setAttribute('data-ad-height','250');
+  //   ins.setAttribute('data-ad-unit','DAN-SW7c6hDuKSq24TvA');
+  //   document.querySelector('.adfit').appendChild(ins);
+  //   document.querySelector('.adfit').appendChild(scr);
 
-  }, [])
+  // }, [])
 
   return (
     <div className="App">
@@ -152,7 +153,9 @@ function App() {
                 />{' '}
                 핫딜 정보
               </Nav.Link>
-
+              {/* <Nav.Link href="/community/1">
+                플리 게시판
+              </Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">
@@ -197,6 +200,9 @@ function App() {
               <Route path='/login' element={
                   <Login />
                 } />
+              <Route path='/community/:page' element={
+                  <Tables />
+                } />
 
             </Routes>
           </Suspense>
@@ -204,11 +210,12 @@ function App() {
         {
           resize > 1080 ? 
           <div className="col-md-3 col-sm-0">
-            <div className="adfit adfit_right"></div>
+            {/* <div className="adfit adfit_right"></div> */}
             <TopButton></TopButton>
           </div> 
           : 
-          <div className="adfit"></div>
+          // <div className="adfit"></div>
+          null
         }      
         </div>
     </div>

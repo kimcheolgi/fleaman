@@ -58,3 +58,16 @@ code {
 #top:hover{
   color :rgb(0, 0, 0);
 }
+
+
+.paging {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.right_button {
+  display: flex;
+  justify-content: right;
+}

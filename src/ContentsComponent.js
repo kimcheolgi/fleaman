@@ -81,7 +81,8 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
 
   let [comments, setComments] = useState([]);
   useEffect(() => {
-    let url = "https://api.fleaman.shop/product/get-comment?product_link=" + cData.link
+    let productLink = cData.link.replaceAll("/", "%2F").replaceAll('?', '%3F').replaceAll(":", "%3A").replaceAll("=", "%3D").replaceAll("&", "%26")
+    let url = "https://api.fleaman.shop/product/get-comment?product_link=" + productLink
     console.log(url)
     axios.get(url)
       .then((result) => {
@@ -172,7 +173,9 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate}){
   let data_name = cData.title
   let new_price = 0
 
-  if (!reco) {
+  let hotdeal = !cData.hasOwnProperty("source")
+
+  if (!hotdeal) {
     let price = cData.price;
     new_price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
@@ -251,21 +254,19 @@ else{
               <Row>
                 <Col xs={8} md={8}>
                   
-                  <Badge bg='light' text="dark">{reco ? cData.source1 : cData.source}</Badge>
+                  <Badge bg='light' text="dark">{hotdeal ? cData.source1 : cData.source}</Badge>
                   {
-                    !reco ? <ColoredBadge state={cData.state}/> : <Badge bg='light' text="dark">{cData.source2}</Badge>
+                    !hotdeal ? <ColoredBadge state={cData.state}/> : <Badge bg='light' text="dark">{cData.source2}</Badge>
                   }
                   
-                  {
-                    reco ? null 
-                    : <Button variant="outline-secondary" size='sm' style={{padding: "1px", margin: "2px", fontSize: "0.6rem"}}
+                  <Button variant="outline-secondary" size='sm' style={{padding: "1px", margin: "2px", fontSize: "0.6rem"}}
                     onClick={() => {
                      handleScrapShare([cData])
                     }}
                    >
-                     공유 링크
-                   </Button>
-                  }
+                    공유 링크
+                  </Button>
+                  
                   
                 </Col>
                 <Col xs={4} md={4} style={{textAlign: "right"}}>
@@ -283,11 +284,11 @@ else{
               </Row>
               <Row>
                 <Col xs={9} md={9}>
-                  {reco ? null : <Card.Text>{new_price}원 </Card.Text>}
+                  {hotdeal ? null : <Card.Text>{new_price}원 </Card.Text>}
                 </Col>
               </Row>
               {
-                reco ? <Row>
+                hotdeal ? <Row>
                   <Col xs={9} md={9} >
                   <small className="text-muted">
                     <Card.Text>

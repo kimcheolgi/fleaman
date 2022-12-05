@@ -20,6 +20,7 @@ import Tables from './page/Community';
 
 import "./App.css";
 import CommentedProductList from './page/CommentProductList';
+import { Badge } from 'react-bootstrap';
 
 // const ContentsList = lazy(() => import('./page/ContentsList'))
 // const Login = lazy(() => import('./page/Login'))
@@ -144,13 +145,8 @@ function App() {
                 })
               }
               <Nav.Link href="/commented">
-                <img
-                  alt=""
-                  src="/spin4.gif"
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                />{' '}
+                
+                <Badge bg='danger' size="sm">hot</Badge>
                 핫딜 정보
               </Nav.Link>
               {/* <Nav.Link href="/community/1">

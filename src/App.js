@@ -144,7 +144,7 @@ function App() {
                   )
                 })
               }
-              <Nav.Link href="/commented">
+              <Nav.Link href="/hotdeal">
                 
                 <Badge bg='danger' size="sm">hot</Badge>
                 핫딜 정보
@@ -190,7 +190,7 @@ function App() {
               <Route path='/share/product/:hash' element={
                   <ProductShare />
                 } />
-              <Route path='/commented' element={
+              <Route path='/hotdeal' element={
                   <CommentedProductList />
                 } />
               <Route path='/login' element={

@@ -67,6 +67,11 @@ code {
 }
 
 
+.share {
+  position: absolute;
+  right: 1%;
+}
+
 .right_button {
   display: flex;
   justify-content: right;

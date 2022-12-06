@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Row } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
-
+import FleamanTip from './Carousel';
 
 function SearchInput({main}) {
   const navigate = useNavigate();
@@ -44,13 +44,12 @@ function SearchInput({main}) {
 
   return (
     <div>
-      <img
-          alt=""
-          src="/logo.png"
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
-        />{' '} FleaMan
+      {
+        main ? 
+        <FleamanTip />
+        :
+        null
+      }
       <div>
       <InputGroup className="mb-3 mt-1">
         <Form.Control
@@ -105,9 +104,10 @@ function SearchInput({main}) {
             <Card.Header>
               <Card.Text>
                 <Row>
-                  <Col md={8}>최근 검색</Col>
-                  <Col md={4} style={{textAlign: "right"}}>
+                  <Col>최근 검색
+                  
                     <Button 
+                      className='share'
                       variant="secondary" 
                       style={{padding: "2px"}}
                       onMouseDown={() => {

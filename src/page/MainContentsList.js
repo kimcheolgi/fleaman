@@ -178,18 +178,17 @@ function MainContentsList() {
                 스크랩
               </Card.Text> */}
               <Row>
-                  <Col md={8}>
+                  <Col >
                     <img
                     alt=""
                     src="/logo.png"
                     width="30"
                     height="30"
-                    className="d-inline-block align-top"
+                    className="d-inline-block"
                   />{' '}
                     스크랩
-                  </Col>
-                  <Col md={4} style={{textAlign: "right"}}>
                     <Button 
+                      className="share"
                       variant="secondary" 
                       style={{padding: "2px"}}
                       onClick={() => {
@@ -202,6 +201,24 @@ function MainContentsList() {
                 </Row>
             </Card.Header>
             <Card.Body>
+            {
+              searchItems.length == 0 ? 
+                <Card style={{textAlign: "center", margin: "2%"}}>
+                  <Col>
+                    <img
+                      alt=""
+                      src="/spin4.gif"
+                      width="30"
+                      height="30"
+                      className="d-inline-block align-top"
+                    />
+                    "
+                    <Button variant="outline-warning" style={{margin: "2px", padding: "2px"}}>☆</Button>
+                      버튼을 누르면 스크랩이 가능합니다."
+                  </Col>
+                </Card>
+              : null
+            }
             {
               searchItems.map((cData, idx)=>{
 

@@ -89,13 +89,7 @@ function CommentedProductList() {
         
         <h4>핫딜 정보</h4>
         <h6>유용한 핫딜 정보를 확인해보세요</h6>
-        <img
-          alt=""
-          src="/logo.png"
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
-        />{' '} FleaMan
+        
         <Row xs={1} md={1} className="g-1">
           {
             viewItems.map((cData, idx)=>{

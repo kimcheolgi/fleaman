@@ -9,6 +9,7 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { Card } from 'react-bootstrap';
 
 function Login() {
   let cred = localStorage.getItem('googleAccount')
@@ -54,12 +55,25 @@ function Login() {
         <MetaTag title="Login" desc="플리맨 로그인 FleaMan Login" url="https://fleaman.shop/login" keywords=", Login" />
         <h3>Login</h3>
         <h6>로그인하시고 플리맨 커뮤니티에 동참해보세요!</h6>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}><GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" /></div>
-
+        <Card 
+          bg="light"
+          style={{margin: "5%", padding: "5%"}}>
+          <Card.Text>
+            <img
+              alt=""
+              src="/spin1.gif"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />
+            <small> 구글 로그인 한번으로 회원가입이 가능합니다</small>
+          </Card.Text>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}><GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" /></div>
+        </Card>
       </div>
     );
   }

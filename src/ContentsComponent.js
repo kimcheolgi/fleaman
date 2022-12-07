@@ -389,6 +389,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                     onChange={(e)=>{ 
                       setInputValue(e.target.value)
                     }}
+                    value={inputValue}
                   />
                   <Button variant="outline-secondary" id="button-addon" size='sm'
                     onClick={() => {
@@ -409,6 +410,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                       }).catch(function (error) {
                         alert('댓글 달기에 실패하였습니다.');
                       });
+                      setInputValue("")
                     }}
                   >
                     작성

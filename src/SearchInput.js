@@ -10,8 +10,12 @@ import { Row } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import FleamanTip from './Carousel';
+import { useDispatch, useSelector } from "react-redux"
+import styled from 'styled-components'
+
 
 function SearchInput({main}) {
+  let a = useSelector((state) => state.bg )
   const navigate = useNavigate();
   let [inputValue, setInputValue] = useState('');
   let [searchKeyword, setSearchKeyword] = useState('_');
@@ -53,6 +57,11 @@ function SearchInput({main}) {
       <div>
       <InputGroup className="mb-3 mt-1">
         <Form.Control
+          style={{
+            backgroundColor: a == "light" ? null : "#212529", 
+            border: a == "light" ? null : "1px solid #6c757d",
+            color: a == "light" ? "black" : "white"
+          }}
           placeholder={main ? "중고물품 통합검색" : "카테고리 안에서 검색"}
           aria-label={main ? "중고물품 통합검색" : "카테고리 안에서 검색"}
           aria-describedby="basic-addon2"
@@ -97,9 +106,11 @@ function SearchInput({main}) {
           <Row xs={1} md={1} className="g-1">      
 
           <Card
-            // border="warning" 
+            border={a == "light" ? null : "secondary"}
             className="mb-2"
             style={{textAlign: "left"}}
+            bg={a == "light" ? null : "dark"}
+            text={a == "light" ? "dark" : "light" }
           >
             <Card.Header>
               <Card.Text>
@@ -108,7 +119,7 @@ function SearchInput({main}) {
                   
                     <Button 
                       className='share'
-                      variant="secondary" 
+                      variant="outline-secondary" 
                       style={{padding: "2px"}}
                       onMouseDown={() => {
                         localStorage.setItem('searched', JSON.stringify([]))
@@ -124,8 +135,11 @@ function SearchInput({main}) {
             {searchedKeyword.map((item, i) => {
               return(
                   <Button
-                    style={{padding: '5px', margin: '5px'}}
-                    variant="light"
+                    style={{
+                      padding: '5px', 
+                      margin: '5px',
+                    }}
+                    variant={a == "light" ? "light" : "secondary"}
                     key={i}
                     onMouseDown={() => {
                       navigate({

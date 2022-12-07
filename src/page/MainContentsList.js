@@ -12,11 +12,15 @@ import MetaTag from "../SEOMetaTag.js";
 import Button from 'react-bootstrap/Button';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { useDispatch, useSelector } from "react-redux"
+import styled from 'styled-components'
+import { Badge } from "react-bootstrap";
 
 
 
 
 function MainContentsList() {
+  let a = useSelector((state) => state.bg )
   const location = useLocation()
   let searchKeyword = location.search.split("query=")[1]
   if (searchKeyword == "" || searchKeyword == undefined){
@@ -162,9 +166,11 @@ function MainContentsList() {
       <div>
         <Row xs={1} md={1} className="g-1">      
           <Card
-            // border="warning" 
+            border={a == "light" ? null : "secondary"}
             className="mb-2"
             style={{textAlign: "left"}}
+            bg={a == "light" ? null : "dark"}
+            text={a == "light" ? "dark" : "light" }
           >
             <Card.Header>
               {/* <Card.Text>
@@ -179,17 +185,10 @@ function MainContentsList() {
               </Card.Text> */}
               <Row>
                   <Col >
-                    <img
-                    alt=""
-                    src="/logo.png"
-                    width="30"
-                    height="30"
-                    className="d-inline-block"
-                  />{' '}
                     스크랩
                     <Button 
                       className="share"
-                      variant="secondary" 
+                      variant="outline-secondary" 
                       style={{padding: "2px"}}
                       onClick={() => {
                         handleScrapShare()
@@ -203,7 +202,11 @@ function MainContentsList() {
             <Card.Body>
             {
               searchItems.length == 0 ? 
-                <Card style={{textAlign: "center", margin: "2%"}}>
+                <Card 
+                  style={{textAlign: "center", margin: "2%"}}
+                  bg={a == "light" ? null : "secondary"}
+                  text="dark"
+                  >
                   <Col>
                     <img
                       alt=""
@@ -233,19 +236,15 @@ function MainContentsList() {
         </Row>
         <Row xs={1} md={1} className="g-1">      
           <Card
-            // border="warning" 
+            border={a == "light" ? null : "secondary"}
             className="mb-2"
             style={{textAlign: "left"}}
+            bg={a == "light" ? null : "dark"}
+            text={a == "light" ? "dark" : "light" }
           >
             <Card.Header>
               <Card.Text>
-                <img
-                  alt=""
-                  src="/spin3.gif"
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                />{' '}
+                <Badge bg="warning" style={{margin: "2px"}}> New</Badge>
                 최근 댓글 달린 물건
               </Card.Text>  
             </Card.Header>

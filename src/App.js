@@ -17,6 +17,8 @@ import Login from './page/Login';
 import ScrapShare from './page/ScrapShare';
 import ProductShare from './page/ProductShare';
 import Tables from './page/Community';
+import { useDispatch, useSelector } from "react-redux"
+import { changeBg } from "./store.js"
 
 import "./App.css";
 import CommentedProductList from './page/CommentProductList';
@@ -27,6 +29,7 @@ import { Badge } from 'react-bootstrap';
 
 
 function App() {
+  let dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem('watched') == undefined) {
       localStorage.setItem('watched', JSON.stringify([]))
@@ -34,8 +37,12 @@ function App() {
     if (localStorage.getItem('searched') == undefined) {
       localStorage.setItem('searched', JSON.stringify([]))
     }
+    if (localStorage.getItem('mode') == undefined) {
+      localStorage.setItem('mode', "light")
+    }
   }, [])
   const [resize, setResize] = useState(window.innerWidth);
+  let a = useSelector((state) => state.bg )
 
   const handleResize = () => {
     setResize(window.innerWidth);
@@ -97,122 +104,135 @@ function App() {
   // }, [])
 
   return (
-    <div className="App">
-      
-      <MetaTag title="플리맨" desc="중고물품 통합 검색 플랫폼 플리맨 FleaMan" url="https://fleaman.shop/" keywords=""/>
-      <Navbar bg="light" expand="lg">
-        <Container>
-          <Navbar.Brand href="/">
-            <img
-              alt=""
-              src="/logo.png"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '}
-            <img
-              alt=""
-              src="/black_bg.jpeg"
-              style={{backgroundColor: 'black'}}
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '}
-            <img
-              alt=""
-              src="/logo.png"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '}
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              {
-                items.map((d, i)=>{
-                  return(
-                    <NavDropdown key={d.category} title={d.category} id="basic-nav-dropdown">
-                      {
-                        d.contents.map((content, idx)=>{
-                          return (
-                            <NavDropdown.Item key={content} onClick={()=>{ navigate('/list/'+d.category+'/'+content)}}>{content}</NavDropdown.Item>
-                          )
-                        })
-                      }
-                    </NavDropdown>
-                  )
-                })
-              }
-              <Nav.Link href="/hotdeal">
-                
-                <Badge bg='danger' size="sm">hot</Badge>
-                핫딜 정보
-              </Nav.Link>
-              {/* <Nav.Link href="/community/1">
-                플리 게시판
-              </Nav.Link> */}
-            </Nav>
-          </Navbar.Collapse>
-          <Navbar.Collapse className="justify-content-end">
-            <LoginButton/>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      <div className='row'>
-        {
-          resize > 1080 ?
-          <div className="col-md-3 col-sm-0">
-            {/* <div className="adfit adfit_left"></div> */}
-          </div>
-          : null 
-        }
-        <div className={resize > 1080 ? 'col-md-6': ''}>
-          <Suspense 
-            fallback={
-              <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
-            }>
-            <Routes>
-              <Route path='/' element={
-                <div>
-                  <div style={{margin: "10px"}}>
-                    <SearchInput main={true}></SearchInput>
-                  </div>
-                </div>
+    <div className={"App"}>
+      <div className={a +"_back"}>
+        <MetaTag title="플리맨" desc="중고물품 통합 검색 플랫폼 플리맨 FleaMan" url="https://fleaman.shop/" keywords=""/>
+        <Navbar bg={a} variant={a} expand="lg">
+          <Container>
+            <Navbar.Brand href="/">
+              <img
+                alt=""
+                src="/logo.png"
+                style={{backgroundColor: 'white'}}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />{' '}
+              <img
+                alt=""
+                src="/black_bg.jpeg"
+                style={{backgroundColor: 'black'}}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />{' '}
+              <img
+                alt=""
+                src="/logo.png"
+                style={{backgroundColor: 'white'}}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />{' '}
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                {
+                  items.map((d, i)=>{
+                    return(
+                      <NavDropdown key={d.category} title={d.category} id="basic-nav-dropdown">
+                        {
+                          d.contents.map((content, idx)=>{
+                            return (
+                              <NavDropdown.Item key={content} onClick={()=>{ navigate('/list/'+d.category+'/'+content)}}>{content}</NavDropdown.Item>
+                            )
+                          })
+                        }
+                      </NavDropdown>
+                    )
+                  })
+                }
+                <Nav.Link href="/hotdeal">
+                  
+                  <Badge bg='danger' size="sm">hot</Badge>
+                  핫딜 정보
+                </Nav.Link>
+                {/* <Nav.Link href="/community/1">
+                  플리 게시판
+                </Nav.Link> */}
+              </Nav>
+            </Navbar.Collapse>
+            <Navbar.Collapse className="justify-content-end">
+              <Button
+                variant={a == "light" ? "dark" : "light"}
+                onClick={() => {
+                  console.log('test')
+                  let changeColor = a == "light" ? "dark" : "light"
+                  dispatch(changeBg(changeColor))
+                  localStorage.setItem("mode", changeColor)
+                }}  
+              >
+                  {a == "light" ? "Dark" : "Light"}</Button>
+              <LoginButton/>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+        <div className='row'>
+          {
+            resize > 1080 ?
+            <div className="col-md-3 col-sm-0">
+              {/* <div className="adfit adfit_left"></div> */}
+            </div>
+            : null 
+          }
+          <div className={resize > 1080 ? 'col-md-6': ''}>
+            <Suspense 
+              fallback={
+                <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
               }>
-              </Route>
-              <Route path='/list/:categoryName/:itemName' element={
-                  <ContentsList />
-                } />
-              <Route path='/share/scrap/:hash' element={
-                  <ScrapShare />
-                } />
-              <Route path='/share/product/:hash' element={
-                  <ProductShare />
-                } />
-              <Route path='/hotdeal' element={
-                  <CommentedProductList />
-                } />
-              <Route path='/login' element={
-                  <Login />
-                } />
-              <Route path='/community/:page' element={
-                  <Tables />
-                } />
+              <Routes>
+                <Route path='/' element={
+                  <div>
+                    <div style={{margin: "10px"}}>
+                      <SearchInput main={true}></SearchInput>
+                    </div>
+                  </div>
+                }>
+                </Route>
+                <Route path='/list/:categoryName/:itemName' element={
+                    <ContentsList />
+                  } />
+                <Route path='/share/scrap/:hash' element={
+                    <ScrapShare />
+                  } />
+                <Route path='/share/product/:hash' element={
+                    <ProductShare />
+                  } />
+                <Route path='/hotdeal' element={
+                    <CommentedProductList />
+                  } />
+                <Route path='/login' element={
+                    <Login />
+                  } />
+                <Route path='/community/:page' element={
+                    <Tables />
+                  } />
 
-            </Routes>
-          </Suspense>
-        </div>
-        {
-          resize > 1080 ? 
-          <div className="col-md-3 col-sm-0">
-            {/* <div className="adfit adfit_right"></div> */}
-            <TopButton></TopButton>
-          </div> 
-          : 
-          // <div className="adfit"></div>
-          null
-        }      
+              </Routes>
+            </Suspense>
+          </div>
+          {
+            resize > 1080 ? 
+            <div className="col-md-3 col-sm-0">
+              {/* <div className="adfit adfit_right"></div> */}
+              <TopButton></TopButton>
+            </div> 
+            : 
+            // <div className="adfit"></div>
+            null
+          }      
+          </div>
         </div>
     </div>
   );

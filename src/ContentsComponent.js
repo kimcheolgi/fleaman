@@ -11,6 +11,8 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import ReactTooltip from "react-tooltip";
+import { useDispatch, useSelector } from "react-redux"
+import styled from 'styled-components'
 
 
 const getDateDiff = (d) => {
@@ -53,6 +55,8 @@ const getHourDiffComment = (d) => {
 
 
 function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, real }){
+  let a = useSelector((state) => state.bg )
+
   let [accountFlag, setAccountFlag] = useState(false);
   let [accountInfo, setAccountInfo] = useState([]);
   let [checked, setChecked] = useState(false);
@@ -191,11 +195,16 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
   
   return(
     <Col>
-        <Card style={{padding: "10px", textAlign: "left"}}>
+        <Card 
+          style={{padding: "10px", textAlign: "left"}}
+          border={a == "light" ? null : "secondary"}
+          bg={a == "light" ? null : "dark"}
+          text={a == "light" ? "dark" : "light" }
+          >
 
           <Row>
             <Col xs={3} md={3}>
-              <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl} height="100"/>
+              <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl} height="100" style={{backgroundColor: "white"}}/>
             </Col>
             <Col xs={9} md={9}>
               <Row>
@@ -225,7 +234,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
               </Row>
               <Row className="mt-2">
                 <Col>
-                  <a style={{color: "black"}} target="_blank" href={cData.link}>
+                  <a style={{color: a == "light" ? "black" : "white"}} target="_blank" href={cData.link}>
                     <Card.Title>
                       {data_name}
                     </Card.Title>
@@ -302,7 +311,13 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
             comments.length != 0 && onComment?
 
           
-          <Card body={false} border={onComment ? "#dee2e6": "light" } style={{padding: "5px"}}>
+          <Card 
+            body={false} 
+            border={!onComment ? "light" : a == "dark" ? "light" : null } 
+            style={{padding: "5px"}}
+            bg={a == "light" ? null : "dark"}
+            text={a == "light" ? "dark" : "light" }
+          >
             {
               
               onComment ? 
@@ -366,6 +381,11 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                     placeholder="의견 작성하기(50자 미만)"
                     aria-label="comment"
                     aria-describedby="basic-addon"
+                    style={{
+                      backgroundColor: a == "light" ? null : "#212529", 
+                      border: a == "light" ? null : "1px solid #6c757d",
+                      color: a == "light" ? "black" : "white"
+                    }}
                     onChange={(e)=>{ 
                       setInputValue(e.target.value)
                     }}

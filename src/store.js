@@ -1,12 +1,18 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-let initState = createSlice({
-  name: 'init',
-  initialState: ['hello world']
+let bg = createSlice({
+  name: 'bg',
+  initialState: localStorage.getItem('mode') != undefined ? localStorage.getItem('mode') : 'light',
+  reducers : {
+    changeBg(state, a){
+      console.log(state, a)
+      return a.payload
+    }
+  }
 })
-
+export let { changeBg } = bg.actions 
 export default configureStore({
   reducer: {
-    init: initState.reducer
+    bg: bg.reducer
   }
 })

@@ -7,8 +7,11 @@ import ContentsComponent from "../ContentsComponent";
 import Loader from "../Loader.js";
 import TopButton from "../TopButton";
 import Table from 'react-bootstrap/Table';
+import { useDispatch, useSelector } from "react-redux"
 
 function TestContentsList() {
+  let a = useSelector((state) => state.bg )
+
   const location = useLocation()
   let searchKeyword = location.search.split("query=")[1]
   console.log(searchKeyword)
@@ -102,34 +105,9 @@ function TestContentsList() {
     return(
       <div>
         <Row xs={1} md={1} className="g-1">
-          <Table striped bordered className="mb-3">
-            {/* <thead>
-              <tr>
-                <th colSpan={3}>
-                  <img
-                    alt=""
-                    src="/logo.png"
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-top"
-                  />{' '}
-                  평균 가격
-                  <img
-                    alt=""
-                    src="/logo.png"
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-top"
-                  />{' '}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colSpan={3}>{new_price}원</td>
-              </tr>
-            </tbody> */}
-
+          <Table striped bordered className="mb-3"
+            variant={a}
+          >
             <thead>
               <tr>
                 {

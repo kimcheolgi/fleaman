@@ -8,8 +8,21 @@ import Loader from "../Loader.js";
 import TopButton from "../TopButton";
 import Table from 'react-bootstrap/Table';
 import MetaTag from "../SEOMetaTag";
+import { useDispatch, useSelector } from "react-redux"
+import styled from 'styled-components'
+
+
+let H4 = styled.h4`
+  color : ${ props => props.c };
+`;
+
+let H6 = styled.h6`
+  color : ${ props => props.c };
+`;
 
 function CommentedProductList() {
+  let a = useSelector((state) => state.bg )
+
   const location = useLocation()
   const [resize, setResize] = useState(window.innerWidth);
 
@@ -86,9 +99,9 @@ function CommentedProductList() {
       <div>
         <MetaTag title="commeted" desc={"플리맨 댓글 달린 물건들"} url={"https://fleaman.shop/commented"} keywords={", 댓글, 중고물품"} />
 
-        
-        <h4>핫딜 정보</h4>
-        <h6>유용한 핫딜 정보를 확인해보세요</h6>
+
+        <H4 c={a == "light" ? "dark":"white"}>핫딜 정보</H4>
+        <H6 c={a == "light" ? "dark":"white"}>유용한 핫딜 정보를 확인해보세요</H6>  
         
         <Row xs={1} md={1} className="g-1">
           {

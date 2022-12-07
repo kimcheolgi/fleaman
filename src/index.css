@@ -76,3 +76,11 @@ code {
   display: flex;
   justify-content: right;
 }
+
+.dark_back {
+  background-color: #212529;
+}
+
+.white {
+  color:rgb(210, 204, 193);
+}

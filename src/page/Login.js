@@ -10,8 +10,25 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Card } from 'react-bootstrap';
+import { useDispatch, useSelector } from "react-redux"
+import styled from 'styled-components'
+
+
+let H3 = styled.h3`
+  color : ${ props => props.c };
+`;
+
+let H4 = styled.h4`
+  color : ${ props => props.c };
+`;
+
+let H6 = styled.h6`
+  color : ${ props => props.c };
+`;
 
 function Login() {
+  let a = useSelector((state) => state.bg )
+
   let cred = localStorage.getItem('googleAccount')
   let nick = localStorage.getItem('userNickName')
   const navigate = useNavigate();
@@ -51,12 +68,14 @@ function Login() {
 
   if (cred == undefined){
     return (
-      <div>
+      <div style={{height: "1024px"}}>
         <MetaTag title="Login" desc="플리맨 로그인 FleaMan Login" url="https://fleaman.shop/login" keywords=", Login" />
-        <h3>Login</h3>
-        <h6>로그인하시고 플리맨 커뮤니티에 동참해보세요!</h6>
+        <H3 c={a == "light" ? "dark":"white"}>Login</H3>
+        <H6 c={a == "light" ? "dark":"white"}>로그인하시고 플리맨 커뮤니티에 동참해보세요!</H6>
         <Card 
-          bg="light"
+          border={a == "light" ? null : "secondary"}
+          bg={a}
+          text={a == "light" ? "dark" : "light"}
           style={{margin: "5%", padding: "5%"}}>
           <Card.Text>
             <img
@@ -81,9 +100,9 @@ function Login() {
     let userInfo = parseJwt(cred)
     console.log(userInfo)
     return (
-      <div>
+      <div style={{height: "1024px"}}>
         <MetaTag title="My Page" desc="플리맨 마이 페이지 FleaMan My Page" url="https://fleaman.shop/login" keywords=", My Page"/>
-        <h4 className='mt-5'>
+        <H4 c={a == "light" ? "dark":"white"} className='mt-5'>
         <img
               alt=""
               src="/spin1.gif"
@@ -91,7 +110,7 @@ function Login() {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-          "{nick}"님의 페이지</h4>
+          "{nick}"님의 페이지</H4>
         <div>
           <img
                 alt=""
@@ -99,6 +118,7 @@ function Login() {
                 width="100"
                 height="100"
                 className="d-inline-block align-top"
+                style={{backgroundColor: "white"}}
               />
         </div>
         <div>

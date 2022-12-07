@@ -6,8 +6,11 @@ import ContentsComponent from "../ContentsComponent";
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useDispatch, useSelector } from "react-redux"
 
 function ProductShare() {
+  let a = useSelector((state) => state.bg )
+
   const navigate = useNavigate();
   let { hash } = useParams();
   const [resize, setResize] = useState(window.innerWidth);
@@ -49,23 +52,19 @@ function ProductShare() {
   }
 
   return(
-    <div>
+    <div style={{height: "1024px"}}>
       <MetaTag title={"물건 공유"} desc={"플리맨 물건 공유"} url={"https://fleaman.shop/share/product" + hash} keywords={"중고물품, 공유"} />
       <Card
         // border="warning" 
         className="mb-2 mt-5"
         style={{textAlign: "left"}}
+        border={a == "light" ? null : "secondary"}
+        bg={a == "light" ? null : "dark"}
+        text={a == "light" ? "dark" : "light" }
       >
         <Card.Header>
           <Row>
               <Col md={8}>
-                <img
-                alt=""
-                src="/logo.png"
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-              />{' '}
                 공유된 물건
               </Col>
             </Row>

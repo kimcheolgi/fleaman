@@ -6,8 +6,12 @@ import ContentsComponent from "../ContentsComponent";
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useDispatch, useSelector } from "react-redux"
+import styled from 'styled-components'
 
 function ScrapShare() {
+  let a = useSelector((state) => state.bg )
+
   const navigate = useNavigate();
   let { hash } = useParams();
   const [resize, setResize] = useState(window.innerWidth);
@@ -49,24 +53,20 @@ function ScrapShare() {
   }
 
   return(
-    <div>
+    <div style={{height: "1024px"}}>
       <MetaTag title={"스크랩"} desc={"플리맨 스크랩 공유"} url={"https://fleaman.shop/share/scrap" + hash} keywords={"스크랩, 공유"} />
       <Card
         // border="warning" 
         className="mb-2 mt-5"
         style={{textAlign: "left"}}
+        border={a == "light" ? null : "secondary"}
+        bg={a == "light" ? null : "dark"}
+        text={a == "light" ? "dark" : "light" }
       >
         <Card.Header>
           <Row>
               <Col md={8}>
-                <img
-                alt=""
-                src="/logo.png"
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-              />{' '}
-                스크랩
+                공유된 스크랩
               </Col>
               
             </Row>

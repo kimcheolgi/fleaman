@@ -187,10 +187,10 @@ function App() {
             : null 
           }
           <div className={resize > 1080 ? 'col-md-6': ''}>
-            <Suspense 
+            {/* <Suspense 
               fallback={
                 <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
-              }>
+              }> */}
               <Routes>
                 <Route path='/' element={
                   <div>
@@ -220,7 +220,7 @@ function App() {
                   } />
 
               </Routes>
-            </Suspense>
+            {/* </Suspense> */}
           </div>
           {
             resize > 1080 ? 

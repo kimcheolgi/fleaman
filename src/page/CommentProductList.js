@@ -103,16 +103,23 @@ function CommentedProductList() {
         <H4 c={a == "light" ? "dark":"white"}>핫딜 정보</H4>
         <H6 c={a == "light" ? "dark":"white"}>유용한 핫딜 정보를 확인해보세요</H6>  
         
-        <Row xs={1} md={1} className="g-1">
-          {
-            viewItems.map((cData, idx)=>{
-              return(
-                <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false}/> 
+        {
+          viewItems.length == 0 ?
+          <Row xs={1} md={1} className="g-1" style={{height: "1024px"}}>      
+            <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
+          </Row> 
+          :
+          <Row xs={1} md={1} className="g-1">
+            {
+              viewItems.map((cData, idx)=>{
+                return(
+                  <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false}/> 
 
-              )
-            })
-          }
-        </Row>
+                )
+              })
+            }
+          </Row>
+        }   
 
         {
           moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{

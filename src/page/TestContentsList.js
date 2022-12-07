@@ -104,6 +104,13 @@ function TestContentsList() {
   else {
     return(
       <div>
+        {
+          totalData.length == 0 ?
+          <Row xs={1} md={1} className="g-1" style={{height: "1024px"}}>      
+            <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
+          </Row> 
+          :
+        
         <Row xs={1} md={1} className="g-1">
           <Table striped bordered className="mb-3"
             variant={a}
@@ -137,6 +144,7 @@ function TestContentsList() {
             })
           }
         </Row>
+        }
 
         {
           moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{

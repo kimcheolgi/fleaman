@@ -234,7 +234,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
               </Row>
               <Row className="mt-2">
                 <Col>
-                  <a style={{color: a == "light" ? "black" : "white"}} href={cData.link}>
+                  <a style={{color: a == "light" ? "black" : "white"}} target="_blank" href={cData.link}>
                     <Card.Title>
                       {data_name}
                     </Card.Title>

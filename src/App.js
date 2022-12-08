@@ -104,8 +104,8 @@ function App() {
   // }, [])
 
   return (
-    <div className={"App"}>
-      <div className={a +"_back"}>
+    <div className={"App no-gutters"}>
+      <div className={a +"_back no-gutters"}>
         <MetaTag title="플리맨" desc="중고물품 통합 검색 플랫폼 플리맨 FleaMan" url="https://fleaman.shop/" keywords=""/>
         <Navbar bg={a} variant={a} expand="lg">
           <Container>
@@ -178,7 +178,7 @@ function App() {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        <div className='row'>
+        <div className='row no-gutters'>
           {
             resize > 1080 ?
             <div className="col-md-3 col-sm-0 no-gutters">
@@ -193,7 +193,7 @@ function App() {
               }> */}
               <Routes>
                 <Route path='/' element={
-                  <div>
+                  <div className='no-gutters'>
                     <div style={{margin: "10px"}}>
                       <SearchInput main={true}></SearchInput>
                     </div>

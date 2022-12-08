@@ -97,7 +97,7 @@ function CommentedProductList() {
   else {
     return(
       <div>
-        <MetaTag title="commeted" desc={"플리맨 댓글 달린 물건들"} url={"https://fleaman.shop/commented"} keywords={", 댓글, 중고물품"} />
+        <MetaTag title="hotdeal" desc={"플리맨 핫딜 정보"} url={"https://fleaman.shop/hotdeal"} keywords={", 핫딜, 핫딜 정보, 뽐뿌, 루리웹, 클리앙, 쿨엔조이"} />
 
 
         <H4 c={a == "light" ? "dark":"white"}>핫딜 정보</H4>

@@ -156,9 +156,9 @@ function MainContentsList() {
   }
   else if (loading){
     return (
-      <Row xs={1} md={1} className="g-1">      
+      <Row xs={1} md={1} className="g-1" style={{height: "1024px"}}>      
         <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
-      </Row>
+      </Row> 
     )
   }
   else if (isScrap) {

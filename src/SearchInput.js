@@ -38,8 +38,10 @@ function SearchInput({main}) {
       }
       else{
         let newItems = [searchKeyword, ...searchedItems].slice(0,10)
-        localStorage.setItem('searched', JSON.stringify(newItems))
-        setSearchedKeyword(newItems)
+        let setItems = new Set(newItems)
+        let uniqueItems = [...setItems];
+        localStorage.setItem('searched', JSON.stringify(uniqueItems))
+        setSearchedKeyword(uniqueItems)
       } 
       
     }

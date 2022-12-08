@@ -181,12 +181,12 @@ function App() {
         <div className='row'>
           {
             resize > 1080 ?
-            <div className="col-md-3 col-sm-0">
+            <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_left"></div> */}
             </div>
             : null 
           }
-          <div className={resize > 1080 ? 'col-md-6': ''}>
+          <div className={resize > 1080 ? 'col-md-6  no-gutters': ' no-gutters'}>
             {/* <Suspense 
               fallback={
                 <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
@@ -224,7 +224,7 @@ function App() {
           </div>
           {
             resize > 1080 ? 
-            <div className="col-md-3 col-sm-0">
+            <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
               <TopButton></TopButton>
             </div> 

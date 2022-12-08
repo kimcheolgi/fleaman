@@ -380,7 +380,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
               <Row>
                 <InputGroup className="mb-1 mt-3">
                   <Form.Control
-                    placeholder="의견 작성하기(50자 미만)"
+                    placeholder="의견 작성하기(100자 미만)"
                     aria-label="comment"
                     aria-describedby="basic-addon"
                     style={{

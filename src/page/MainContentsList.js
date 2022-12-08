@@ -205,9 +205,9 @@ function MainContentsList() {
                 <Card 
                   style={{textAlign: "center", margin: "2%"}}
                   bg={a == "light" ? null : "secondary"}
-                  text="dark"
+                  text={a == 'light' ? "dark" : "light"}
                   >
-                  <Col>
+                  <Col >
                     <img
                       alt=""
                       src="/spin4.gif"

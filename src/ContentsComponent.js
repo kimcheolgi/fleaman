@@ -258,10 +258,12 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                 </Row>: null
               }
               <Row>
-                <Col xs={8} md={8} >
+                <Col>
                   <Card.Text> {cData.location} </Card.Text>
                 </Col>
-                <Col xs={4} md={4} style={{textAlign: "right"}}>
+              </Row>
+              <Row>
+                <Col style={{textAlign: "right"}}>
                 {
                   !reco ? 
                   <Button

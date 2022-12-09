@@ -16,14 +16,14 @@ function FleamanTip() {
 
   return (
     <Carousel variant={a == "light" ? "dark":"white"} interval="10000">
-      <Carousel.Item className='mb-3'>
+      {/* <Carousel.Item className='mb-3'>
         <H5 c={a == "light" ? "dark":"white"}>플리맨 Tip. 안드로이드 어플 사용법</H5>
         <P c={a == "light" ? "dark":"white"}>모바일 크롬에서 fleaman.shop을 들어간다. 우측상단 세 개 점을 누른다. "홈 화면에 추가하기"를 눌러 설치한다.</P>
       </Carousel.Item>
       <Carousel.Item className='mb-3'>
         <H5 c={a == "light" ? "dark":"white"}>플리맨 Tip. 아이폰 어플 사용법</H5>
         <P c={a == "light" ? "dark":"white"}>모바일 크롬에서 fleaman.shop을 들어간다. "바로가기 만들기"를 눌러 설치한다.</P>
-      </Carousel.Item>
+      </Carousel.Item> */}
       <Carousel.Item className='mb-3'>
         <H5 c={a == "light" ? "dark":"white"}>플리맨 Tip. 통합검색 사용법</H5>
         <P c={a == "light" ? "dark":"white"}>메인페이지에서 중고물품 통합검색으로 여러 플랫폼의 결과를 한번에 확인한다.</P>

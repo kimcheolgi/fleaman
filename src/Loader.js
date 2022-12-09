@@ -12,7 +12,7 @@ function Loader({type, color, message}) {
         transform: "translate(-50%, -50%)"
       }}>
 
-      <h2>{message}</h2>
+      {/* <h2>{message}</h2> */}
       <img 
         src='/spin1.gif' 
         style={{width: "50%", height: "50%"}}

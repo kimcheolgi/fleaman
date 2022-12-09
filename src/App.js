@@ -159,7 +159,13 @@ function App() {
                   핫딜 정보
                 </Nav.Link>
                 {/* <Nav.Link href="/community/1">
-                  플리 게시판
+                  <img
+                  alt=""
+                  src={a == "light" ? "/spin3.gif" : "/spin2.gif"}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{' '}플리 게시판
                 </Nav.Link> */}
               </Nav>
             </Navbar.Collapse>

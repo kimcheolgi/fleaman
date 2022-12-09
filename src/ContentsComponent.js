@@ -185,9 +185,12 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
   else {
     new_price = 0
   }
-  let dateDiff = getDateDiff(cData.reg_date);
-  let hourDiff = getHourDiff(cData.reg_date);
+  let newDate = cData.reg_date.replace("T", " ").replace(".000Z", "")
+  let dateDiff = getDateDiff(newDate);
+  let hourDiff = getHourDiff(newDate);
   let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff != 0 ? hourDiff + "시간 전" : "방금 전"
+  console.log(newDate)
+  console.log(diffDate)
 
 
   
@@ -242,13 +245,13 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                 </Col>
               </Row>
               <Row>
-                <Col xs={9} md={9}>
+                <Col>
                   {hotdeal ? null : <Card.Text>{new_price}원 </Card.Text>}
                 </Col>
               </Row>
               {
                 hotdeal ? <Row>
-                  <Col xs={9} md={9} >
+                  <Col>
                   <small className="text-muted">
                     <Card.Text>
                       원문 좋아요 {cData.like_cnt} 원문 댓글 {cData.comment_cnt}

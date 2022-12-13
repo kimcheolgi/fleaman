@@ -87,7 +87,7 @@ function TestContentsList() {
 
   if (loading){
     return (
-      <Row xs={1} md={1} className="g-1" style={{height: "1024px"}}>      
+      <Row xs={1} md={1} className="g-1" style={{height: "100vh"}}>      
         <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
       </Row> 
     )
@@ -106,7 +106,7 @@ function TestContentsList() {
       <div>
         {
           totalData.length == 0 ?
-          <Row xs={1} md={1} className="g-1" style={{height: "1024px"}}>      
+          <Row xs={1} md={1} className="g-1" style={{height: "100vh"}}>      
             <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
           </Row> 
           :

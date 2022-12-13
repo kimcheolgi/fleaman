@@ -27,9 +27,9 @@ function Tables() {
   let cred = localStorage.getItem('googleAccount')
   let lastPage = 24;
   return (
-    <div style={{height: "1024px"}}>
+    <div style={{height: "100vh"}}>
       <H4 c={a == "light" ? "dark":"white"}>
-        플리 게시판
+        플리 게시판(준비중입니다!!!)
       </H4>
       <H6 c={a == "light" ? "dark":"white"}>
         자유롭게 중고 물품 정보를 공유하는 게시판입니다.
@@ -173,7 +173,7 @@ function Paging({ currentPage, lastPage }) {
         {
           pageList.map((page, idx)=>{
             return(
-              <MDBPaginationItem>
+              <MDBPaginationItem key={idx}>
                 <MDBPaginationLink href={path+page} style={{color: a == "light" ? "black" : "white", backgroundColor: currentPage == page ? "#abaeb1": "#00000000"}}>
                   { page}
                 </MDBPaginationLink>

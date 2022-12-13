@@ -68,7 +68,7 @@ function Login() {
 
   if (cred == undefined){
     return (
-      <div style={{height: "1024px"}}>
+      <div style={{height: "100vh"}}>
         <MetaTag title="Login" desc="플리맨 로그인 FleaMan Login" url="https://fleaman.shop/login" keywords=", Login" />
         <H3 c={a == "light" ? "dark":"white"}>Login</H3>
         <H6 c={a == "light" ? "dark":"white"}>로그인하시고 플리맨 커뮤니티에 동참해보세요!</H6>
@@ -100,7 +100,7 @@ function Login() {
     let userInfo = parseJwt(cred)
     console.log(userInfo)
     return (
-      <div style={{height: "1024px"}}>
+      <div style={{height: "100vh"}}>
         <MetaTag title="My Page" desc="플리맨 마이 페이지 FleaMan My Page" url="https://fleaman.shop/login" keywords=", My Page"/>
         <H4 c={a == "light" ? "dark":"white"} className='mt-5'>
         <img

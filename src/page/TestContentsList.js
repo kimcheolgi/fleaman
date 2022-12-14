@@ -8,9 +8,12 @@ import Loader from "../Loader.js";
 import TopButton from "../TopButton";
 import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from "react-redux"
+import { useInView } from 'react-intersection-observer';
+
 
 function TestContentsList() {
   let a = useSelector((state) => state.bg )
+  const [ref, inView] = useInView();
 
   const location = useLocation()
   let searchKeyword = location.search.split("query=")[1]
@@ -70,6 +73,29 @@ function TestContentsList() {
       })
     }, [categoryName, itemName, searchKeyword]
   )
+
+  useEffect(()=>{
+    if(totalData.length !==0 && inView) {
+      let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id="+scrollId
+      axios.get(url)
+        .then((result) => {
+          let productData = result.data.data
+          let productScrollId = result.data.scroll_id
+          let copyData = [...totalData]
+          let dataCopy = [...copyData, ...productData]
+          setTotalData(dataCopy)
+          setScrollId(productScrollId)
+          if (productData.length == 0){
+            setMoreFlag(false)
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 500){
+            window.location.reload();
+          }
+        })
+      }
+  },[inView]);
 
   useEffect(() => {
     setLoading(false)
@@ -147,7 +173,7 @@ function TestContentsList() {
         }
 
         {
-          moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
+          moreFlag ? <Button ref={ref} style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
             let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id="+scrollId
             axios.get(url)
               .then((result) => {
@@ -171,7 +197,7 @@ function TestContentsList() {
           }}> More...</Button> : null
         }
         {
-          resize < 1080 ? 
+          resize <= 1080 ? 
           <TopButton></TopButton> : null
         }
       </div>

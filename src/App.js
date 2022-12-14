@@ -23,7 +23,7 @@ import { changeBg } from "./store.js"
 import "./App.css";
 import CommentedProductList from './page/CommentProductList';
 import { Badge } from 'react-bootstrap';
-
+import Commented from './page/Commented';
 // const ContentsList = lazy(() => import('./page/ContentsList'))
 // const Login = lazy(() => import('./page/Login'))
 
@@ -221,6 +221,9 @@ function App() {
                   } />
                 <Route path='/community/:page' element={
                     <Tables />
+                  } />
+                <Route path='/commented' element={
+                    <Commented />
                   } />
 
               </Routes>

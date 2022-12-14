@@ -10,6 +10,7 @@ import Table from 'react-bootstrap/Table';
 import MetaTag from "../SEOMetaTag";
 import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
+import { useInView } from 'react-intersection-observer';
 
 
 let H4 = styled.h4`
@@ -22,6 +23,7 @@ let H6 = styled.h6`
 
 function CommentedProductList() {
   let a = useSelector((state) => state.bg )
+  const [ref, inView] = useInView();
 
   const location = useLocation()
   const [resize, setResize] = useState(window.innerWidth);
@@ -65,6 +67,16 @@ function CommentedProductList() {
       })
     }, []
   )
+
+  useEffect(()=>{
+    if(totalData.length !==0 && inView) {
+      let itemsLen = viewItems.length
+        setViewItems(totalData.slice(0, itemsLen + 10))
+        if (itemsLen + 10 >= totalData.length){
+          setMoreFlag(false)
+        }
+      }
+  },[inView]);
 
   useEffect(() => {
     setLoading(false)
@@ -122,7 +134,7 @@ function CommentedProductList() {
         }   
 
         {
-          moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
+          moreFlag ? <Button ref={ref} style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
             let itemsLen = viewItems.length
             setViewItems(totalData.slice(0, itemsLen + 10))
             if (itemsLen + 10 >= totalData.length){
@@ -133,7 +145,7 @@ function CommentedProductList() {
           }}> More...</Button> : null
         }
         {
-          resize < 1080 ? 
+          resize <= 1080 ? 
           <TopButton></TopButton> : null
         }
       </div>

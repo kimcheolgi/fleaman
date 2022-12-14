@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -15,12 +15,13 @@ import Tabs from 'react-bootstrap/Tabs';
 import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
 import { Badge } from "react-bootstrap";
-
-
-
+import { useInView } from 'react-intersection-observer';
 
 function MainContentsList() {
   let a = useSelector((state) => state.bg )
+  const [ref, inView] = useInView();
+  let navigate = useNavigate();
+
   const location = useLocation()
   let searchKeyword = location.search.split("query=")[1]
   if (searchKeyword == "" || searchKeyword == undefined){
@@ -29,7 +30,7 @@ function MainContentsList() {
   let [recommendItems, setRecommendItems] = useState([])
   let [viewItems, setViewItems] = useState([]);
   let [offset, setOffset] = useState(0)
-  let count = 10
+  let count = 5
   useEffect(() => {
     if (localStorage.getItem('watched') == undefined) {
       localStorage.setItem('watched', JSON.stringify([]))
@@ -144,6 +145,15 @@ function MainContentsList() {
     handleCopyClipBoard(linkHash)
   }, [linkHash])
 
+  useEffect(()=>{
+    if(viewItems.length !==0 && inView) {
+      let itemsLen = viewItems.length
+      setViewItems(searchItems.slice(0, itemsLen + 10))
+      if (itemsLen + 10 >= searchItems.length){
+        setMoreFlag(false)
+      }
+    }   
+  }, [inView]);
 
   if (isError){
     return (
@@ -252,6 +262,15 @@ function MainContentsList() {
               <Card.Text>
                 <Badge bg="warning" style={{margin: "2px"}}> New</Badge>
                 최근 댓글 달린 물건
+                <Button 
+                  className="share"
+                  variant="outline-primary" 
+                  style={{padding: "2px"}}
+                  onClick={() => {
+                    navigate("/commented")
+                  }}> 
+                  더 보기..
+                </Button>
               </Card.Text>  
             </Card.Header>
             <Card.Body>
@@ -268,28 +287,6 @@ function MainContentsList() {
           </Card.Body>
           </Card>
         </Row>
-        }
-      {
-          moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
-                        
-            let url = "https://api.fleaman.shop/product/get-product?offset="+offset+"&count="+count
-            axios.get(url)
-              .then((result) => {
-                let productData = result.data
-                let copyData = [...viewItems]
-                let dataCopy = [...copyData, ...productData]
-                setViewItems([...new Set(dataCopy)])
-                setOffset(offset + count)
-                if (productData.length == 0){
-                  setMoreFlag(false)
-                }
-              })
-              .catch((error) => {
-                if (error.response.status == 500){
-                  window.location.reload();
-                }
-              })
-          }}> More...</Button> : null
         }
         {
           resize < 1080 ? 
@@ -313,7 +310,7 @@ function MainContentsList() {
           }
         </Row>
         {
-          moreFlag ? <Button style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
+          moreFlag ? <Button ref={ref} style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
             let itemsLen = viewItems.length
             setViewItems(searchItems.slice(0, itemsLen + 10))
             if (itemsLen + 10 >= searchItems.length){

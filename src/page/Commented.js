@@ -173,13 +173,11 @@ function Commented() {
           </Row> 
           :        
         
-        <Row xs={1} md={1} className="g-1">      
+        <Row xs={1} md={1} className="g-1">
           {
             viewItems.map((item, idx) => {
               return (
-                <Row className="mt-2">
                   <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true}/>
-                </Row>
               )
             })
           }
@@ -208,7 +206,7 @@ function Commented() {
           }}> More...</Button> : null
         }
         {
-          resize < 1080 ? 
+          resize <= 1080 ? 
           <TopButton></TopButton> : null
         }
       </div>

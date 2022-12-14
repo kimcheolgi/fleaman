@@ -6,7 +6,7 @@ if (!embedimSnow) {
     var embCSS = '.embedim-snow{position: absolute;width: 10px;height: 10px;background: white;bor' +
             'der-radius: 50%;margin-top:-10px}';
     var embHTML = '';
-    for (i = 1; i < 100; i++) {
+    for (i = 1; i < 50; i++) {
         embHTML += '<i class="embedim-snow"></i>';
         var rndX = (embRand(0, 1000000) * 0.0001),
             rndO = embRand(-100000, 100000) * 0.0001,

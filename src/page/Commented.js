@@ -161,8 +161,7 @@ function Commented() {
   else if (isScrap) {
     return(
       <div>
-        <MetaTag title="hotdeal" desc={"플리맨 핫딜 정보"} url={"https://fleaman.shop/hotdeal"} keywords={", 핫딜, 핫딜 정보, 뽐뿌, 루리웹, 클리앙, 쿨엔조이"} />
-
+        <MetaTag title="commented" desc={"플리맨 댓글 달린 물건"} url={"https://fleaman.shop/commented"} keywords={", 댓글, 공유, 중고, 중고물품, 뽐뿌, 루리웹, 클리앙, 쿨엔조이"} />
 
         <H4 c={a == "light" ? "dark":"white"}>댓글 달린 물건</H4>
         <H6 c={a == "light" ? "dark":"white"}>어떤 물건에 댓글이 달렸는지 확인해보세요</H6> 

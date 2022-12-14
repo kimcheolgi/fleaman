@@ -246,7 +246,7 @@ function App() {
             <p>
               Copyright 2022. 플리맨 all rights reserved.
             </p>
-            <p style={{margin: "0"}}>
+            <p style={{margin: "0", paddingBottom: "30px"}}>
               문의 메일: info@fleaman.shop
             </p>
         </div>

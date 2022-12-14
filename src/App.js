@@ -197,13 +197,11 @@ function App() {
               fallback={
                 <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
               }> */}
+              <div className='no-gutters'>
+                <div style={{margin: "10px"}}>
               <Routes>
-                <Route path='/' element={
-                  <div className='no-gutters'>
-                    <div style={{margin: "10px"}}>
-                      <SearchInput main={true}></SearchInput>
-                    </div>
-                  </div>
+                <Route path='/' element={           
+                  <SearchInput main={true}></SearchInput>
                 }>
                 </Route>
                 <Route path='/list/:categoryName/:itemName' element={
@@ -227,6 +225,8 @@ function App() {
 
               </Routes>
             {/* </Suspense> */}
+              </div>
+            </div>
           </div>
           {
             resize > 1080 ? 

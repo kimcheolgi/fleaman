@@ -2,7 +2,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 let bg = createSlice({
   name: 'bg',
-  initialState: localStorage.getItem('mode') != undefined ? localStorage.getItem('mode') : 'light',
+  initialState: localStorage.getItem('mode') != undefined ? localStorage.getItem('mode') : 'dark',
   reducers : {
     changeBg(state, a){
       console.log(state, a)

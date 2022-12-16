@@ -87,7 +87,6 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
   useEffect(() => {
     let productLink = cData.link.replaceAll("/", "%2F").replaceAll('?', '%3F').replaceAll(":", "%3A").replaceAll("=", "%3D").replaceAll("&", "%26")
     let url = "https://api.fleaman.shop/product/get-comment?product_link=" + productLink
-    console.log(url)
     axios.get(url)
       .then((result) => {
         let comments = result.data
@@ -189,15 +188,10 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
   let dateDiff = getDateDiff(newDate);
   let hourDiff = getHourDiff(newDate);
   let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff != 0 ? hourDiff + "시간 전" : "방금 전"
-  console.log(newDate)
-  console.log(diffDate)
-
-
-  
   let imgUrl = cData.img_url
   
   return(
-    <Col>
+    <Col id={cData.link}>
         <Card 
           style={{padding: "10px", textAlign: "left"}}
           border={a == "light" ? null : "secondary"}
@@ -228,8 +222,6 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                    >
                     공유 링크
                   </Button>
-                  
-                  
                 </Col>
                 <Col xs={4} md={4} style={{textAlign: "right"}}>
                   <small className="text-muted">{diffDate}</small>
@@ -327,7 +319,6 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
               
               onComment ? 
                 comments.map((comment, idx) => {
-                  console.log(comment)
                   let dateDiffComment = getDateDiffComment(comment.create_date);
                   let hourDiffComment = getHourDiffComment(comment.create_date);
                   let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "d" : hourDiffComment > 0 ? hourDiffComment + "h" : "방금"

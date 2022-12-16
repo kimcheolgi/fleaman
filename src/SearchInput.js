@@ -144,10 +144,17 @@ function SearchInput({main}) {
                     variant={a == "light" ? "light" : "secondary"}
                     key={i}
                     onMouseDown={() => {
+                      let searchedItems = JSON.parse(localStorage.getItem('searched'))
+                      let newItems = [item, ...searchedItems].slice(0,10)
+                      let setItems = new Set(newItems)
+                      let uniqueItems = [...setItems];
+                      localStorage.setItem('searched', JSON.stringify(uniqueItems))
+                      setSearchedKeyword(uniqueItems)
                       navigate({
                         pathname: ".",
                         search: '?query='+item,
                       });
+                      
                     }}
                   >
                     {item}

@@ -198,7 +198,7 @@ function MainContentsList() {
                     스크랩
                     <Button 
                       className="share"
-                      variant="outline-secondary" 
+                      variant={a == "light"? "outline-secondary":"secondary"} 
                       style={{padding: "2px"}}
                       onClick={() => {
                         handleScrapShare()
@@ -226,7 +226,7 @@ function MainContentsList() {
                       className="d-inline-block align-top"
                     />
                     "
-                    <Button variant="outline-secondary" style={{margin: "2px", padding: "2px"}}>☆</Button>
+                    <Button variant={a == "light"? "outline-secondary":"secondary"} style={{margin: "2px", padding: "2px"}}>☆</Button>
                       버튼을 누르면 스크랩이 가능합니다."
                   </Col>
                 </Card>
@@ -264,7 +264,7 @@ function MainContentsList() {
                 최근 댓글 달린 물건
                 <Button 
                   className="more"
-                  variant="outline-secondary" 
+                  variant={a == "light"? "outline-secondary":"secondary"} 
                   style={{padding: "2px"}}
                   onClick={() => {
                     navigate("/commented")

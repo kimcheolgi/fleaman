@@ -229,7 +229,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                     hotdeal ? <Badge bg='danger'> 핫딜 </Badge> : <Badge bg='light' text="dark">{cData.source2}</Badge>
                   }
                   
-                  <Button variant="outline-primary" size='sm' style={{padding: "1px", margin: "2px", fontSize: "0.6rem"}}
+                  <Button variant={a == "light"? "outline-primary":"primary"} size='sm' style={{padding: "1px", margin: "2px", fontSize: "0.6rem"}}
                     onClick={() => {
                      handleScrapShare([cData])
                     }}
@@ -278,7 +278,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                   <Button
                         className="mb-1"
                         size='sm'
-                        variant="outline-secondary"
+                        variant={a == "light"? "outline-secondary":"secondary"}
                         style={{margin:"1px", padding: "1px"}}
                         onClick={(e) => {
                           setOnComment(!onComment)
@@ -294,7 +294,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                         size='sm'
                         type="checkbox"
                         style={{margin:"1px", padding: "1px"}}
-                        variant="outline-secondary"
+                        variant={a == "light"? "outline-secondary":"secondary"}
                         checked={checked}
                         value="1"
                         data-for="scrap"

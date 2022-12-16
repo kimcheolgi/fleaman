@@ -71,7 +71,9 @@ function ScrapShare() {
               
             </Row>
         </Card.Header>
-        <Card.Body>
+        </Card>
+
+        {/* <Card.Body> */}
         {
           shareItems.map((cData, idx)=>{
             return(
@@ -79,7 +81,14 @@ function ScrapShare() {
             )
           })
         }
-        </Card.Body>
+        {/* </Card.Body> */}
+        <Card
+          className="mb-2"
+          style={{textAlign: "left"}}
+          border={a == "light" ? null : "secondary"}
+          bg={a == "light" ? null : "dark"}
+          text={a == "light" ? "dark" : "light" }
+        >
         <Card.Footer>
           <Card.Text style={{textAlign: "right"}}>
               합산 가격: {sumPrice(shareItems).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원

@@ -176,9 +176,12 @@ function MainContentsList() {
       <div>
         <Row xs={1} md={1} className="g-1">      
           <Card
-            border={a == "light" ? null : "secondary"}
+            // border={a == "light" ? null : "secondary"}
             className="mb-2"
-            style={{textAlign: "left"}}
+            style={{
+              textAlign: "left",
+              border: "1px solid #00000000"
+            }}
             bg={a == "light" ? null : "dark"}
             text={a == "light" ? "dark" : "light" }
           >
@@ -194,26 +197,29 @@ function MainContentsList() {
                 스크랩
               </Card.Text> */}
               <Row>
-                  <Col >
-                    스크랩
-                    <Button 
-                      className="share"
-                      variant={a == "light"? "outline-secondary":"secondary"} 
-                      style={{padding: "2px"}}
-                      onClick={() => {
-                        handleScrapShare()
-                        // handleCopyClipBoard(linkHash)
-                      }}> 
-                    공유 링크 
-                    </Button>
-                  </Col>
-                </Row>
+                <Col>
+                  스크랩
+                  <Button 
+                    className="share"
+                    variant={a == "light"? "outline-secondary":"secondary"} 
+                    style={{padding: "2px"}}
+                    onClick={() => {
+                      handleScrapShare()
+                      // handleCopyClipBoard(linkHash)
+                    }}> 
+                  공유 링크 
+                  </Button>
+                </Col>
+              </Row>
             </Card.Header>
-            <Card.Body>
+            </Card>
+
+            {/* <Card.Body> */}
             {
               searchItems.length == 0 ? 
                 <Card 
-                  style={{textAlign: "center", margin: "2%"}}
+                  className="mb-2"
+                  style={{textAlign: "center"}}
                   bg={a == "light" ? null : "secondary"}
                   text={a == 'light' ? "dark" : "light"}
                   >
@@ -241,8 +247,7 @@ function MainContentsList() {
                 )
               })
             }
-            </Card.Body>
-          </Card>
+            {/* </Card.Body> */}
         </Row>
         {viewItems.length == 0 ? 
           <Row xs={1} md={1} className="g-1" style={{height: "1024px"}}>      
@@ -250,11 +255,15 @@ function MainContentsList() {
           </Row> 
           :        
         
-        <Row xs={1} md={1} className="g-1">      
+        <Row xs={1} md={1} className="g-1 mt-5">      
           <Card
-            border={a == "light" ? null : "secondary"}
+            // border={a == "light" ? null : "secondary"}
             className="mb-2"
-            style={{textAlign: "left"}}
+            style={{
+              textAlign: "left",
+              border: "1px solid #00000000"
+              // borderBottomColor: "white"
+            }}
             bg={a == "light" ? null : "dark"}
             text={a == "light" ? "dark" : "light" }
           >
@@ -273,7 +282,9 @@ function MainContentsList() {
                 </Button>
               </Card.Text>  
             </Card.Header>
-            <Card.Body>
+            </Card>
+
+            {/* <Card.Body> */}
 
               {
                 viewItems.map((item, idx) => {
@@ -282,8 +293,7 @@ function MainContentsList() {
                   )
                 })
               }
-          </Card.Body>
-          </Card>
+          {/* </Card.Body> */}
         </Row>
         }
         {

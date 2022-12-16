@@ -69,7 +69,7 @@ function ProductShare() {
               </Col>
             </Row>
         </Card.Header>
-        <Card.Body>
+        </Card>
         {
           shareItems.map((cData, idx)=>{
             return(
@@ -77,8 +77,6 @@ function ProductShare() {
             )
           })
         }
-        </Card.Body>
-      </Card>
       
     </div>
   )

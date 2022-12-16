@@ -126,7 +126,6 @@ function CommentedProductList() {
               viewItems.map((cData, idx)=>{
                 return(
                   <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false}/> 
-
                 )
               })
             }

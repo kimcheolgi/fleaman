@@ -191,11 +191,16 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
   let imgUrl = cData.img_url
   
   return(
-    <Col id={cData.link}>
+    <Col className='mt-2' id={cData.link}>
         <Card 
-          style={{padding: "10px", textAlign: "left"}}
-          border={a == "light" ? null : "secondary"}
-          bg={a == "light" ? null : "dark"}
+          style={{
+            padding: "10px", 
+            textAlign: "left",
+            border: "1px solid #00000000",
+            backgroundColor: a == "light" ? "#f2f3f4": "#343a40"
+          }}
+          border={null}
+          // bg={a == "light" ? "light" : "dark"}
           text={a == "light" ? "dark" : "light" }
           >
 
@@ -207,15 +212,24 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
               <Row>
                 <Col xs={8} md={8}>
                   
-                  <Badge bg='light' text="dark">{hotdeal ? cData.source1 : cData.source}</Badge>
+                  <Badge 
+                    bg={a == "light" ? "secondary" : "light"}
+                    text={a == "light" ? "light" : "dark"}
+                  >
+                    {hotdeal ? cData.source1 : cData.source}
+                  </Badge>
                   {
-                    !hotdeal ? <ColoredBadge state={cData.state}/> : <Badge bg='light' text="dark">{cData.source2}</Badge>
+                    !hotdeal ? <ColoredBadge state={cData.state}/> : 
+                    <Badge 
+                    bg={a == "light" ? "secondary" : "light"}
+                    text={a == "light" ? "light" : "dark"}
+                    >{cData.source2}</Badge>
                   }
                   {
                     hotdeal ? <Badge bg='danger'> 핫딜 </Badge> : <Badge bg='light' text="dark">{cData.source2}</Badge>
                   }
                   
-                  <Button variant="outline-secondary" size='sm' style={{padding: "1px", margin: "2px", fontSize: "0.6rem"}}
+                  <Button variant="outline-primary" size='sm' style={{padding: "1px", margin: "2px", fontSize: "0.6rem"}}
                     onClick={() => {
                      handleScrapShare([cData])
                     }}
@@ -264,7 +278,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                   <Button
                         className="mb-1"
                         size='sm'
-                        variant="outline-warning"
+                        variant="outline-secondary"
                         style={{margin:"1px", padding: "1px"}}
                         onClick={(e) => {
                           setOnComment(!onComment)
@@ -280,7 +294,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                         size='sm'
                         type="checkbox"
                         style={{margin:"1px", padding: "1px"}}
-                        variant="outline-warning"
+                        variant="outline-secondary"
                         checked={checked}
                         value="1"
                         data-for="scrap"

@@ -57,11 +57,13 @@ code {
   padding :15px 13px;
   background-color: rgb(122, 122, 122);
   color:#fff;
-  border: 1px solid rgb(210, 204, 193);
-  border-radius: 50%;
+  border: 1px solid rgb(122, 122, 122);
+  border-radius: 10%;
   outline: none;
   cursor: pointer;
 }
+
+
 
 #top:hover{
   color :rgb(0, 0, 0);
@@ -80,13 +82,20 @@ code {
   right: 1%;
 }
 
+
+.more {
+  position: absolute;
+  right: 1%;
+}
+
 .right_button {
   display: flex;
   justify-content: right;
 }
 
 .dark_back {
-  background-color: #212529;
+  /* background-color: #212529; */
+  background-color: black;
 }
 
 .white {

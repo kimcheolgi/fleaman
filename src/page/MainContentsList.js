@@ -226,7 +226,7 @@ function MainContentsList() {
                       className="d-inline-block align-top"
                     />
                     "
-                    <Button variant="outline-warning" style={{margin: "2px", padding: "2px"}}>☆</Button>
+                    <Button variant="outline-secondary" style={{margin: "2px", padding: "2px"}}>☆</Button>
                       버튼을 누르면 스크랩이 가능합니다."
                   </Col>
                 </Card>
@@ -263,8 +263,8 @@ function MainContentsList() {
                 <Badge bg="warning" style={{margin: "2px"}}> New</Badge>
                 최근 댓글 달린 물건
                 <Button 
-                  className="share"
-                  variant="outline-primary" 
+                  className="more"
+                  variant="outline-secondary" 
                   style={{padding: "2px"}}
                   onClick={() => {
                     navigate("/commented")
@@ -278,9 +278,7 @@ function MainContentsList() {
               {
                 viewItems.map((item, idx) => {
                   return (
-                    <Row className="mt-2" key={idx}>
-                      <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true}/>
-                    </Row>
+                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true}/>
                   )
                 })
               }

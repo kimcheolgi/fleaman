@@ -229,13 +229,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                     hotdeal ? <Badge bg='danger'> 핫딜 </Badge> : <Badge bg='light' text="dark">{cData.source2}</Badge>
                   }
                   
-                  <Button variant={a == "light"? "outline-primary":"primary"} size='sm' style={{padding: "1px", margin: "2px", fontSize: "0.6rem"}}
-                    onClick={() => {
-                     handleScrapShare([cData])
-                    }}
-                   >
-                    공유 링크
-                  </Button>
+                  
                 </Col>
                 <Col xs={4} md={4} style={{textAlign: "right"}}>
                   <small className="text-muted">{diffDate}</small>
@@ -309,6 +303,20 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                         {checked ? "★" : "☆"}
                       </Button>
                       
+                }
+                {
+                  reco ? null :
+                  <Button 
+                    className="mb-1"
+                    size='sm'
+                    variant={a == "light"? "outline-primary":"primary"}
+                    style={{margin:"1px", padding: "1px"}}
+                    onClick={() => {
+                     handleScrapShare([cData])
+                    }}
+                   >
+                    공유 링크
+                  </Button>
                 }
                 <ReactTooltip 
                   id='scrap'

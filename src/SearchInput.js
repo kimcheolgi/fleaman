@@ -121,7 +121,7 @@ function SearchInput({main}) {
                   
                     <Button 
                       className='share'
-                      variant="outline-secondary" 
+                      variant={a == "light" ? "outline-secondary" : "secondary"} 
                       style={{padding: "2px"}}
                       onMouseDown={() => {
                         localStorage.setItem('searched', JSON.stringify([]))

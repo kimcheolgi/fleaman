@@ -173,14 +173,13 @@ function App() {
               <Button
                 variant={a == "light" ? "dark" : "light"}
                 onClick={() => {
-                  console.log('test')
                   let changeColor = a == "light" ? "dark" : "light"
                   dispatch(changeBg(changeColor))
                   localStorage.setItem("mode", changeColor)
                 }}  
               >
                   {a == "light" ? "Dark" : "Light"}</Button>
-              <LoginButton/>
+              <LoginButton a={a}/>
             </Navbar.Collapse>
           </Container>
         </Navbar>
@@ -255,7 +254,7 @@ function App() {
   );
 }
 
-function LoginButton() {
+function LoginButton({ a }) {
   let cred = localStorage.getItem('googleAccount')
   let nick = localStorage.getItem('userNickName')
 
@@ -264,7 +263,7 @@ function LoginButton() {
   if (cred == undefined) {
     return(
       <Navbar.Text onClick={() => { navigate('/login') }}>
-        <Button variant="outline-secondary">Login</Button>
+        <Button variant={a == "light" ? "outline-secondary":"secondary"}>Login</Button>
       </Navbar.Text>
     )
   }
@@ -272,7 +271,7 @@ function LoginButton() {
     let userInfo = parseJwt(cred)
     return (
       <Navbar.Text onClick={() => { navigate('/login') }}>
-        <Button variant="outline-secondary">My Page </Button>
+        <Button variant={a == "light" ? "outline-secondary":"secondary"}>My Page </Button>
       </Navbar.Text>
     )
   }

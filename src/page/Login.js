@@ -122,11 +122,11 @@ function Login() {
               />
         </div>
         <div>
-          <NickNameModal credential={cred} ></NickNameModal>
+          <NickNameModal credential={cred} a={a} ></NickNameModal>
         {/* <Button className='mt-5' onClick={ onGoogleSignOut } variant="outline-secondary">닉네임 수정</Button>  */}
         </div>
         
-        <Button className='mt-1' onClick={ onGoogleSignOut } variant="outline-secondary">Sign Out</Button> 
+        <Button className='mt-1' onClick={ onGoogleSignOut } variant={a == "light" ? "outline-secondary":"secondary"}>Sign Out</Button> 
       </div>
     )
   }
@@ -134,7 +134,7 @@ function Login() {
 }
 
 
-function NickNameModal({ credential }) {
+function NickNameModal({ credential, a }) {
   const navigate = useNavigate();
   const value = 'sm-down';
   const [fullscreen, setFullscreen] = useState(true);
@@ -149,7 +149,7 @@ function NickNameModal({ credential }) {
     <>
       <Button className='mt-5' 
       onClick={() => handleShow(value)}
-      variant="outline-secondary">닉네임 수정</Button> 
+      variant={a == "light" ? "outline-secondary":"secondary"}>닉네임 수정</Button> 
 
       <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
         <Modal.Header closeButton>

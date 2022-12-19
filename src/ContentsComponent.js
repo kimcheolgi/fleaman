@@ -206,7 +206,10 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
 
           <Row>
             <Col xs={3} md={3}>
-              <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl} height="100" style={{backgroundColor: "white"}}/>
+              <a href={cData.link} target="_blank">
+                <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl} height="100" 
+                style={{backgroundColor: "white", borderRadius: "0%"}}/>
+              </a>
             </Col>
             <Col xs={9} md={9}>
               <Row>

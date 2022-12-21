@@ -156,10 +156,10 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
   const handleCopyClipBoard = async (hash) => {
     if (hash != ""){
       try {
-        await navigator.clipboard.writeText("https://fleaman.shop/share/product/" + hash);
+        await navigator.clipboard.writeText(window.location.origin+"/share/product/" + hash);
         alert('링크가 복사되었습니다.');
       } catch (error) {
-        alert('링크 복사에 실패하였습니다.');
+        alert('링크 복사에 실패하였습니다.(크롬 브라우저를 이용해주세요)');
       }
     }
   };
@@ -309,17 +309,17 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                 }
                 {
                   reco ? null :
-                  <Button 
-                    className="mb-1"
-                    size='sm'
-                    variant={a == "light"? "outline-primary":"primary"}
-                    style={{margin:"1px", padding: "1px"}}
-                    onClick={() => {
-                     handleScrapShare([cData])
-                    }}
-                   >
-                    공유 링크
-                  </Button>
+                    <Button 
+                      className="mb-1"
+                      size='sm'
+                      variant={a == "light"? "outline-primary":"primary"}
+                      style={{margin:"1px", padding: "1px"}}
+                      onClick={() => {
+                        handleScrapShare([cData])
+                      }}
+                    >
+                      공유 링크
+                    </Button>
                 }
                 <ReactTooltip 
                   id='scrap'
@@ -450,7 +450,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
 
 function ColoredBadge({state}) {
   if (state == '판매완료'){
-    return <Badge bg="danger">{state}</Badge>
+    return <Badge bg="dark">{state}</Badge>
   }
   else if (state == '판매중') {
     return <Badge bg="success">{state}</Badge>

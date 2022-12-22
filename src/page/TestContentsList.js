@@ -124,7 +124,7 @@ function TestContentsList() {
   }
   else if (empty){
     return (
-      <div>
+      <div style={{height: "100vh"}}>
         <h2>
           검색 결과가 없습니다.
         </h2>

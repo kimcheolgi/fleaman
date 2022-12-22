@@ -164,7 +164,7 @@ function MainContentsList() {
 
   if (isError){
     return (
-      <div>
+      <div style={{height: "100vh"}}>
         <h2>
           잠시 후 다시 시도해주세요.
         </h2>

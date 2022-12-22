@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
 import { Badge } from "react-bootstrap";
 import { useInView } from 'react-intersection-observer';
+import QueryString from 'qs';
 
 function MainContentsList() {
   let a = useSelector((state) => state.bg )
@@ -23,10 +24,12 @@ function MainContentsList() {
   let navigate = useNavigate();
 
   const location = useLocation()
-  let searchKeyword = location.search.split("query=")[1]
+  const queryData = QueryString.parse(location.search, { ignoreQueryPrefix: true });
+  let searchKeyword = queryData.query
   if (searchKeyword == "" || searchKeyword == undefined){
     searchKeyword = '_'
   }
+  let searchPlatform = queryData.platform
   let [recommendItems, setRecommendItems] = useState([])
   let [viewItems, setViewItems] = useState([]);
   let [offset, setOffset] = useState(0)
@@ -84,6 +87,10 @@ function MainContentsList() {
       setLoading(true)
       console.log(loading)
       let url = "https://api.fleaman.shop/product/main-search?keyword="+searchKeyword
+      if (searchPlatform != undefined){
+        url = "https://api.fleaman.shop/product/main-search?keyword="+searchKeyword+"&platform="+searchPlatform
+      }
+      console.log(url)
       axios.get(url)
         .then((result) => {
           let searchData = result.data

@@ -12,7 +12,8 @@ import Col from 'react-bootstrap/Col';
 import FleamanTip from './Carousel';
 import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
-
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 function SearchInput({main}) {
   let a = useSelector((state) => state.bg )
@@ -21,6 +22,8 @@ function SearchInput({main}) {
   let [searchKeyword, setSearchKeyword] = useState('_');
   let [searchedKeyword, setSearchedKeyword] = useState(JSON.parse(localStorage.getItem('searched')));
   let [keyUp, setKeyUp] = useState(false)
+  let [platformList, setPlatformList] = useState(["전체 플랫폼", "번개장터", "당근마켓", "네이버 카페", "헬로마켓"])
+  let [platform, setPlatform] = useState("전체 플랫폼")
 
   useEffect(() => {
     if (localStorage.getItem('searched') == undefined) {
@@ -30,7 +33,7 @@ function SearchInput({main}) {
 
   useEffect(() => {
     console.log(searchKeyword)
-    if (searchKeyword != '_'){
+    if (searchKeyword != '_' && searchKeyword != ""){
       let searchedItems = JSON.parse(localStorage.getItem('searched'))
       if (searchedItems == undefined) {
         localStorage.setItem('searched', JSON.stringify([searchKeyword])) 
@@ -58,6 +61,31 @@ function SearchInput({main}) {
       }
       <div>
       <InputGroup className="mb-3 mt-1">
+        {
+          main ? null :
+        
+        <DropdownButton
+          variant="outline-secondary"
+          title={platform}
+          id="input-group-dropdown-1"
+          onSelect={(e)=>{ 
+            setPlatform(e)
+          }}
+        >
+          {
+            platformList.map((platform, idx) => {
+              return (
+                <Dropdown.Item
+                  key={idx}
+                  eventKey={platform}
+                >
+                  {platform}
+                </Dropdown.Item>
+              )
+            })
+          }
+        </DropdownButton>
+        }
         <Form.Control
           style={{
             backgroundColor: a == "light" ? null : "#212529", 
@@ -80,12 +108,17 @@ function SearchInput({main}) {
           }}
           onKeyPress={(e) => {
             if (e.key == 'Enter'){
-              setSearchKeyword(inputValue)
-              navigate({
-                pathname: ".",
-                search: '?query='+inputValue,
-              });
-              setInputValue("")
+              // if (inputValue != ""){
+                setSearchKeyword(inputValue)
+                navigate({
+                  pathname: ".",
+                  search: '?query='+inputValue+"&platform="+platform,
+                });
+                setInputValue("")
+              // }
+              // else {
+              //   alert("검색어를 입력해주세요.")
+              // }
             }
           }}
         />
@@ -93,12 +126,17 @@ function SearchInput({main}) {
           variant="outline-secondary" 
           id="button-addon2"
           onClick={() => {
-            setSearchKeyword(inputValue)
-            navigate({
-              pathname: ".",
-              search: '?query='+inputValue,
-            });
-            setInputValue("")
+            // if (inputValue != ""){
+              setSearchKeyword(inputValue)
+              navigate({
+                pathname: ".",
+                search: '?query='+inputValue+"&platform="+platform,
+              });
+              setInputValue("")
+            // }
+            // else {
+            //   alert("검색어를 입력해주세요.")
+            // }
           }}
         >
           검색
@@ -152,7 +190,7 @@ function SearchInput({main}) {
                       setSearchedKeyword(uniqueItems)
                       navigate({
                         pathname: ".",
-                        search: '?query='+item,
+                        search: '?query='+item+"&platform="+platform,
                       });
                       
                     }}

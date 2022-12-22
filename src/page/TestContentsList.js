@@ -9,17 +9,21 @@ import TopButton from "../TopButton";
 import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from "react-redux"
 import { useInView } from 'react-intersection-observer';
+import QueryString from 'qs';
 
 
 function TestContentsList() {
   let a = useSelector((state) => state.bg )
   const [ref, inView] = useInView();
-
   const location = useLocation()
-  let searchKeyword = location.search.split("query=")[1]
-  console.log(searchKeyword)
+  const queryData = QueryString.parse(location.search, { ignoreQueryPrefix: true });
+  let searchKeyword = queryData.query
   if (searchKeyword == "" || searchKeyword == undefined){
     searchKeyword = '_'
+  }
+  let searchPlatform = queryData.platform
+  if (searchPlatform == "" || searchPlatform == undefined){
+    searchPlatform = "전체 플랫폼"
   }
   let { categoryName, itemName } = useParams();
   const [resize, setResize] = useState(window.innerWidth);
@@ -48,7 +52,7 @@ function TestContentsList() {
   useEffect(() => {
     setLoading(true)
     setEmpty(false)
-    let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id=first"
+    let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id=first&platform="+searchPlatform
     console.log(url)
     axios.get(url)
       .then((result) => {
@@ -71,12 +75,12 @@ function TestContentsList() {
       .catch(() => {
         console.log('데이터 로드 실패')
       })
-    }, [categoryName, itemName, searchKeyword]
+    }, [categoryName, itemName, searchKeyword, searchPlatform]
   )
 
   useEffect(()=>{
     if(totalData.length !==0 && inView) {
-      let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id="+scrollId
+      let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id="+scrollId+"&platform="+searchPlatform
       axios.get(url)
         .then((result) => {
           let productData = result.data.data
@@ -174,7 +178,7 @@ function TestContentsList() {
 
         {
           moreFlag ? <Button ref={ref} style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
-            let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id="+scrollId
+            let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id="+scrollId+"&platform="+searchPlatform
             axios.get(url)
               .then((result) => {
                 let productData = result.data.data

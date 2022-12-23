@@ -329,7 +329,9 @@ const CheckCard = ({a, data}) => {
         <Card.Title>
           <Row>
             <Col xs={8} md={8}>
-              {getLevel(data.level)} {data.nick_name}  
+            <a href={"/page/"+data.nick_name} style={{color: a == "light" ? "black" : "white"}}>
+              {getLevel(data.level)} {data.nick_name} 
+              </a> 
             </Col>
             <Col xs={4} md={4} style={{textAlign: "right"}}>
               <small className="text-muted">{diffDate}</small>

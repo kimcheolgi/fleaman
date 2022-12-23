@@ -75,7 +75,7 @@ function MainContentsList() {
   };
   let [loading, setLoading] = useState(false)
   let [moreFlag, setMoreFlag] = useState(true)
-
+  let [empty, setEmpty] = useState(false)
   useEffect(() => {
     setMoreFlag(true)
     if (searchKeyword.length == 0 || searchKeyword == '_'){
@@ -97,6 +97,9 @@ function MainContentsList() {
           setSearchItems(searchData)
           setViewItems(searchData.slice(0, 10))
           setIsError(false)
+          if (searchData.length == 0){
+            setEmpty(true)
+          }
         })
         .catch(() => {
           console.log('데이터 로드 실패')
@@ -167,6 +170,15 @@ function MainContentsList() {
       <div style={{height: "100vh"}}>
         <h2>
           잠시 후 다시 시도해주세요.
+        </h2>
+      </div>
+    )
+  }
+  else if (empty){
+    return (
+      <div style={{height: "100vh"}}>
+        <h2>
+          검색결과가 없습니다.
         </h2>
       </div>
     )

@@ -101,9 +101,9 @@ function MyComment() {
   }
   else if (empty){
     return (
-      <div>
+      <div style={{height: "100vh"}}>
         <h2>
-          검색 결과가 없습니다.
+          댓글 내역이 없습니다.
         </h2>
       </div>
     )
@@ -118,12 +118,12 @@ function MyComment() {
         <H6 c={a == "light" ? "dark":"white"}>내가 댓글 달았던 제품들을 확인해보세요</H6>  
         
         {
-          loading ?
+          viewItems.length == 0 ?
           <Row xs={1} md={1} className="g-1" style={{height: "100vh"}}>      
             <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
           </Row> 
           :
-          <Row xs={1} md={1} className="g-1" style={{ height: viewItems.length <= 3 ? "100vh":null }}>
+          <Row xs={1} md={1} className="g-1" style={{ height: viewItems.length <= 3 ? "75vh":null }}>
             {
               viewItems.map((cData, idx)=>{
                 return(

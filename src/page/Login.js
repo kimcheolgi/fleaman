@@ -182,14 +182,16 @@ function Login() {
           {createDate != "" ? getLevel(createDate):<div></div>}
         </div>
         <div>
+          {createDate != "" ? 
           <img
-                alt=""
-                src={getImg(createDate)}
-                width="100"
-                height="100"
-                className="d-inline-block align-top"
-                style={{backgroundColor: "white"}}
-              />
+            alt=""
+            src={getImg(createDate)}
+            width="100"
+            height="100"
+            className="d-inline-block align-top"
+            style={{backgroundColor: "white"}}
+          />: <div className="d-inline-block align-top" style={{width: "100px", height: "100px", backgroundColor: "white"}}/>
+          }
         </div>
         <div>
           <NickNameModal credential={cred} a={a} ></NickNameModal>

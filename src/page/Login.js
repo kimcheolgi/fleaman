@@ -12,6 +12,59 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
+import Badge from 'react-bootstrap/Badge';
+
+const getLevel = (created) => {
+  const date1 = new Date();
+  const date2 = new Date(created);
+  
+  const diffDate = date1.getTime() - date2.getTime();
+  const diff = Math.floor(diffDate / (1000 * 60 * 60 * 24))
+  if (diff <= 2){
+    return <Badge bg="secondary">level: 1</Badge>
+  }
+  else if (diff > 2 && diff <=7){
+    return <Badge bg="light" text="dark">level: 2</Badge>
+  }
+  else if (diff > 7 && diff <= 30){
+    return <Badge bg="success">level: 3</Badge>
+  }
+  else if (diff > 30 && diff <= 90){
+    return <Badge bg="primary">level: 4</Badge>
+  }
+  else if (diff > 90 && diff <= 365){
+    return <Badge bg="warning" text="dark">level: 5</Badge>
+  }
+  else {
+    return <Badge bg="danger">level: 6</Badge>
+  }
+}
+
+const getImg = (created) => {
+  const date1 = new Date();
+  const date2 = new Date(created);
+  
+  const diffDate = date1.getTime() - date2.getTime();
+  const diff = Math.floor(diffDate / (1000 * 60 * 60 * 24))
+  if (diff <= 2){
+    return "/logo.png"
+  }
+  else if (diff > 2 && diff <=7){
+    return "/spin3.gif"
+  }
+  else if (diff > 7 && diff <= 30){
+    return "/spin3.gif"
+  }
+  else if (diff > 30 && diff <= 90){
+    return "/spin1.gif"
+  }
+  else if (diff > 90 && diff <= 365){
+    return "/spin4.gif"
+  }
+  else {
+    return "/spin4.gif"
+  }
+}
 
 
 let H3 = styled.h3`
@@ -34,6 +87,7 @@ function Login() {
   const navigate = useNavigate();
   let [isLogin, setIsLogin] = useState(cred != undefined);
   let [isUpdate, setIsUpdate] = useState(false);
+  let [createDate, setCreateDate] = useState("");
   // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
   const onGoogleSignIn = async res => {
     const { credential } = res;
@@ -65,6 +119,18 @@ function Login() {
     navigate('/');
   }, [isLogin]);
 
+  useEffect(() => {
+    if (cred != undefined){
+      axios.post("https://api.fleaman.shop/user/login", {
+        google_token: cred
+      }).then(function (response) {
+        let create_date = response.data.create_user_date;
+        setCreateDate(create_date)
+      }).catch(function (error) {
+        alert('유저 정보를 가져오는데 실패했습니다.');
+      });
+    }
+  }, [])
 
   if (cred == undefined){
     return (
@@ -103,18 +169,22 @@ function Login() {
       <div style={{height: "100vh"}}>
         <MetaTag title="My Page" desc="플리맨 마이 페이지 FleaMan My Page" url="https://fleaman.shop/login" keywords=", My Page"/>
         <H4 c={a == "light" ? "dark":"white"} className='mt-5'>
-        <img
-              alt=""
-              src="/spin1.gif"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '}
-          "{nick}"님의 페이지</H4>
+          <img
+            alt=""
+            src="/spin1.gif"
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />{' '}
+          "{nick}"님의 페이지
+        </H4>
+        <div className='mb-3'>
+          {createDate != "" ? getLevel(createDate):<div></div>}
+        </div>
         <div>
           <img
                 alt=""
-                src="/logo.png"
+                src={getImg(createDate)}
                 width="100"
                 height="100"
                 className="d-inline-block align-top"

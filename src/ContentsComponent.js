@@ -53,6 +53,31 @@ const getHourDiffComment = (d) => {
   return Math.floor((diffDate  - (9 * 60 * 60 * 1000)) / (1000 * 60 * 60));
 }
 
+const getLevel = (created) => {
+  const date1 = new Date();
+  const date2 = new Date(created);
+  
+  const diffDate = date1.getTime() - date2.getTime();
+  const diff = Math.floor(diffDate / (1000 * 60 * 60 * 24))
+  if (diff <= 2){
+    return <Badge bg="secondary">1</Badge>
+  }
+  else if (diff > 2 && diff <=7){
+    return <Badge bg="light" text="dark">2</Badge>
+  }
+  else if (diff > 7 && diff <= 30){
+    return <Badge bg="success">3</Badge>
+  }
+  else if (diff > 30 && diff <= 90){
+    return <Badge bg="primary">4</Badge>
+  }
+  else if (diff > 90 && diff <= 365){
+    return <Badge bg="warning" text="dark">5</Badge>
+  }
+  else {
+    return <Badge bg="danger">6</Badge>
+  }
+}
 
 function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, real }){
   let a = useSelector((state) => state.bg )
@@ -350,7 +375,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                   return (
                     <Row key={idx} style={{fontSize: "0.8rem"}}>
                       <Col xs={3} md={3} style={{textAlign: "center", fontWeight: "bold"}}>
-                        {comment.nick_name}
+                        {getLevel(comment.create_user_date)}{comment.nick_name}
                       </Col>
                       <Col xs={accountInfo.email == comment.email ? 5 : 7} md={accountInfo.email == comment.email ? 5:7} style={{textAlign: "left"}}>
                         {comment.comment}

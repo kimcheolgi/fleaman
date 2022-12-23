@@ -373,7 +373,9 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                   return (
                     <Row key={idx} style={{fontSize: "0.8rem"}}>
                       <Col xs={3} md={3} style={{textAlign: "center", fontWeight: "bold"}}>
-                        {getLevel(comment.level)}{comment.nick_name}
+                        <a href={"/page/"+comment.nick_name} style={{color: a == "light" ? "black" : "white"}}>
+                          {getLevel(comment.level)}{comment.nick_name}
+                        </a>
                       </Col>
                       <Col xs={accountInfo.email == comment.email ? 5 : 7} md={accountInfo.email == comment.email ? 5:7} style={{textAlign: "left"}}>
                         {comment.comment}

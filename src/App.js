@@ -27,6 +27,7 @@ import { Badge } from 'react-bootstrap';
 import Commented from './page/Commented';
 import MyComment from './page/MyComment';
 import DailyCheck from './page/DailyCheck';
+import UserPage from './page/UserPage';
 // const ContentsList = lazy(() => import('./page/ContentsList'))
 // const Login = lazy(() => import('./page/Login'))
 
@@ -239,6 +240,9 @@ function App() {
                   } />
                 <Route path='/dailycheck' element={
                     <DailyCheck />
+                  } />
+                <Route path='/page/:nick' element={
+                    <UserPage />
                   } />
 
               </Routes>

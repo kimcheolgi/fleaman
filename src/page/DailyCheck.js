@@ -121,7 +121,7 @@ function DailyCheck() {
   )
 
   useEffect(()=>{
-    if(totalData.length !==0 && inView) {
+    if(viewItems.length !==0 && inView) {
       let url = "https://api.fleaman.shop/table/tables?genre=daily&count="+count+"&offset="+offset
       axios.get(url)
         .then((result) => {

@@ -84,6 +84,8 @@ function Login() {
   let [isLogin, setIsLogin] = useState(cred != undefined);
   let [isUpdate, setIsUpdate] = useState(false);
   let [level, setLevel] = useState(0);
+  let [commentCount, setCommentCount] = useState(0);
+  let [dailyCount, setDailyCount] = useState(0);
   // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
   const onGoogleSignIn = async res => {
     const { credential } = res;
@@ -120,8 +122,10 @@ function Login() {
       axios.post("https://api.fleaman.shop/user/login", {
         google_token: cred
       }).then(function (response) {
-        let user_level = response.data.level;
-        setLevel(user_level)
+        let user_data = response.data;
+        setLevel(user_data.level)
+        setCommentCount(user_data.comment_cnt)
+        setDailyCount(user_data.daily_cnt)
       }).catch(function (error) {
         alert('유저 정보를 가져오는데 실패했습니다.');
       });
@@ -189,6 +193,9 @@ function Login() {
           />: <div className="d-inline-block align-top" style={{width: "100px", height: "100px", backgroundColor: "white"}}/>
           }
         </div>
+        <H6 c={a == "light" ? "dark":"white"} className='mt-3'>
+          작성한 댓글 수: {commentCount}, 출첵 수: {dailyCount}
+        </H6>
         <div>
           <NickNameModal credential={cred} a={a} ></NickNameModal>
         {/* <Button className='mt-5' onClick={ onGoogleSignOut } variant="outline-secondary">닉네임 수정</Button>  */}

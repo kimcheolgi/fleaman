@@ -19,11 +19,13 @@ import ProductShare from './page/ProductShare';
 import Tables from './page/Community';
 import { useDispatch, useSelector } from "react-redux"
 import { changeBg } from "./store.js"
+import axios from 'axios';
 
 import "./App.css";
 import CommentedProductList from './page/CommentProductList';
 import { Badge } from 'react-bootstrap';
 import Commented from './page/Commented';
+import MyComment from './page/MyComment';
 // const ContentsList = lazy(() => import('./page/ContentsList'))
 // const Login = lazy(() => import('./page/Login'))
 
@@ -224,6 +226,9 @@ function App() {
                 <Route path='/commented' element={
                     <Commented />
                   } />
+                <Route path='/mycomment' element={
+                    <MyComment />
+                  } />
 
               </Routes>
             {/* </Suspense> */}
@@ -256,8 +261,24 @@ function App() {
 
 function LoginButton({ a }) {
   let cred = localStorage.getItem('googleAccount')
-  let nick = localStorage.getItem('userNickName')
+  let [nick, setNick] = useState("")
 
+  let [userData, setUserData] = useState({})
+  useEffect(() => {
+    if (cred != undefined){
+      axios.post("https://api.fleaman.shop/user/login", {
+        google_token: cred
+      }).then(function (response) {
+        let userD = response.data;
+        setUserData(userD)
+        setNick(userD.nick_name)
+        
+      }).catch(function (error) {
+        alert('유저 정보를 가져오는데 실패했습니다.');
+      });
+    }
+    console.log(userData)
+  }, [cred])
   let navigate = useNavigate();
 
   if (cred == undefined) {
@@ -268,11 +289,20 @@ function LoginButton({ a }) {
     )
   }
   else {
-    let userInfo = parseJwt(cred)
     return (
-      <Navbar.Text onClick={() => { navigate('/login') }}>
-        <Button variant={a == "light" ? "outline-secondary":"secondary"}>My Page </Button>
-      </Navbar.Text>
+      <Nav className="me-auto">
+        <NavDropdown key={"login"} title={nick} id="basic-nav-dropdown">
+          <NavDropdown.Item key={"mypage"} onClick={()=>{ navigate('/login')}}>
+            My Page
+          </NavDropdown.Item>
+          <NavDropdown.Item key={"mycomment"} onClick={()=>{ navigate('/mycomment')}}>
+            나의 댓글
+          </NavDropdown.Item>
+        </NavDropdown>      
+      </Nav>
+      // <Navbar.Text onClick={() => { navigate('/login') }}>
+      //   <Button variant={a == "light" ? "outline-secondary":"secondary"}>My Page </Button>
+      // </Navbar.Text>
     )
   }
 }

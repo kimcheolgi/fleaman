@@ -95,15 +95,17 @@ function DailyCheck() {
   let [loading, setLoading] = useState(true)
   let [empty, setEmpty] = useState(false)
   let [viewItems, setViewItems] = useState([])
+  let count = 20
+  let [offset, setOffset] = useState(0);
   useEffect(() => {
     setLoading(true)
     setEmpty(false)
-    let url = "https://api.fleaman.shop/table/tables?genre=daily"
+    let url = "https://api.fleaman.shop/table/tables?genre=daily&count="+count+"&offset="+offset
     axios.get(url)
       .then((result) => {
         let productData = result.data
-        setTotalData(productData)
-        setViewItems(productData.slice(0, 10))
+        setOffset(offset + count)
+        setViewItems(productData)
         if (productData.length == 0){
           setMoreFlag(false)
           setEmpty(true)
@@ -120,11 +122,23 @@ function DailyCheck() {
 
   useEffect(()=>{
     if(totalData.length !==0 && inView) {
-      let itemsLen = viewItems.length
-        setViewItems(totalData.slice(0, itemsLen + 10))
-        if (itemsLen + 10 >= totalData.length){
-          setMoreFlag(false)
-        }
+      let url = "https://api.fleaman.shop/table/tables?genre=daily&count="+count+"&offset="+offset
+      axios.get(url)
+        .then((result) => {
+          let productData = result.data
+          let copyData = [...viewItems]
+          let dataCopy = [...copyData, ...productData]
+          setViewItems([...new Set(dataCopy)])
+          setOffset(offset + count)
+          if (productData.length == 0){
+            setMoreFlag(false)
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 500){
+            window.location.reload();
+          }
+        })
       }
   },[inView]);
 
@@ -266,12 +280,24 @@ function DailyCheck() {
 
         {
           moreFlag ? <Button ref={ref} style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
-            let itemsLen = viewItems.length
-            setViewItems(totalData.slice(0, itemsLen + 10))
-            if (itemsLen + 10 >= totalData.length){
-              setMoreFlag(false)
-            }
-            
+            let url = "https://api.fleaman.shop/table/tables?genre=daily&count="+count+"&offset="+offset
+            axios.get(url)
+              .then((result) => {
+                let productData = result.data
+                let copyData = [...viewItems]
+                let dataCopy = [...copyData, ...productData]
+                setViewItems([...new Set(dataCopy)])
+                setOffset(offset + count)
+                if (productData.length == 0){
+                  setMoreFlag(false)
+                }
+              })
+              .catch((error) => {
+                if (error.response.status == 500){
+                  window.location.reload();
+                }
+              })
+                  
 
           }}> More...</Button> : null
         }

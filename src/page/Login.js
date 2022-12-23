@@ -14,55 +14,51 @@ import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
 import Badge from 'react-bootstrap/Badge';
 
-const getLevel = (created) => {
-  const date1 = new Date();
-  const date2 = new Date(created);
-  
-  const diffDate = date1.getTime() - date2.getTime();
-  const diff = Math.floor(diffDate / (1000 * 60 * 60 * 24))
-  if (diff <= 2){
-    return <Badge bg="secondary">level: 1</Badge>
+const getLevel = (level) => {
+  if (level <= 4){
+    return <Badge bg="secondary">level: {level}</Badge>
   }
-  else if (diff > 2 && diff <=7){
-    return <Badge bg="light" text="dark">level: 2</Badge>
+  else if (level == 5){
+    return <Badge bg="success" text="dark">level: {level}</Badge>
   }
-  else if (diff > 7 && diff <= 30){
-    return <Badge bg="success">level: 3</Badge>
+  else if (level == 6){
+    return <Badge bg="primary">level: {level}</Badge>
   }
-  else if (diff > 30 && diff <= 90){
-    return <Badge bg="primary">level: 4</Badge>
+  else if (level == 7){
+    return <Badge bg="info">level: {level}</Badge>
   }
-  else if (diff > 90 && diff <= 365){
-    return <Badge bg="warning" text="dark">level: 5</Badge>
+  else if (level == 8){
+    return <Badge bg="warning" text="dark">level: {level}</Badge>
   }
-  else {
-    return <Badge bg="danger">level: 6</Badge>
+  else if (level == 9){
+    return <Badge bg="danger" text="dark">level: {level}</Badge>
+  }
+  else if (level == 10){
+    return <Badge bg="dark" text="dark">level: {level}</Badge>
   }
 }
 
-const getImg = (created) => {
-  const date1 = new Date();
-  const date2 = new Date(created);
-  
-  const diffDate = date1.getTime() - date2.getTime();
-  const diff = Math.floor(diffDate / (1000 * 60 * 60 * 24))
-  if (diff <= 2){
+const getImg = (level) => {
+  if (level <= 4){
     return "/logo.png"
   }
-  else if (diff > 2 && diff <=7){
-    return "/spin3.gif"
+  else if (level == 5){
+    return "/logo.png"
   }
-  else if (diff > 7 && diff <= 30){
-    return "/spin3.gif"
+  else if (level == 6){
+    return "/logo.png"
   }
-  else if (diff > 30 && diff <= 90){
-    return "/spin1.gif"
+  else if (level == 7){
+    return "/logo.png"
   }
-  else if (diff > 90 && diff <= 365){
-    return "/spin4.gif"
+  else if (level == 8){
+    return "/logo.png"
   }
-  else {
-    return "/spin4.gif"
+  else if (level == 9){
+    return "/logo.png"
+  }
+  else if (level == 10){
+    return "/logo.png"
   }
 }
 
@@ -87,7 +83,7 @@ function Login() {
   const navigate = useNavigate();
   let [isLogin, setIsLogin] = useState(cred != undefined);
   let [isUpdate, setIsUpdate] = useState(false);
-  let [createDate, setCreateDate] = useState("");
+  let [level, setLevel] = useState(0);
   // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
   const onGoogleSignIn = async res => {
     const { credential } = res;
@@ -124,8 +120,8 @@ function Login() {
       axios.post("https://api.fleaman.shop/user/login", {
         google_token: cred
       }).then(function (response) {
-        let create_date = response.data.create_user_date;
-        setCreateDate(create_date)
+        let user_level = response.data.level;
+        setLevel(user_level)
       }).catch(function (error) {
         alert('유저 정보를 가져오는데 실패했습니다.');
       });
@@ -179,13 +175,13 @@ function Login() {
           "{nick}"님의 페이지
         </H4>
         <div className='mb-3'>
-          {createDate != "" ? getLevel(createDate):<div></div>}
+          {level != 0 ? getLevel(level):<div></div>}
         </div>
         <div>
-          {createDate != "" ? 
+          {level != 0 ? 
           <img
             alt=""
-            src={getImg(createDate)}
+            src={getImg(level)}
             width="100"
             height="100"
             className="d-inline-block align-top"

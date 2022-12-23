@@ -53,29 +53,27 @@ const getHourDiffComment = (d) => {
   return Math.floor((diffDate  - (9 * 60 * 60 * 1000)) / (1000 * 60 * 60));
 }
 
-const getLevel = (created) => {
-  const date1 = new Date();
-  const date2 = new Date(created);
-  
-  const diffDate = date1.getTime() - date2.getTime();
-  const diff = Math.floor(diffDate / (1000 * 60 * 60 * 24))
-  if (diff <= 2){
-    return <Badge bg="secondary">1</Badge>
+const getLevel = (level) => {
+  if (level <= 4){
+    return <Badge bg="secondary">{level}</Badge>
   }
-  else if (diff > 2 && diff <=7){
-    return <Badge bg="light" text="dark">2</Badge>
+  else if (level == 5){
+    return <Badge bg="success" text="dark">{level}</Badge>
   }
-  else if (diff > 7 && diff <= 30){
-    return <Badge bg="success">3</Badge>
+  else if (level == 6){
+    return <Badge bg="primary">{level}</Badge>
   }
-  else if (diff > 30 && diff <= 90){
-    return <Badge bg="primary">4</Badge>
+  else if (level == 7){
+    return <Badge bg="info">{level}</Badge>
   }
-  else if (diff > 90 && diff <= 365){
-    return <Badge bg="warning" text="dark">5</Badge>
+  else if (level == 8){
+    return <Badge bg="warning" text="dark">{level}</Badge>
   }
-  else {
-    return <Badge bg="danger">6</Badge>
+  else if (level == 9){
+    return <Badge bg="danger" text="dark">{level}</Badge>
+  }
+  else if (level == 10){
+    return <Badge bg="dark" text="dark">{level}</Badge>
   }
 }
 
@@ -375,7 +373,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                   return (
                     <Row key={idx} style={{fontSize: "0.8rem"}}>
                       <Col xs={3} md={3} style={{textAlign: "center", fontWeight: "bold"}}>
-                        {getLevel(comment.create_user_date)}{comment.nick_name}
+                        {getLevel(comment.level)}{comment.nick_name}
                       </Col>
                       <Col xs={accountInfo.email == comment.email ? 5 : 7} md={accountInfo.email == comment.email ? 5:7} style={{textAlign: "left"}}>
                         {comment.comment}

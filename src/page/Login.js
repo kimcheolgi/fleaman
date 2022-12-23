@@ -168,41 +168,56 @@ function Login() {
     return (
       <div style={{height: "100vh"}}>
         <MetaTag title="My Page" desc="플리맨 마이 페이지 FleaMan My Page" url="https://fleaman.shop/login" keywords=", My Page"/>
-        <H4 c={a == "light" ? "dark":"white"} className='mt-5'>
-          <img
-            alt=""
-            src="/spin1.gif"
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-          />{' '}
-          "{nick}"님의 페이지
-        </H4>
-        <div className='mb-3'>
-          {level != 0 ? getLevel(level):<div></div>}
-        </div>
-        <div>
-          {level != 0 ? 
-          <img
-            alt=""
-            src={getImg(level)}
-            width="100"
-            height="100"
-            className="d-inline-block align-top"
-            style={{backgroundColor: "white"}}
-          />: <div className="d-inline-block align-top" style={{width: "100px", height: "100px", backgroundColor: "white"}}/>
-          }
-        </div>
-        <H6 c={a == "light" ? "dark":"white"} className='mt-3'>
-          작성한 댓글 수: {commentCount}, 출첵 수: {dailyCount}
-        </H6>
-        <div>
-          <NickNameModal credential={cred} a={a} ></NickNameModal>
-        {/* <Button className='mt-5' onClick={ onGoogleSignOut } variant="outline-secondary">닉네임 수정</Button>  */}
-        </div>
-        
-        <Button className='mt-1' onClick={ onGoogleSignOut } variant={a == "light" ? "outline-secondary":"secondary"}>로그아웃</Button> 
+        <Card 
+          border={a == "light" ? null : "secondary"}
+          bg={a}
+          text={a == "light" ? "dark" : "light"}
+          style={{margin: "5%", padding: "5%"}}>
+          <H4 c={a == "light" ? "dark":"white"} className='mt-2'>
+            <img
+              alt=""
+              src="/spin1.gif"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{' '}
+            "{nick}"님의 페이지
+          </H4>
+          <div className='mb-3'>
+            {level != 0 ? getLevel(level):<div></div>}
+          </div>
+          <div>
+            {level != 0 ? 
+            <img
+              alt=""
+              src={getImg(level)}
+              width="100"
+              height="100"
+              className="d-inline-block align-top"
+              style={{backgroundColor: "white"}}
+            />: <div className="d-inline-block align-top" style={{width: "100px", height: "100px", backgroundColor: "white"}}/>
+            }
+          </div>
+          <H6 c={a == "light" ? "dark":"white"} className='mt-3'>
+            작성한 댓글 수: {commentCount}, 출첵 수: {dailyCount}
+          </H6>
+          <div>
+            <NickNameModal credential={cred} a={a} ></NickNameModal>
+          {/* <Button className='mt-5' onClick={ onGoogleSignOut } variant="outline-secondary">닉네임 수정</Button>  */}
+          </div>
+          
+          <div>
+            <Button 
+              className='mt-1' 
+              onClick={ onGoogleSignOut } 
+              variant={a == "light" ? "outline-secondary":"secondary"}
+            >
+              로그아웃
+            </Button> 
+          </div>
+        </Card>
       </div>
+
     )
   }
 

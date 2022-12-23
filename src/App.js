@@ -180,7 +180,8 @@ function App() {
                   localStorage.setItem("mode", changeColor)
                 }}  
               >
-                  {a == "light" ? "Dark" : "Light"}</Button>
+                {a == "light" ? "Dark" : "Light"}
+              </Button>
               <LoginButton a={a}/>
             </Navbar.Collapse>
           </Container>
@@ -290,7 +291,7 @@ function LoginButton({ a }) {
   }
   else {
     return (
-      <Nav className="me-auto">
+      <Nav>
         <NavDropdown key={"login"} title={nick} id="basic-nav-dropdown">
           <NavDropdown.Item key={"mypage"} onClick={()=>{ navigate('/login')}}>
             My Page

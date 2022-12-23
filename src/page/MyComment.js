@@ -118,12 +118,12 @@ function MyComment() {
         <H6 c={a == "light" ? "dark":"white"}>내가 댓글 달았던 제품들을 확인해보세요</H6>  
         
         {
-          viewItems.length == 0 ?
+          loading ?
           <Row xs={1} md={1} className="g-1" style={{height: "100vh"}}>      
             <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
           </Row> 
           :
-          <Row xs={1} md={1} className="g-1">
+          <Row xs={1} md={1} className="g-1" style={{height: "100vh"}}>
             {
               viewItems.map((cData, idx)=>{
                 return(

@@ -26,6 +26,7 @@ import CommentedProductList from './page/CommentProductList';
 import { Badge } from 'react-bootstrap';
 import Commented from './page/Commented';
 import MyComment from './page/MyComment';
+import DailyCheck from './page/DailyCheck';
 // const ContentsList = lazy(() => import('./page/ContentsList'))
 // const Login = lazy(() => import('./page/Login'))
 
@@ -64,23 +65,23 @@ function App() {
     [
       {
         category: "Mac", 
-        contents: ['Macbook Air', 'MacBook Pro', 'iMac 24"', 'Mac mini', 'Accessories']
+        contents: ['Macbook Air', 'MacBook Pro', 'iMac 24"', 'Mac mini']
       },
       {
         category: "iPad", 
-        contents: ['iPad Pro', 'iPad Air', 'iPad', 'iPad mini', 'Accessories']
+        contents: ['iPad Pro', 'iPad Air', 'iPad', 'iPad mini']
       },
       {
         category: "iPhone", 
-        contents: ['iPhone Pro Max', 'iPhone Pro', 'iPhone', 'iPhone mini', 'iPhone SE', 'Accessories']
+        contents: ['iPhone Pro Max', 'iPhone Pro', 'iPhone', 'iPhone mini', 'iPhone SE']
       },
       {
         category: "Watch", 
-        contents: ['Apple Watch', 'Apple Watch SE', 'Accessories']
+        contents: ['Apple Watch', 'Apple Watch SE']
       },
       {
         category: "AirPods", 
-        contents: ['AirPods', 'AirPods Pro', 'AirPods Max', 'Accessories']
+        contents: ['AirPods', 'AirPods Pro', 'AirPods Max']
       },
       {
         category: "GPU", 
@@ -169,6 +170,10 @@ function App() {
                   className="d-inline-block align-top"
                 />{' '}플리 게시판
                 </Nav.Link> */}
+                <Nav.Link href="/dailycheck">
+                  <Badge bg='info' size="sm">!?</Badge>
+                  출석체크
+                </Nav.Link>
               </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">
@@ -232,6 +237,9 @@ function App() {
                 <Route path='/mycomment' element={
                     <MyComment />
                   } />
+                <Route path='/dailycheck' element={
+                    <DailyCheck />
+                  } />
 
               </Routes>
             {/* </Suspense> */}
@@ -287,7 +295,7 @@ function LoginButton({ a }) {
   if (cred == undefined) {
     return(
       <Navbar.Text onClick={() => { navigate('/login') }}>
-        <Button size="sm" variant={a == "light" ? "outline-secondary":"secondary"}>Login</Button>
+        <Button size="sm" variant={a == "light" ? "outline-secondary":"secondary"}>로그인</Button>
       </Navbar.Text>
     )
   }

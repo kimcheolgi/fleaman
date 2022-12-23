@@ -70,10 +70,10 @@ const getLevel = (level) => {
     return <Badge bg="warning" text="dark">{level}</Badge>
   }
   else if (level == 9){
-    return <Badge bg="danger" text="dark">{level}</Badge>
+    return <Badge bg="danger">{level}</Badge>
   }
   else if (level == 10){
-    return <Badge bg="dark" text="dark">{level}</Badge>
+    return <Badge bg="dark">{level}</Badge>
   }
 }
 

@@ -123,7 +123,7 @@ function MyComment() {
             <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
           </Row> 
           :
-          <Row xs={1} md={1} className="g-1" style={{height: "100vh"}}>
+          <Row xs={1} md={1} className="g-1" style={{ height: viewItems.length <= 3 ? "100vh":null }}>
             {
               viewItems.map((cData, idx)=>{
                 return(
@@ -145,6 +145,7 @@ function MyComment() {
 
           }}> More...</Button> : null
         }
+
         {
           resize <= 1080 ? 
           <TopButton></TopButton> : null

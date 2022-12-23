@@ -194,7 +194,7 @@ function Login() {
         {/* <Button className='mt-5' onClick={ onGoogleSignOut } variant="outline-secondary">닉네임 수정</Button>  */}
         </div>
         
-        <Button className='mt-1' onClick={ onGoogleSignOut } variant={a == "light" ? "outline-secondary":"secondary"}>Sign Out</Button> 
+        <Button className='mt-1' onClick={ onGoogleSignOut } variant={a == "light" ? "outline-secondary":"secondary"}>로그아웃</Button> 
       </div>
     )
   }

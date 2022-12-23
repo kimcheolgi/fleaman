@@ -180,6 +180,7 @@ function App() {
                   dispatch(changeBg(changeColor))
                   localStorage.setItem("mode", changeColor)
                 }}  
+                style={{marginRight: "5px"}}
               >
                 {a == "light" ? "Dark" : "Light"}
               </Button>
@@ -286,7 +287,7 @@ function LoginButton({ a }) {
   if (cred == undefined) {
     return(
       <Navbar.Text onClick={() => { navigate('/login') }}>
-        <Button variant={a == "light" ? "outline-secondary":"secondary"}>Login</Button>
+        <Button size="sm" variant={a == "light" ? "outline-secondary":"secondary"}>Login</Button>
       </Navbar.Text>
     )
   }

@@ -173,6 +173,7 @@ function App() {
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">
               <Button
+                size='sm'
                 variant={a == "light" ? "dark" : "light"}
                 onClick={() => {
                   let changeColor = a == "light" ? "dark" : "light"

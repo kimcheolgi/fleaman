@@ -13,6 +13,7 @@ import { Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
 import Badge from 'react-bootstrap/Badge';
+import ReactTooltip from "react-tooltip";
 
 const getLevel = (level) => {
   if (level <= 4){
@@ -31,10 +32,10 @@ const getLevel = (level) => {
     return <Badge bg="warning" text="dark">level: {level}</Badge>
   }
   else if (level == 9){
-    return <Badge bg="danger" text="dark">level: {level}</Badge>
+    return <Badge bg="danger">level: {level}</Badge>
   }
   else if (level == 10){
-    return <Badge bg="dark" text="dark">level: {level}</Badge>
+    return <Badge bg="dark">level: {level}</Badge>
   }
 }
 
@@ -184,8 +185,37 @@ function Login() {
             "{nick}"님의 페이지
           </H4>
           <div className='mb-3'>
-            {level != 0 ? getLevel(level):<div></div>}
+            {level != 0 ? getLevel(level):<div></div>} 
+            <ReactTooltip 
+              id='level'
+              getContent={dataTip =>
+                <div>
+                  <Row> 
+                    level 1: 가입
+                  </Row>
+                  <Row>
+                    level 2: 출석 7일 + 댓글 수 10
+                    </Row>
+                  <Row>
+                    level 3: 출석 15일 + 댓글 수 30
+                    </Row>
+                  <Row>
+                    level 4: 출석 30일 + 댓글 수 60
+                  </Row>
+                  <Row>
+                    level 5 이상: 댓글 활동에 따른 비율 별 정책 적용
+                  </Row>
+                </div>
+              }
+            />
+            <Badge 
+              bg='secondary'
+              style={{borderRadius: "50%", "marginLeft": "3px"}}
+              data-for="level"
+              data-tip
+              >?</Badge>
           </div>
+          
           <div>
             {level != 0 ? 
             <img

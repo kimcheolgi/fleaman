@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogin from '../GoogleLogin';
 import {handleCredentialResponse, parseJwt} from '../utils.js'
@@ -77,6 +77,10 @@ let H6 = styled.h6`
 `;
 
 function Login() {
+  const doubleClick = useRef({
+    isDoubleClick: false
+  })
+  
   let a = useSelector((state) => state.bg )
 
   let cred = localStorage.getItem('googleAccount')
@@ -89,6 +93,11 @@ function Login() {
   let [dailyCount, setDailyCount] = useState(0);
   // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
   const onGoogleSignIn = async res => {
+    if (doubleClick.current.isDoubleClick){
+      return ;
+    }
+    doubleClick.current.isDoubleClick = true;
+
     const { credential } = res;
     console.log(handleCredentialResponse(res))
     localStorage.setItem('googleAccount', credential)
@@ -100,6 +109,8 @@ function Login() {
         console.log(nickName)
       }).catch(function (error) {
         alert('유저 정보를 가져오는데 실패했습니다.');
+      }).finally(() =>{
+        doubleClick.current.isDoubleClick = false;
       });
     setIsUpdate(true);
     setIsLogin(true);

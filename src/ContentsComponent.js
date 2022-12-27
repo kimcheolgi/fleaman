@@ -391,18 +391,23 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                               style={{fontSize: "0.2rem"}}
                               variant="outline-secondary"
                               onClick={(e) => {
-                                let google_token = localStorage.getItem('googleAccount')
-                                axios.post("https://api.fleaman.shop/product/delete-comment", {
-                                  google_token: google_token,
-                                  comment_id: comment._id,
-                                  link: comment.product_link
-                                }).then(function (response) {
-                                  let copyData = [...comments]
-                                  let filteredData = copyData.filter(x => x._id != comment._id)
-                                  setComments(filteredData)
-                                }).catch(function (error) {
-                                  alert('댓글 삭제에 실패하였습니다.');
-                                });
+                                if (window.confirm("정말 삭제합니까?")) { 
+                                  let google_token = localStorage.getItem('googleAccount')
+                                  axios.post("https://api.fleaman.shop/product/delete-comment", {
+                                    google_token: google_token,
+                                    comment_id: comment._id,
+                                    link: comment.product_link
+                                  }).then(function (response) {
+                                    let copyData = [...comments]
+                                    let filteredData = copyData.filter(x => x._id != comment._id)
+                                    setComments(filteredData)
+                                  }).catch(function (error) {
+                                    alert('댓글 삭제에 실패하였습니다.');
+                                  });
+                                
+                                } else {
+                                  alert("삭제가 취소됩니다");
+                                }
                               }}
                             >
                               Del

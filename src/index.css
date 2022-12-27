@@ -91,6 +91,7 @@ code {
 .right_button {
   display: flex;
   justify-content: right;
+  margin-right: 0;
 }
 
 .dark_back {

@@ -122,6 +122,11 @@ function MainContentsList() {
   }, []);
 
   let [linkHash, setLinkHash] = useState("")
+
+  const deleteScrap = () => {
+    localStorage.setItem('watched', JSON.stringify([]))
+  }
+
   const handleScrapShare = async () => {
     let scrapData = JSON.parse(localStorage.getItem('watched'))
     if (scrapData.length == 0) {
@@ -216,10 +221,25 @@ function MainContentsList() {
                 스크랩
               </Card.Text> */}
               <Row>
-                <Col>
-                  스크랩
+                스크랩
+                <Col 
+                  className="right_button"
+                  style={{paddingRight: "0px"}}
+                >
                   <Button 
-                    className="share"
+                    variant={a == "light"? "outline-secondary":"secondary"} 
+                    style={{padding: "2px", marginRight: "5px"}}
+                    onClick={() => {
+                      if (window.confirm("정말 삭제합니까?")) {
+                        deleteScrap()
+                        window.location.reload()
+                      } else {
+                        alert("삭제가 취소됩니다");
+                      }
+                    }}> 
+                  전부 삭제 
+                  </Button>
+                  <Button 
                     variant={a == "light"? "outline-secondary":"secondary"} 
                     style={{padding: "2px"}}
                     onClick={() => {

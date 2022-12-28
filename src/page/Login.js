@@ -307,10 +307,10 @@ function Login() {
                 로그아웃
               </Button> 
             </div>
-            <input className='file' type="file"
+            {/* <input className='file' type="file"
                   onChange={(e)=>{
                     handleFileInput(e)
-                    }} />
+                    }} /> */}
           </Card>
         </div>
 

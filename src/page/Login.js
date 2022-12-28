@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
 import Badge from 'react-bootstrap/Badge';
 import ReactTooltip from "react-tooltip";
+import S3 from 'react-aws-s3';
+import Loader from '../Loader';
 
 const getLevel = (level) => {
   if (level <= 4){
@@ -77,6 +79,41 @@ let H6 = styled.h6`
 `;
 
 function Login() {
+  const [selectedFile, setSelectedFile] = useState("");
+  const [file, setFile] = useState("");
+  const [display, setDisplay] = useState("");
+
+  window.Buffer = window.Buffer || require("buffer").Buffer;
+
+  const config = {
+      bucketName:"https://e0aed3a5ab2a0796012524c6d6c5fd98.r2.cloudflarestorage.com/fleaman",
+      // region:'auto',
+      accessKeyId:process.env.REACT_APP_R2_ID,
+      secretAccessKey:process.env.REACT_APP_R2_SECRET,
+  }
+
+  const handleFileInput = (e) => {
+      setSelectedFile(e.target.files[0]);
+      if (e.target.files[0].name.length > 0) {
+          uploadFile(e.target.files[0]);
+      };
+  }
+
+  const uploadFile = async (file) => {
+      const ReactS3Client = new S3(config);
+      // the name of the file uploaded is used to upload it to S3
+      ReactS3Client
+      .uploadFile(file, file.name)
+      .then((data) => {
+          console.log(data.location);
+          setFile(data.location);
+          setSelectedFile(data.location);
+          setDisplay(false);
+      })
+      .catch(err => console.error(err))
+  }
+
+
   const doubleClick = useRef({
     isDoubleClick: false
   })
@@ -91,6 +128,7 @@ function Login() {
   let [level, setLevel] = useState(0);
   let [commentCount, setCommentCount] = useState(0);
   let [dailyCount, setDailyCount] = useState(0);
+  let [isLoading, setIsLoading] = useState(false);
   // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
   const onGoogleSignIn = async res => {
     if (doubleClick.current.isDoubleClick){
@@ -126,7 +164,8 @@ function Login() {
   useEffect(() => {
     console.log(isUpdate, isLogin)
     if (!isUpdate) return;
-    navigate('/');
+    setIsLoading(true)
+    setTimeout(()=>{ navigate('/') }, 500);
   }, [isLogin]);
 
   useEffect(() => {
@@ -143,7 +182,13 @@ function Login() {
       });
     }
   }, [])
-
+  if (isLoading){
+    return (
+      <Row xs={1} md={1} className="g-1" style={{height: "100vh"}}>      
+        <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
+      </Row> 
+    )
+  }
   if (cred == undefined){
     return (
       <div style={{height: "100vh"}}>
@@ -175,91 +220,102 @@ function Login() {
     );
   }
   else {
-    let userInfo = parseJwt(cred)
-    console.log(userInfo)
-    return (
-      <div style={{height: "100vh"}}>
-        <MetaTag title="My Page" desc="플리맨 마이 페이지 FleaMan My Page" url="https://fleaman.shop/login" keywords=", My Page"/>
-        <Card 
-          border={a == "light" ? null : "secondary"}
-          bg={a}
-          text={a == "light" ? "dark" : "light"}
-          style={{margin: "5%", padding: "5%"}}>
-          <H4 c={a == "light" ? "dark":"white"} className='mt-2'>
-            <img
-              alt=""
-              src="/spin1.gif"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '}
-            "{nick}"님의 페이지
-          </H4>
-          <div className='mb-3'>
-            {level != 0 ? getLevel(level):<div></div>} 
-            <ReactTooltip 
-              id='level'
-              getContent={dataTip =>
-                <div>
-                  <Row> 
-                    level 1: 가입
-                  </Row>
-                  <Row>
-                    level 2: 출석 7일 + 댓글 수 10
+    if (isLoading) {
+      <Row xs={1} md={1} className="g-1" style={{height: "100vh"}}>      
+        <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
+      </Row> 
+    }
+    else {
+      let userInfo = parseJwt(cred)
+      console.log(userInfo)
+      return (      
+        <div style={{height: "100vh"}}>
+          <MetaTag title="My Page" desc="플리맨 마이 페이지 FleaMan My Page" url="https://fleaman.shop/login" keywords=", My Page"/>
+          <Card 
+            border={a == "light" ? null : "secondary"}
+            bg={a}
+            text={a == "light" ? "dark" : "light"}
+            style={{margin: "5%", padding: "5%"}}>
+            <H4 c={a == "light" ? "dark":"white"} className='mt-2'>
+              <img
+                alt=""
+                src="/spin1.gif"
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />{' '}
+              "{nick}"님의 페이지
+            </H4>
+            <div className='mb-3'>
+              {level != 0 ? getLevel(level):<div></div>} 
+              <ReactTooltip 
+                id='level'
+                getContent={dataTip =>
+                  <div>
+                    <Row> 
+                      level 1: 가입
                     </Row>
-                  <Row>
-                    level 3: 출석 15일 + 댓글 수 30
+                    <Row>
+                      level 2: 출석 7일 + 댓글 수 10
+                      </Row>
+                    <Row>
+                      level 3: 출석 15일 + 댓글 수 30
+                      </Row>
+                    <Row>
+                      level 4: 출석 30일 + 댓글 수 60
                     </Row>
-                  <Row>
-                    level 4: 출석 30일 + 댓글 수 60
-                  </Row>
-                  <Row>
-                    level 5 이상: 댓글 활동에 따른 비율 별 정책 적용
-                  </Row>
-                </div>
+                    <Row>
+                      level 5 이상: 댓글 활동에 따른 비율 별 정책 적용
+                    </Row>
+                  </div>
+                }
+              />
+              <Badge 
+                bg='secondary'
+                style={{borderRadius: "50%", "marginLeft": "3px"}}
+                data-for="level"
+                data-tip
+                >?</Badge>
+            </div>
+            
+            <div>
+              {level != 0 ? 
+              <img
+                alt=""
+                src={getImg(level)}
+                width="100"
+                height="100"
+                className="d-inline-block align-top"
+                style={{backgroundColor: "white"}}
+              />: <div className="d-inline-block align-top" style={{width: "100px", height: "100px", backgroundColor: "white"}}/>
               }
-            />
-            <Badge 
-              bg='secondary'
-              style={{borderRadius: "50%", "marginLeft": "3px"}}
-              data-for="level"
-              data-tip
-              >?</Badge>
-          </div>
-          
-          <div>
-            {level != 0 ? 
-            <img
-              alt=""
-              src={getImg(level)}
-              width="100"
-              height="100"
-              className="d-inline-block align-top"
-              style={{backgroundColor: "white"}}
-            />: <div className="d-inline-block align-top" style={{width: "100px", height: "100px", backgroundColor: "white"}}/>
-            }
-          </div>
-          <H6 c={a == "light" ? "dark":"white"} className='mt-3'>
-            작성한 댓글 수: {commentCount}, 출첵 수: {dailyCount}
-          </H6>
-          <div>
-            <NickNameModal credential={cred} a={a} ></NickNameModal>
-          {/* <Button className='mt-5' onClick={ onGoogleSignOut } variant="outline-secondary">닉네임 수정</Button>  */}
-          </div>
-          
-          <div>
-            <Button 
-              className='mt-1' 
-              onClick={ onGoogleSignOut } 
-              variant={a == "light" ? "outline-secondary":"secondary"}
-            >
-              로그아웃
-            </Button> 
-          </div>
-        </Card>
-      </div>
+            </div>
+            <H6 c={a == "light" ? "dark":"white"} className='mt-3'>
+              작성한 댓글 수: {commentCount}, 출첵 수: {dailyCount}
+            </H6>
+            <div>
+              <NickNameModal credential={cred} a={a} ></NickNameModal>
+            {/* <Button className='mt-5' onClick={ onGoogleSignOut } variant="outline-secondary">닉네임 수정</Button>  */}
+            </div>
+            
+            <div>
+              <Button 
+                className='mt-1' 
+                onClick={ onGoogleSignOut } 
+                variant={a == "light" ? "outline-secondary":"secondary"}
+              >
+                로그아웃
+              </Button> 
+            </div>
+            <input className='file' type="file"
+                  onChange={(e)=>{
+                    handleFileInput(e)
+                    }} />
+          </Card>
+        </div>
 
-    )
+      )
+    }
   }
 
 }

@@ -20,6 +20,8 @@ import Tables from './page/Community';
 import { useDispatch, useSelector } from "react-redux"
 import { changeBg } from "./store.js"
 import axios from 'axios';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import "./App.css";
 import CommentedProductList from './page/CommentProductList';
@@ -28,6 +30,7 @@ import Commented from './page/Commented';
 import MyComment from './page/MyComment';
 import DailyCheck from './page/DailyCheck';
 import UserPage from './page/UserPage';
+import Write from './page/Write';
 // const ContentsList = lazy(() => import('./page/ContentsList'))
 // const Login = lazy(() => import('./page/Login'))
 
@@ -158,23 +161,14 @@ function App() {
                   })
                 }
                 <Nav.Link href="/hotdeal">
-                  
                   <Badge bg='danger' size="sm">hot</Badge>
                   핫딜 정보
                 </Nav.Link>
-                {/* <Nav.Link href="/community/1">
-                  <img
-                  alt=""
-                  src={a == "light" ? "/spin3.gif" : "/spin2.gif"}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                />{' '}플리 게시판
-                </Nav.Link> */}
-                <Nav.Link href="/dailycheck">
-                  <Badge bg='info' size="sm">!?</Badge>
-                  출석체크
-                </Nav.Link>
+
+                <NavDropdown key={"community"} title={"플리판"} id="basic-nav-dropdown">
+                  {/* <NavDropdown.Item key={"community"} onClick={()=>{ navigate("/community/1")}}>{"플리 게시판"}</NavDropdown.Item> */}
+                  <NavDropdown.Item key={"dailycheck"} onClick={()=>{ navigate("/dailycheck")}}>{"출석체크"}</NavDropdown.Item>
+                </NavDropdown>
               </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">
@@ -231,6 +225,9 @@ function App() {
                   } />
                 <Route path='/community/:page' element={
                     <Tables />
+                  } />
+                <Route path='/write' element={
+                    <Write />
                   } />
                 <Route path='/commented' element={
                     <Commented />

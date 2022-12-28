@@ -14,8 +14,9 @@ import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
 import Badge from 'react-bootstrap/Badge';
 import ReactTooltip from "react-tooltip";
-import S3 from 'react-aws-s3';
+// import S3 from 'react-aws-s3';
 import Loader from '../Loader';
+
 
 const getLevel = (level) => {
   if (level <= 4){
@@ -79,41 +80,6 @@ let H6 = styled.h6`
 `;
 
 function Login() {
-  const [selectedFile, setSelectedFile] = useState("");
-  const [file, setFile] = useState("");
-  const [display, setDisplay] = useState("");
-
-  window.Buffer = window.Buffer || require("buffer").Buffer;
-
-  const config = {
-      bucketName:"https://e0aed3a5ab2a0796012524c6d6c5fd98.r2.cloudflarestorage.com/fleaman",
-      // region:'auto',
-      accessKeyId:process.env.REACT_APP_R2_ID,
-      secretAccessKey:process.env.REACT_APP_R2_SECRET,
-  }
-
-  const handleFileInput = (e) => {
-      setSelectedFile(e.target.files[0]);
-      if (e.target.files[0].name.length > 0) {
-          uploadFile(e.target.files[0]);
-      };
-  }
-
-  const uploadFile = async (file) => {
-      const ReactS3Client = new S3(config);
-      // the name of the file uploaded is used to upload it to S3
-      ReactS3Client
-      .uploadFile(file, file.name)
-      .then((data) => {
-          console.log(data.location);
-          setFile(data.location);
-          setSelectedFile(data.location);
-          setDisplay(false);
-      })
-      .catch(err => console.error(err))
-  }
-
-
   const doubleClick = useRef({
     isDoubleClick: false
   })
@@ -307,10 +273,6 @@ function Login() {
                 로그아웃
               </Button> 
             </div>
-            {/* <input className='file' type="file"
-                  onChange={(e)=>{
-                    handleFileInput(e)
-                    }} /> */}
           </Card>
         </div>
 

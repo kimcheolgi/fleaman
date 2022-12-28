@@ -100,7 +100,7 @@ function DailyCheck() {
   useEffect(() => {
     setLoading(true)
     setEmpty(false)
-    let url = "https://api.fleaman.shop/table/tables?genre=daily&count="+count+"&offset="+offset
+    let url = "https://api.fleaman.shop/table/tables?type=daily&count="+count+"&offset="+offset
     axios.get(url)
       .then((result) => {
         let productData = result.data
@@ -122,7 +122,7 @@ function DailyCheck() {
 
   useEffect(()=>{
     if(viewItems.length !==0 && inView) {
-      let url = "https://api.fleaman.shop/table/tables?genre=daily&count="+count+"&offset="+offset
+      let url = "https://api.fleaman.shop/table/tables?type=daily&count="+count+"&offset="+offset
       axios.get(url)
         .then((result) => {
           let productData = result.data
@@ -199,7 +199,7 @@ function DailyCheck() {
                 if (inputValue != ""){
                   if (cred != undefined){
                     axios.post("https://api.fleaman.shop/table/insert", {
-                      genre: "daily",
+                      type: "daily",
                       content: inputValue,
                       google_token: cred
                     }).then(function (response) {
@@ -232,7 +232,7 @@ function DailyCheck() {
               if (inputValue != ""){
                 if (cred != undefined){
                   axios.post("https://api.fleaman.shop/table/insert", {
-                    genre: "daily",
+                    type: "daily",
                     content: inputValue,
                     google_token: cred
                   }).then(function (response) {
@@ -280,7 +280,7 @@ function DailyCheck() {
 
         {
           moreFlag ? <Button ref={ref} style={{margin:"30px"}} variant="outline-primary" onClick={()=>{
-            let url = "https://api.fleaman.shop/table/tables?genre=daily&count="+count+"&offset="+offset
+            let url = "https://api.fleaman.shop/table/tables?type=daily&count="+count+"&offset="+offset
             axios.get(url)
               .then((result) => {
                 let productData = result.data

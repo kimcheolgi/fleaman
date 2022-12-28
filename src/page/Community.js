@@ -32,7 +32,7 @@ function Tables() {
         플리 게시판(준비중입니다!!!)
       </H4>
       <H6 c={a == "light" ? "dark":"white"}>
-        자유롭게 중고 물품 정보를 공유하는 게시판입니다.
+        자유롭게 중고 핫딜 정보를 공유하는 게시판입니다.
       </H6>
       <Row xs={1} md={1} className="g-1">
             
@@ -119,7 +119,7 @@ function Tables() {
         {
           cred != undefined ? 
           <div>
-            <Button size="sm" variant="outline-secondary" >
+            <Button size="sm" variant={a == "light" ? "outline-secondary":"secondary"} href="/write">
               글쓰기
             </Button>
           </div> 
@@ -167,7 +167,7 @@ function Paging({ currentPage, lastPage }) {
         </MDBPaginationItem>
         <MDBPaginationItem>
           <MDBPaginationLink style={{backgroundColor: "#00000000"}} href={path+fButton} aria-label='Previous'>
-            <span aria-hidden='true' style={{color: a == "light" ? "black" : "white"}}>prev</span>
+            <span aria-hidden='true' style={{color: a == "light" ? "black" : "white"}}>{"<"}</span>
           </MDBPaginationLink>
         </MDBPaginationItem>
         {
@@ -184,7 +184,7 @@ function Paging({ currentPage, lastPage }) {
 
         <MDBPaginationItem>
           <MDBPaginationLink style={{backgroundColor: "#00000000"}} href={path+lButton} aria-label='Next'>
-            <span aria-hidden='true' style={{color: a == "light" ? "black" : "white"}}>next</span>
+            <span aria-hidden='true' style={{color: a == "light" ? "black" : "white"}}>{">"}</span>
           </MDBPaginationLink>
         </MDBPaginationItem>
         <MDBPaginationItem>

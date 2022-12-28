@@ -326,7 +326,8 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                           }
                         }}
                       >
-                        {checked ? "★" : "☆"}
+                        {/* {checked ? "★" : "☆"} */}
+                        {checked ? "스크랩취소" : "스크랩"}
                       </Button>
                       
                 }

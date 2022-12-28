@@ -271,7 +271,9 @@ function MainContentsList() {
                       className="d-inline-block align-top"
                     />
                     "
-                    <Button variant={a == "light"? "outline-secondary":"secondary"} style={{margin: "2px", padding: "2px"}}>☆</Button>
+                    <Button variant={a == "light"? "outline-secondary":"secondary"} 
+                    style={{margin: "2px", padding: "2px", border: "1px solid black"
+}}>스크랩</Button>
                       버튼을 누르면 스크랩이 가능합니다."
                   </Col>
                 </Card>

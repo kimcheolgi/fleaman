@@ -166,11 +166,19 @@ function App() {
                   <Badge bg='danger' size="sm">hot</Badge>
                   핫딜 정보
                 </Nav.Link>
+                <Nav.Link href="/community/1">
+                  <Badge bg='warning' size="sm">new</Badge>
+                  플리 게시판
+                </Nav.Link>
+                <Nav.Link href="/dailycheck">
+                  <Badge bg='info' size="sm">?!</Badge>
+                  출석체크
+                </Nav.Link>
 
-                <NavDropdown key={"community"} title={"플리판"} id="basic-nav-dropdown">
+                {/* <NavDropdown key={"community"} title={"플리판"} id="basic-nav-dropdown">
                   <NavDropdown.Item key={"community"} onClick={()=>{ navigate("/community/1")}}>{"플리 게시판"}</NavDropdown.Item>
                   <NavDropdown.Item key={"dailycheck"} onClick={()=>{ navigate("/dailycheck")}}>{"출석체크"}</NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
               </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">

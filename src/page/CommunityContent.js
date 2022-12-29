@@ -233,7 +233,7 @@ function CommunityContent() {
                           token != "" && comment.update != -1 ?
                             <Button
                               size='sm'
-                              style={{fontSize: "0.2rem"}}
+                              style={{fontSize: "0.5rem"}}
                               variant="outline-secondary"
                               onClick={(e) => {
                                 let copyCommentOpen = [...commentOpen]
@@ -249,7 +249,7 @@ function CommunityContent() {
                           email == comment.email && comment.update != -1 ? 
                             <Button
                               size='sm'
-                              style={{fontSize: "0.2rem"}}
+                              style={{fontSize: "0.5rem"}}
                               variant="outline-secondary"
                               onClick={(e) => {
                                 if (window.confirm("정말 삭제합니까?")) { 
@@ -301,7 +301,7 @@ function CommunityContent() {
                                     email == c.email && c.update != -1  ? 
                                       <Button
                                         size='sm'
-                                        style={{fontSize: "0.2rem"}}
+                                        style={{fontSize: "0.5rem"}}
                                         variant="outline-secondary"
                                         onClick={(e) => {
                                           if (window.confirm("정말 삭제합니까?")) { 

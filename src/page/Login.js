@@ -94,6 +94,8 @@ function Login() {
   let [level, setLevel] = useState(0);
   let [commentCount, setCommentCount] = useState(0);
   let [dailyCount, setDailyCount] = useState(0);
+  let [tableCount, setTableCount] = useState(0);
+
   let [isLoading, setIsLoading] = useState(false);
   // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
   const onGoogleSignIn = async res => {
@@ -143,6 +145,7 @@ function Login() {
         setLevel(user_data.level)
         setCommentCount(user_data.comment_cnt)
         setDailyCount(user_data.daily_cnt)
+        setTableCount(user_data.table_cnt)
       }).catch(function (error) {
         alert('유저 정보를 가져오는데 실패했습니다.');
       });
@@ -257,7 +260,7 @@ function Login() {
               }
             </div>
             <H6 c={a == "light" ? "dark":"white"} className='mt-3'>
-              작성한 댓글 수: {commentCount}, 출첵 수: {dailyCount}
+              작성 게시물 수: {tableCount}, 작성한 댓글 수: {commentCount}, 출첵 수: {dailyCount}
             </H6>
             <div>
               <NickNameModal credential={cred} a={a} ></NickNameModal>

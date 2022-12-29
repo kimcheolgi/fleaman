@@ -230,7 +230,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
           <Row>
             <Col xs={3} md={3}>
               <a href={cData.link} target="_blank">
-                <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl} height="100" 
+                <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl} height="100" width={"100"}
                 style={{backgroundColor: "white", borderRadius: "0%"}}/>
               </a>
             </Col>

@@ -242,6 +242,9 @@ function App() {
                 <Route path='/edit/:id' element={
                     <Edit />
                   } />
+                <Route path='/commented' element={
+                    <Commented />
+                  } />
                 <Route path='/community/:nick' element={
                     <UserPage />
                   } />

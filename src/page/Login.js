@@ -225,13 +225,13 @@ function Login() {
                       level 2: 출석 7일 + 댓글 수 10
                       </Row>
                     <Row>
-                      level 3: 출석 15일 + 댓글 수 30
+                      level 3: 출석 15일 + 댓글 수 30 + 게시글 수 5
                       </Row>
                     <Row>
-                      level 4: 출석 30일 + 댓글 수 60
+                      level 4: 출석 30일 + 댓글 수 60 + 게시글 수 10
                     </Row>
                     <Row>
-                      level 5 이상: 댓글 활동에 따른 비율 별 정책 적용
+                      level 5 이상: 커뮤니티 활동에 따른 비율 별 정책 적용
                     </Row>
                   </div>
                 }

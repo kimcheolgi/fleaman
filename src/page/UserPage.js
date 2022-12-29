@@ -6,7 +6,7 @@ import { Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
 import Badge from 'react-bootstrap/Badge';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const getLevel = (level) => {
   if (level <= 4){
@@ -72,6 +72,7 @@ let H6 = styled.h6`
 function UserPage() {
   let { nick } = useParams();
   let a = useSelector((state) => state.bg )
+  let navigate = useNavigate();
 
   let [level, setLevel] = useState(0);
   let [commentCount, setCommentCount] = useState(0);
@@ -88,6 +89,7 @@ function UserPage() {
       setDailyCount(user_data.daily_cnt)
     }).catch(function (error) {
       alert('유저 정보를 가져오는데 실패했습니다.');
+      navigate(-1)
     });
   }, [])
 

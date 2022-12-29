@@ -31,6 +31,8 @@ import MyComment from './page/MyComment';
 import DailyCheck from './page/DailyCheck';
 import UserPage from './page/UserPage';
 import Write from './page/Write';
+import CommunityContent from './page/CommunityContent';
+import Edit from './page/Edit';
 // const ContentsList = lazy(() => import('./page/ContentsList'))
 // const Login = lazy(() => import('./page/Login'))
 
@@ -166,7 +168,7 @@ function App() {
                 </Nav.Link>
 
                 <NavDropdown key={"community"} title={"플리판"} id="basic-nav-dropdown">
-                  {/* <NavDropdown.Item key={"community"} onClick={()=>{ navigate("/community/1")}}>{"플리 게시판"}</NavDropdown.Item> */}
+                  <NavDropdown.Item key={"community"} onClick={()=>{ navigate("/community/1")}}>{"플리 게시판"}</NavDropdown.Item>
                   <NavDropdown.Item key={"dailycheck"} onClick={()=>{ navigate("/dailycheck")}}>{"출석체크"}</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
@@ -229,8 +231,14 @@ function App() {
                 <Route path='/write' element={
                     <Write />
                   } />
-                <Route path='/commented' element={
-                    <Commented />
+                <Route path='/edit/:id' element={
+                    <Edit />
+                  } />
+                <Route path='/community/:nick' element={
+                    <UserPage />
+                  } />
+                <Route path='/content/:id' element={
+                    <CommunityContent />
                   } />
                 <Route path='/mycomment' element={
                     <MyComment />

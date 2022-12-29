@@ -74,18 +74,38 @@ let H6 = styled.h6`
   color : ${ props => props.c };
 `;
 
-function Write() {
+function Edit() {
   let navigate = useNavigate();
+  let { id } = useParams();
   let a = useSelector((state) => state.bg )
   let [category, setCategory] = useState("분류");
   let [title, setTitle] = useState("");
   let [content, setContent] = useState("");
   let [categoryList, setCategoryList] = useState(["자유", "질문", "잡담"]);
   let [token, setToken] = useState("");
+
   useEffect(() => {
     let cred = localStorage.getItem('googleAccount')
     if (cred != undefined){
       setToken(cred)
+      let userInfo = parseJwt(cred)
+      axios.get("https://api.fleaman.shop/table/tables?type=content&table_id="+id)
+      .then(function (response) {
+        let contentData = response.data;
+        if (contentData.email != userInfo.email){
+          alert('유저정보가 일치하지 않습니다.')
+          navigate('/community/1')
+        }
+        else {
+          setTitle(contentData.title[0])
+          setContent(contentData.content[0])
+          setCategory(contentData.category[0])
+        }
+      }).catch(function (error) {
+        console.log(error, '정보를 가져오는데 실패했습니다.');
+        alert('정보를 가져오는데 실패했습니다.')
+        navigate('/community/1')
+      });
     }
     else {
       alert("로그인이 필요한 서비스입니다.")
@@ -95,8 +115,8 @@ function Write() {
 
   return (
     <div style={{height: "100vh"}}>
-      <MetaTag title="Community Write" desc="플리맨 게시판 작성 페이지 FleaMan Community Write Page" url="https://fleaman.shop/write" keywords=", Write Page"/>
-      <H4 c={a == "light" ? "dark":"white"}>게시물 작성</H4>
+      <MetaTag title="Community Edit" desc="플리맨 게시판 작성 페이지 FleaMan Community Edit Page" url="https://fleaman.shop/edit" keywords=", Edit Page"/>
+      <H4 c={a == "light" ? "dark":"white"}>게시물 수정</H4>
       <H6 c={a == "light" ? "dark":"white"}>광고 또는 욕설 및 음란물의 경우 경고없이 삭제 및 제재합니다</H6>
       <InputGroup className="mb-3">
 
@@ -146,9 +166,9 @@ function Write() {
             color: a == "light" ? "black" : "white",
             height: "75vh"
           }}
+          value={content}
           onChange={(e)=>{ 
             setContent(e.target.value)
-            console.log(content)
           }}
         />
       </InputGroup>
@@ -167,22 +187,23 @@ function Write() {
             alert("내용을 입력해주세요.")
           }
           else {
-            axios.post("https://api.fleaman.shop/table/insert", {
+            axios.post("https://api.fleaman.shop/table/update", {
               type: "table",
               content: content,
               google_token: token,
               category: category,
-              title: title
+              title: title,
+              data_id: id
             }).then(function (response) {
-              alert('게시물이 등록되었습니다.')
+              alert('게시물이 수정되었습니다.')
               navigate('/community/1')
             }).catch(function (error) {
-              alert('게시물 작성에 실패했습니다.');
+              alert('게시물 수정에 실패했습니다.');
             });
           }
         }}
       >
-        글쓰기
+        수정하기
       </Button>
     </div>
   )
@@ -192,5 +213,5 @@ function Write() {
 
 
 
-export default Write;
+export default Edit;
 

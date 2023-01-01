@@ -12,6 +12,9 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
+import MDEditor from '@uiw/react-md-editor';
+import { FileDrop } from 'react-file-drop'
+
 
 const getLevel = (level) => {
   if (level <= 4){
@@ -82,6 +85,9 @@ function Write() {
   let [content, setContent] = useState("");
   let [categoryList, setCategoryList] = useState(["자유", "질문", "잡담"]);
   let [token, setToken] = useState("");
+  const [value, setValue] = useState("**Hello world!!!**");
+  const [boardColor, setBoardColor] = useState(false)
+
   useEffect(() => {
     let cred = localStorage.getItem('googleAccount')
     if (cred != undefined){
@@ -152,6 +158,34 @@ function Write() {
           }}
         />
       </InputGroup>
+      {/* <FileDrop
+          // onFrameDragEnter={(event) => console.log('onFrameDragEnter', event)}
+          // onFrameDragLeave={(event) => console.log('onFrameDragLeave', event)}
+          // onFrameDrop={(event) => console.log('onFrameDrop', event)}
+          onDragOver={(event) => {
+            console.log('onDragOver', event)
+            setBoardColor(true)
+          }}
+          onDragLeave={(event) => {
+            console.log('onDragLeave', event)
+            setBoardColor(false)
+          }}
+          
+          onDrop={(files, event) => {
+            console.log('onDrop!', files, event)
+            
+            setBoardColor(false)
+          }}
+        >
+      <MDEditor
+        value={value}
+        onChange={setValue}
+        style={{
+          backgroundColor: boardColor ? "#adb5bd": null
+        }}
+      />
+      {/* <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} /> */}
+      </FileDrop> */}
       <Button 
         className='mt-3'
         size="xl"

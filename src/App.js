@@ -52,6 +52,7 @@ function App() {
   }, [])
   const [resize, setResize] = useState(window.innerWidth);
   let a = useSelector((state) => state.bg )
+  document.documentElement.setAttribute('data-color-mode', a)
 
   const handleResize = () => {
     setResize(window.innerWidth);

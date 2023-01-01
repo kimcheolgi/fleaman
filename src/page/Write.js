@@ -184,7 +184,7 @@ function Write() {
           backgroundColor: boardColor ? "#adb5bd": null
         }}
       />
-      {/* <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} /> */}
+      <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} />
       </FileDrop> */}
       <Button 
         className='mt-3'

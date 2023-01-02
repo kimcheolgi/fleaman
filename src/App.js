@@ -156,12 +156,7 @@ function App() {
                         {
                           d.contents.map((content, idx)=>{
                             return (
-                                <NavDropdown.Item key={content}>
-                                  <Link to={'/list/'+d.category+'/'+content}>
-                                    {content}
-                                  </Link>
-
-                                </NavDropdown.Item>
+                              <NavDropdown.Item key={content} href={'/list/'+d.category+'/'+content}>{content}</NavDropdown.Item>
                             )
                           })
                         }

@@ -204,13 +204,16 @@ function App() {
           {
             resize > 1080 ?
             <div className="col-md-3 col-sm-0 no-gutters">
-              <AdSense.Google
-                style={{ display: 'block' }}
-                client='ca-pub-3213525149688431'
-                slot='5098246021'
-                format='auto'
-                responsive='true'
-              />
+              <div style={{paddingTop: "100px"}}>
+
+                <AdSense.Google
+                  style={{ display: 'block' }}
+                  client='ca-pub-3213525149688431'
+                  slot='5098246021'
+                  format='auto'
+                  responsive='true'
+                />
+              </div>
               {/* <div className="adfit adfit_left"></div> */}
             </div>
             : null 
@@ -279,13 +282,15 @@ function App() {
             resize > 1080 ? 
             <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
-              <AdSense.Google
-                style={{ display: 'block' }}
-                client='ca-pub-3213525149688431'
-                slot='5098246021'
-                format='auto'
-                responsive='true'
-              />
+              <div style={{paddingTop: "100px"}}>
+                <AdSense.Google
+                  style={{ display: 'block' }}
+                  client='ca-pub-3213525149688431'
+                  slot='5098246021'
+                  format='auto'
+                  responsive='true'
+                />
+              </div>
               <TopButton></TopButton>
             </div> 
             : 

@@ -14,6 +14,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import MDEditor from '@uiw/react-md-editor';
 
 
 const getDateDiffComment = (d) => {
@@ -183,9 +184,11 @@ function CommunityContent() {
             </Row>
           </Card.Header>
           <Card.Body>
-            <Card.Text style={{whiteSpace: "pre-wrap"}}>
+            <MDEditor.Markdown source={content.content} style={{ whiteSpace: 'pre-wrap' }} />
+
+            {/* <Card.Text style={{whiteSpace: "pre-wrap"}}>
               {content.content}
-            </Card.Text>
+            </Card.Text> */}
           </Card.Body>
           <Card.Footer>
             <Card.Text>

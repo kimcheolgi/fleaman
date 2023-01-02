@@ -110,10 +110,12 @@ function SearchInput({main}) {
             if (e.key == 'Enter'){
               // if (inputValue != ""){
                 setSearchKeyword(inputValue)
+                // window.location.href += '?query='+inputValue+"&platform="+platform;
+
                 navigate({
                   pathname: ".",
                   search: '?query='+inputValue+"&platform="+platform,
-                  replace: true 
+                  replace: false 
                 });
 
                 setInputValue("")
@@ -130,10 +132,12 @@ function SearchInput({main}) {
           onClick={() => {
             // if (inputValue != ""){
               setSearchKeyword(inputValue)
+              // window.location.reload();
+              // window.location.href += '?query='+inputValue+"&platform="+platform;
               navigate({
                 pathname: ".",
                 search: '?query='+inputValue+"&platform="+platform,
-                replace: true
+                replace: false
               });
 
               setInputValue("")
@@ -192,9 +196,12 @@ function SearchInput({main}) {
                       let uniqueItems = [...setItems];
                       localStorage.setItem('searched', JSON.stringify(uniqueItems))
                       setSearchedKeyword(uniqueItems)
+                      // window.location.href += '?query='+item+"&platform="+platform;
+
                       navigate({
                         pathname: ".",
                         search: '?query='+item+"&platform="+platform,
+                        replace: false
                       });                      
                     }}
                   >

@@ -280,7 +280,7 @@ function App() {
             resize > 1080 ? 
             <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
-              <div style={{paddingTop: "100px"}}>
+              <div style={{ paddingTop: "100px"}}>
                 <AdSense.Google
                   style={{ display: 'inline-block', width: "250px", height: "800px" }}
                   client='ca-pub-3213525149688431'

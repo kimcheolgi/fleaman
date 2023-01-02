@@ -85,7 +85,7 @@ function Write() {
   let [content, setContent] = useState("");
   let [categoryList, setCategoryList] = useState(["자유", "질문", "잡담"]);
   let [token, setToken] = useState("");
-  const [value, setValue] = useState("**Hello world!!!**");
+  const [value, setValue] = useState("**내용을 입력해주세요.**");
   const [boardColor, setBoardColor] = useState(false)
 
   useEffect(() => {
@@ -142,7 +142,7 @@ function Write() {
           value={title}
         />
       </InputGroup>
-      <InputGroup>
+      {/* <InputGroup>
         <Form.Control 
           as="textarea" 
           aria-label="With textarea"
@@ -157,8 +157,8 @@ function Write() {
             console.log(content)
           }}
         />
-      </InputGroup>
-      {/* <FileDrop
+      </InputGroup> */}
+      <FileDrop
           // onFrameDragEnter={(event) => console.log('onFrameDragEnter', event)}
           // onFrameDragLeave={(event) => console.log('onFrameDragLeave', event)}
           // onFrameDrop={(event) => console.log('onFrameDrop', event)}
@@ -173,19 +173,31 @@ function Write() {
           
           onDrop={(files, event) => {
             console.log('onDrop!', files, event)
-            
+            const formdata = new FormData();
+            formdata.append(
+              "file",
+              files[0],
+            )
+            const headers={'Content-Type': files[0].type}
+            axios.post("https://api.fleaman.shop/table/upload-image", 
+              formdata, headers)
+              .then(function (response) {
+                let imageName = response.data
+                let newValue = value + "\n\n !["+ files[0].name +"](https://image.fleaman.shop/"+ imageName + ")"
+                setValue(newValue)
+                console.log(response); //"dear user, please check etc..."
+              });
             setBoardColor(false)
           }}
         >
-      <MDEditor
-        value={value}
-        onChange={setValue}
-        style={{
-          backgroundColor: boardColor ? "#adb5bd": null
-        }}
-      />
-      <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} />
-      </FileDrop> */}
+        <MDEditor
+          value={value}
+          onChange={setValue}
+          style={{
+            backgroundColor: boardColor ? "#adb5bd": null
+          }}
+        />
+      </FileDrop>
       <Button 
         className='mt-3'
         size="xl"
@@ -197,13 +209,13 @@ function Write() {
           else if (title == ""){
             alert("제목을 입력해주세요.")
           }
-          else if (content == ""){
+          else if (value == ""){
             alert("내용을 입력해주세요.")
           }
           else {
             axios.post("https://api.fleaman.shop/table/insert", {
               type: "table",
-              content: content,
+              content: value,
               google_token: token,
               category: category,
               title: title

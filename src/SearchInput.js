@@ -114,7 +114,7 @@ function SearchInput({main}) {
                   pathname: ".",
                   search: '?query='+inputValue+"&platform="+platform,
                 });
-                window.location.reload()
+
                 setInputValue("")
               // }
               // else {
@@ -133,7 +133,7 @@ function SearchInput({main}) {
                 pathname: ".",
                 search: '?query='+inputValue+"&platform="+platform,
               });
-              window.location.reload()
+
               setInputValue("")
             // }
             // else {
@@ -193,9 +193,7 @@ function SearchInput({main}) {
                       navigate({
                         pathname: ".",
                         search: '?query='+item+"&platform="+platform,
-                      });
-                      window.location.reload()
-                      
+                      });                      
                     }}
                   >
                     {item}

@@ -207,11 +207,9 @@ function App() {
               <div style={{paddingTop: "100px"}}>
 
                 <AdSense.Google
-                  style={{ display: 'block' }}
+                  style={{ display: 'inline-block', width: "250px", height: "800px" }}
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
-                  format='auto'
-                  responsive='true'
                 />
               </div>
               {/* <div className="adfit adfit_left"></div> */}
@@ -284,11 +282,9 @@ function App() {
               {/* <div className="adfit adfit_right"></div> */}
               <div style={{paddingTop: "100px"}}>
                 <AdSense.Google
-                  style={{ display: 'block' }}
+                  style={{ display: 'inline-block', width: "250px", height: "800px" }}
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
-                  format='auto'
-                  responsive='true'
                 />
               </div>
               <TopButton></TopButton>

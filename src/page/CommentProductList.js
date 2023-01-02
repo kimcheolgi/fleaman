@@ -125,7 +125,7 @@ function CommentedProductList() {
 
             {
               viewItems.map((cData, idx)=>{
-                if (idx % 10 == 1){
+                if (idx % 10 == 9){
                   return(
                     <>
                       <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false} ads={true}/> 

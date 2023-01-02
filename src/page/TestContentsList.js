@@ -171,7 +171,7 @@ function TestContentsList() {
               if (idx % 10 == 3){
                 return(
                   <>
-                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} cate={true} ads={true}/>
+                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false} ads={true}/> 
                     <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} cate={true}/>
                   </>
                 )

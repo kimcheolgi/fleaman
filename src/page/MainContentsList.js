@@ -287,7 +287,7 @@ function MainContentsList() {
                 if (idx % 10 == 3){
                   return(
                     <>
-                      <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} real={true} ads={true}/> 
+                      <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false} ads={true}/> 
                       <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} real={true}/> 
                     </>
                   )
@@ -343,7 +343,7 @@ function MainContentsList() {
                   if (idx % 10 == 3){
                     return(
                       <>
-                        <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true} ads={true}/>
+                        <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} reco={false} ads={true}/> 
                         <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true}/>
                       </>
                     )
@@ -376,7 +376,7 @@ function MainContentsList() {
               if (idx % 10 == 3){
                 return(
                   <>
-                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} ads={true}/> 
+                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false} ads={true}/> 
                     <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems}/> 
                   </>
                 )

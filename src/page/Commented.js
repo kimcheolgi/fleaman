@@ -175,9 +175,19 @@ function Commented() {
         <Row xs={1} md={1} className="g-1">
           {
             viewItems.map((item, idx) => {
-              return (
+              if (idx % 10 == 3){
+                return(
+                  <>
+                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} reco={false} ads={true}/> 
+                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true}/>
+                  </>
+                )
+              }
+              else{
+                return(
                   <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true}/>
-              )
+                )
+              }
             })
           }
         </Row>

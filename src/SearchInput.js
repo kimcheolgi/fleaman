@@ -194,6 +194,7 @@ function SearchInput({main}) {
                         pathname: ".",
                         search: '?query='+item+"&platform="+platform,
                       });
+                      window.location.reload()
                       
                     }}
                   >

@@ -122,11 +122,22 @@ function CommentedProductList() {
           </Row> 
           :
           <Row xs={1} md={1} className="g-1">
+
             {
               viewItems.map((cData, idx)=>{
-                return(
-                  <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false}/> 
-                )
+                if (idx % 10 == 1){
+                  return(
+                    <>
+                      <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false} ads={true}/> 
+                      <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false}/> 
+                    </>
+                  )
+                }
+                else{
+                  return(
+                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false}/> 
+                  )
+                }
               })
             }
           </Row>

@@ -13,6 +13,7 @@ import Table from 'react-bootstrap/Table';
 import ReactTooltip from "react-tooltip";
 import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
+import AdSense from 'react-adsense';
 
 
 const getDateDiff = (d) => {
@@ -77,7 +78,7 @@ const getLevel = (level) => {
   }
 }
 
-function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, real }){
+function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, real, ads }){
   let a = useSelector((state) => state.bg )
 
   let [accountFlag, setAccountFlag] = useState(false);
@@ -213,8 +214,9 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
   let diffDate = dateDiff >= 1 ? dateDiff + "일 전" : hourDiff != 0 ? hourDiff + "시간 전" : "방금 전"
   let imgUrl = cData.img_url
   
-  return(
-    <Col className='mt-2' id={cData.link}>
+  if (ads) {
+    return(
+      <Col className='mt-2' id={cData.link + "ads"}>
         <Card 
           style={{
             padding: "10px", 
@@ -225,258 +227,284 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
           border={null}
           // bg={a == "light" ? "light" : "dark"}
           text={a == "light" ? "dark" : "light" }
-          >
+        >
+          <AdSense.Google
+            style={{ display: 'block' }}
+            client='ca-pub-3213525149688431'
+            slot='3555964020'
+            format='fluid'
+            layoutKey="-hb-q+2r-6r+97"
+          />
+        </Card>
+      </Col>
+    )
+  }
+  else {
+    return(
+      <Col className='mt-2' id={cData.link}>
+          <Card 
+            style={{
+              padding: "10px", 
+              textAlign: "left",
+              border: "1px solid #00000000",
+              backgroundColor: a == "light" ? "#f2f3f4": "#343a40"
+            }}
+            border={null}
+            // bg={a == "light" ? "light" : "dark"}
+            text={a == "light" ? "dark" : "light" }
+            >
 
-          <Row>
-            <Col xs={3} md={3}>
-              <a href={cData.link} target="_blank">
-                <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl} height="100" width={"100"}
-                style={{backgroundColor: "white", borderRadius: "0%"}}/>
-              </a>
-            </Col>
-            <Col xs={9} md={9}>
-              <Row>
-                <Col xs={8} md={8}>
-                  
-                  <Badge 
-                    bg={a == "light" ? "secondary" : "light"}
-                    text={a == "light" ? "light" : "dark"}
-                  >
-                    {hotdeal ? cData.source1 : cData.source}
-                  </Badge>
-                  {
-                    !hotdeal ? <ColoredBadge state={cData.state}/> : 
+            <Row>
+              <Col xs={3} md={3}>
+                <a href={cData.link} target="_blank">
+                  <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl} height="100" width={"100"}
+                  style={{backgroundColor: "white", borderRadius: "0%"}}/>
+                </a>
+              </Col>
+              <Col xs={9} md={9}>
+                <Row>
+                  <Col xs={8} md={8}>
+                    
                     <Badge 
-                    bg={a == "light" ? "secondary" : "light"}
-                    text={a == "light" ? "light" : "dark"}
-                    >{cData.source2}</Badge>
+                      bg={a == "light" ? "secondary" : "light"}
+                      text={a == "light" ? "light" : "dark"}
+                    >
+                      {hotdeal ? cData.source1 : cData.source}
+                    </Badge>
+                    {
+                      !hotdeal ? <ColoredBadge state={cData.state}/> : 
+                      <Badge 
+                      bg={a == "light" ? "secondary" : "light"}
+                      text={a == "light" ? "light" : "dark"}
+                      >{cData.source2}</Badge>
+                    }
+                    {
+                      hotdeal ? <Badge bg='danger'> 핫딜 </Badge> : <Badge bg='light' text="dark">{cData.source2}</Badge>
+                    }
+                    
+                    
+                  </Col>
+                  <Col xs={4} md={4} style={{textAlign: "right"}}>
+                    <small className="text-muted">{diffDate}</small>
+                  </Col>
+                </Row>
+                <Row className="mt-2">
+                  <Col>
+                    <a style={{color: a == "light" ? "black" : "white"}} target="_blank" href={cData.link}>
+                      <Card.Title>
+                        {data_name}
+                      </Card.Title>
+                    </a>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    {hotdeal ? null : <Card.Text>{new_price}원 </Card.Text>}
+                  </Col>
+                </Row>
+                {
+                  hotdeal ? <Row>
+                    <Col>
+                    <small className="text-muted">
+                      <Card.Text>
+                        원문 좋아요 {cData.like_cnt} 원문 댓글 {cData.comment_cnt}
+                      </Card.Text>
+                    </small>
+                  </Col>
+                  </Row>: null
+                }
+                <Row>
+                  <Col>
+                    <Card.Text> {cData.location} </Card.Text>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col style={{textAlign: "right"}}>
+                  {
+                    !reco ? 
+                    <Button
+                          className="mb-1"
+                          size='sm'
+                          variant={a == "light"? "outline-secondary":"secondary"}
+                          style={{margin:"1px", padding: "1px"}}
+                          onClick={(e) => {
+                            setOnComment(!onComment)
+                          }}
+                        >
+                          {onComment ? "접기" : "댓글"+comments.length}
+                        </Button> : null
                   }
                   {
-                    hotdeal ? <Badge bg='danger'> 핫딜 </Badge> : <Badge bg='light' text="dark">{cData.source2}</Badge>
+                    reco ? null :
+                        <Button
+                          className="mb-1"
+                          size='sm'
+                          type="checkbox"
+                          style={{margin:"1px", padding: "1px"}}
+                          variant={a == "light"? "outline-secondary":"secondary"}
+                          checked={checked}
+                          value="1"
+                          data-for="scrap"
+                          data-tip
+                          onClick={(e) => {
+                            setChecked(!e.currentTarget.checked)
+                            if (real){
+                              window.location.reload();
+                            }
+                          }}
+                        >
+                          {/* {checked ? "★" : "☆"} */}
+                          {checked ? "스크랩취소" : "스크랩"}
+                        </Button>
+                        
                   }
-                  
-                  
-                </Col>
-                <Col xs={4} md={4} style={{textAlign: "right"}}>
-                  <small className="text-muted">{diffDate}</small>
-                </Col>
-              </Row>
-              <Row className="mt-2">
-                <Col>
-                  <a style={{color: a == "light" ? "black" : "white"}} target="_blank" href={cData.link}>
-                    <Card.Title>
-                      {data_name}
-                    </Card.Title>
-                  </a>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  {hotdeal ? null : <Card.Text>{new_price}원 </Card.Text>}
-                </Col>
-              </Row>
-              {
-                hotdeal ? <Row>
-                  <Col>
-                  <small className="text-muted">
-                    <Card.Text>
-                      원문 좋아요 {cData.like_cnt} 원문 댓글 {cData.comment_cnt}
-                    </Card.Text>
-                  </small>
-                </Col>
-                </Row>: null
-              }
-              <Row>
-                <Col>
-                  <Card.Text> {cData.location} </Card.Text>
-                </Col>
-              </Row>
-              <Row>
-                <Col style={{textAlign: "right"}}>
-                {
-                  !reco ? 
-                  <Button
+                  {
+                    reco ? null :
+                      <Button 
                         className="mb-1"
                         size='sm'
-                        variant={a == "light"? "outline-secondary":"secondary"}
+                        variant={a == "light"? "outline-primary":"primary"}
                         style={{margin:"1px", padding: "1px"}}
-                        onClick={(e) => {
-                          setOnComment(!onComment)
+                        onClick={() => {
+                          handleScrapShare([cData])
                         }}
                       >
-                        {onComment ? "접기" : "댓글"+comments.length}
-                      </Button> : null
-                }
-                {
-                  reco ? null :
-                      <Button
-                        className="mb-1"
-                        size='sm'
-                        type="checkbox"
-                        style={{margin:"1px", padding: "1px"}}
-                        variant={a == "light"? "outline-secondary":"secondary"}
-                        checked={checked}
-                        value="1"
-                        data-for="scrap"
-                        data-tip
-                        onClick={(e) => {
-                          setChecked(!e.currentTarget.checked)
-                          if (real){
-                            window.location.reload();
-                          }
-                        }}
-                      >
-                        {/* {checked ? "★" : "☆"} */}
-                        {checked ? "스크랩취소" : "스크랩"}
+                        공유 링크
                       </Button>
-                      
-                }
-                {
-                  reco ? null :
-                    <Button 
-                      className="mb-1"
-                      size='sm'
-                      variant={a == "light"? "outline-primary":"primary"}
-                      style={{margin:"1px", padding: "1px"}}
+                  }
+                  <ReactTooltip 
+                    id='scrap'
+                    getContent={dataTip => "스크랩"}
+                  />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            {
+              comments.length != 0 && onComment?
+
+            
+            <Card 
+              body={false} 
+              border={!onComment ? "light" : a == "dark" ? "light" : null } 
+              style={{padding: "5px"}}
+              bg={a == "light" ? null : "dark"}
+              text={a == "light" ? "dark" : "light" }
+            >
+              {
+                
+                onComment ? 
+                  comments.map((comment, idx) => {
+                    let dateDiffComment = getDateDiffComment(comment.create_date);
+                    let hourDiffComment = getHourDiffComment(comment.create_date);
+                    let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "d" : hourDiffComment > 0 ? hourDiffComment + "h" : "방금"
+                    return (
+                      <Row key={idx} style={{fontSize: "0.8rem"}}>
+                        <Col xs={3} md={3} style={{textAlign: "center", fontWeight: "bold"}}>
+                          <a href={"/page/"+comment.nick_name} style={{color: a == "light" ? "black" : "white"}}>
+                            {getLevel(comment.level)}{comment.nick_name}
+                          </a>
+                        </Col>
+                        <Col xs={accountInfo.email == comment.email ? 5 : 7} md={accountInfo.email == comment.email ? 5:7} style={{textAlign: "left"}}>
+                          {comment.comment}
+                        </Col>
+                        <Col xs={2} md={2} style={{textAlign: "right", color: "gray"}}>
+                          {diffDateComment}
+                        </Col>
+                          { 
+                            accountInfo.email == comment.email ? 
+                            <Col xs={2} md={2} style={{ textAlign: "right"}}>
+                              <Button
+                                size='sm'
+                                style={{fontSize: "0.2rem"}}
+                                variant="outline-secondary"
+                                onClick={(e) => {
+                                  if (window.confirm("정말 삭제합니까?")) { 
+                                    let google_token = localStorage.getItem('googleAccount')
+                                    axios.post("https://api.fleaman.shop/product/delete-comment", {
+                                      google_token: google_token,
+                                      comment_id: comment._id,
+                                      link: comment.product_link
+                                    }).then(function (response) {
+                                      let copyData = [...comments]
+                                      let filteredData = copyData.filter(x => x._id != comment._id)
+                                      setComments(filteredData)
+                                    }).catch(function (error) {
+                                      alert('댓글 삭제에 실패하였습니다.');
+                                    });
+                                  
+                                  } else {
+                                    alert("삭제가 취소됩니다");
+                                  }
+                                }}
+                              >
+                                Del
+                              </Button>
+                            </Col>
+                            : null
+                          }
+                      </Row>
+                    )
+                  })
+                  : null
+              }
+              </Card> : null
+            }
+
+
+            {
+              accountFlag && onComment?   
+                <Row>
+                  <InputGroup className="mb-1 mt-3">
+                    <Form.Control
+                      placeholder="의견 작성하기(100자 미만)"
+                      aria-label="comment"
+                      aria-describedby="basic-addon"
+                      style={{
+                        backgroundColor: a == "light" ? null : "#212529", 
+                        border: a == "light" ? null : "1px solid #6c757d",
+                        color: a == "light" ? "black" : "white"
+                      }}
+                      onChange={(e)=>{ 
+                        setInputValue(e.target.value)
+                      }}
+                      value={inputValue}
+                    />
+                    <Button variant="outline-secondary" id="button-addon" size='sm'
                       onClick={() => {
-                        handleScrapShare([cData])
+                        let google_token = localStorage.getItem('googleAccount')
+                        axios.post("https://api.fleaman.shop/product/insert-comment", {
+                          google_token: google_token,
+                          comment: inputValue,
+                          data: cData,
+                          product_link: cData.link
+                        }).then(function (response) {
+                          let commentsData = response.data
+                          if (commentsData == "F"){
+                            alert('글자수 규칙에 위반됩니다.');
+                          }
+                          else {
+                            setComments(commentsData)
+                          }
+                        }).catch(function (error) {
+                          alert('댓글 달기에 실패하였습니다.');
+                        });
+                        setInputValue("")
                       }}
                     >
-                      공유 링크
+                      작성
                     </Button>
-                }
-                <ReactTooltip 
-                  id='scrap'
-                  getContent={dataTip => "스크랩"}
-                />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          {
-            comments.length != 0 && onComment?
-
-          
-          <Card 
-            body={false} 
-            border={!onComment ? "light" : a == "dark" ? "light" : null } 
-            style={{padding: "5px"}}
-            bg={a == "light" ? null : "dark"}
-            text={a == "light" ? "dark" : "light" }
-          >
-            {
+                  </InputGroup>
+                </Row>
+              : onComment ? <Row>
+                <Col style={{textAlign: "center", color: "gray"}}> 댓글 달기는 로그인이 필요한 서비스입니다.</Col>
+            </Row> : null
               
-              onComment ? 
-                comments.map((comment, idx) => {
-                  let dateDiffComment = getDateDiffComment(comment.create_date);
-                  let hourDiffComment = getHourDiffComment(comment.create_date);
-                  let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "d" : hourDiffComment > 0 ? hourDiffComment + "h" : "방금"
-                  return (
-                    <Row key={idx} style={{fontSize: "0.8rem"}}>
-                      <Col xs={3} md={3} style={{textAlign: "center", fontWeight: "bold"}}>
-                        <a href={"/page/"+comment.nick_name} style={{color: a == "light" ? "black" : "white"}}>
-                          {getLevel(comment.level)}{comment.nick_name}
-                        </a>
-                      </Col>
-                      <Col xs={accountInfo.email == comment.email ? 5 : 7} md={accountInfo.email == comment.email ? 5:7} style={{textAlign: "left"}}>
-                        {comment.comment}
-                      </Col>
-                      <Col xs={2} md={2} style={{textAlign: "right", color: "gray"}}>
-                        {diffDateComment}
-                      </Col>
-                        { 
-                          accountInfo.email == comment.email ? 
-                          <Col xs={2} md={2} style={{ textAlign: "right"}}>
-                            <Button
-                              size='sm'
-                              style={{fontSize: "0.2rem"}}
-                              variant="outline-secondary"
-                              onClick={(e) => {
-                                if (window.confirm("정말 삭제합니까?")) { 
-                                  let google_token = localStorage.getItem('googleAccount')
-                                  axios.post("https://api.fleaman.shop/product/delete-comment", {
-                                    google_token: google_token,
-                                    comment_id: comment._id,
-                                    link: comment.product_link
-                                  }).then(function (response) {
-                                    let copyData = [...comments]
-                                    let filteredData = copyData.filter(x => x._id != comment._id)
-                                    setComments(filteredData)
-                                  }).catch(function (error) {
-                                    alert('댓글 삭제에 실패하였습니다.');
-                                  });
-                                
-                                } else {
-                                  alert("삭제가 취소됩니다");
-                                }
-                              }}
-                            >
-                              Del
-                            </Button>
-                          </Col>
-                           : null
-                        }
-                    </Row>
-                  )
-                })
-                : null
             }
-            </Card> : null
-          }
-
-
-          {
-            accountFlag && onComment?   
-              <Row>
-                <InputGroup className="mb-1 mt-3">
-                  <Form.Control
-                    placeholder="의견 작성하기(100자 미만)"
-                    aria-label="comment"
-                    aria-describedby="basic-addon"
-                    style={{
-                      backgroundColor: a == "light" ? null : "#212529", 
-                      border: a == "light" ? null : "1px solid #6c757d",
-                      color: a == "light" ? "black" : "white"
-                    }}
-                    onChange={(e)=>{ 
-                      setInputValue(e.target.value)
-                    }}
-                    value={inputValue}
-                  />
-                  <Button variant="outline-secondary" id="button-addon" size='sm'
-                    onClick={() => {
-                      let google_token = localStorage.getItem('googleAccount')
-                      axios.post("https://api.fleaman.shop/product/insert-comment", {
-                        google_token: google_token,
-                        comment: inputValue,
-                        data: cData,
-                        product_link: cData.link
-                      }).then(function (response) {
-                        let commentsData = response.data
-                        if (commentsData == "F"){
-                          alert('글자수 규칙에 위반됩니다.');
-                        }
-                        else {
-                          setComments(commentsData)
-                        }
-                      }).catch(function (error) {
-                        alert('댓글 달기에 실패하였습니다.');
-                      });
-                      setInputValue("")
-                    }}
-                  >
-                    작성
-                  </Button>
-                </InputGroup>
-              </Row>
-            : onComment ? <Row>
-              <Col style={{textAlign: "center", color: "gray"}}> 댓글 달기는 로그인이 필요한 서비스입니다.</Col>
-          </Row> : null
-            
-          }
-      </Card>
-    </Col>
-    )
+        </Card>
+      </Col>
+      )
+    }
   }
 
 function ColoredBadge({state}) {

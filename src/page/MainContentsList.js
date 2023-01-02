@@ -323,15 +323,18 @@ function MainContentsList() {
               <Card.Text>
                 <Badge bg="warning" style={{margin: "2px"}}> New</Badge>
                 최근 댓글 달린 물건
+                <a href="/commented">
                 <Button 
                   className="more"
                   variant={a == "light"? "outline-secondary":"secondary"} 
                   style={{padding: "2px"}}
                   onClick={() => {
-                    navigate("/commented")
+                    // window.location.href("/commented")
+                    // navigate("/commented")
                   }}> 
                   더 보기..
                 </Button>
+                </a>
               </Card.Text>  
             </Card.Header>
             </Card>

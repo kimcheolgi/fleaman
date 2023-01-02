@@ -113,6 +113,7 @@ function SearchInput({main}) {
                 navigate({
                   pathname: ".",
                   search: '?query='+inputValue+"&platform="+platform,
+                  replace: true 
                 });
 
                 setInputValue("")
@@ -132,6 +133,7 @@ function SearchInput({main}) {
               navigate({
                 pathname: ".",
                 search: '?query='+inputValue+"&platform="+platform,
+                replace: true
               });
 
               setInputValue("")

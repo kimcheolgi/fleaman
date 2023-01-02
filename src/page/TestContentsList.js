@@ -168,9 +168,19 @@ function TestContentsList() {
           
           {
             totalData.map((cData, idx)=>{
-              return(
+              if (idx % 10 == 3){
+                return(
+                  <>
+                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false} ads={true}/> 
+                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} cate={true}/>
+                  </>
+                )
+              }
+              else{
+                return(
                   <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} cate={true}/>
-              )
+                )
+              }
             })
           }
         </Row>

@@ -35,6 +35,7 @@ import CommunityContent from './page/CommunityContent';
 import Edit from './page/Edit';
 // const ContentsList = lazy(() => import('./page/ContentsList'))
 // const Login = lazy(() => import('./page/Login'))
+import AdSense from 'react-adsense';
 
 
 function App() {
@@ -203,6 +204,13 @@ function App() {
           {
             resize > 1080 ?
             <div className="col-md-3 col-sm-0 no-gutters">
+              <AdSense.Google
+                style={{ display: 'block' }}
+                client='ca-pub-3213525149688431'
+                slot='5098246021'
+                format='auto'
+                responsive='true'
+              />
               {/* <div className="adfit adfit_left"></div> */}
             </div>
             : null 
@@ -271,6 +279,13 @@ function App() {
             resize > 1080 ? 
             <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
+              <AdSense.Google
+                style={{ display: 'block' }}
+                client='ca-pub-3213525149688431'
+                slot='5098246021'
+                format='auto'
+                responsive='true'
+              />
               <TopButton></TopButton>
             </div> 
             : 

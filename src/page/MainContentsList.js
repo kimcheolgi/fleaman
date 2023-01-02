@@ -272,20 +272,31 @@ function MainContentsList() {
                     />
                     "
                     <Button variant={a == "light"? "outline-secondary":"secondary"} 
-                    style={{margin: "2px", padding: "2px", border: "1px solid black"
-}}>스크랩</Button>
-                      버튼을 누르면 스크랩이 가능합니다."
+                    style={{
+                      margin: "2px", padding: "2px", border: "1px solid black"
+                    }}>
+                      스크랩
+                    </Button>
+                    버튼을 누르면 스크랩이 가능합니다."
                   </Col>
                 </Card>
               : null
             }
             {
               searchItems.map((cData, idx)=>{
-
-                return(
-                  <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} real={true}/> 
-
-                )
+                if (idx % 10 == 3){
+                  return(
+                    <>
+                      <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false} ads={true}/> 
+                      <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} real={true}/> 
+                    </>
+                  )
+                }
+                else{
+                  return(
+                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} real={true}/> 
+                    )
+                }
               })
             }
             {/* </Card.Body> */}
@@ -329,9 +340,19 @@ function MainContentsList() {
 
               {
                 viewItems.map((item, idx) => {
-                  return (
-                    <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true}/>
-                  )
+                  if (idx % 10 == 3){
+                    return(
+                      <>
+                        <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} reco={false} ads={true}/> 
+                        <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true}/>
+                      </>
+                    )
+                  }
+                  else{
+                    return(
+                      <ContentsComponent key={idx} cData={item} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} cate={true}/>
+                      )
+                  }
                 })
               }
           {/* </Card.Body> */}
@@ -352,9 +373,19 @@ function MainContentsList() {
         <Row xs={1} md={1} className="g-1">         
           {
             viewItems.map((cData, idx)=>{
-              return(
-                <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems}/> 
-              )
+              if (idx % 10 == 3){
+                return(
+                  <>
+                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false} ads={true}/> 
+                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems}/> 
+                  </>
+                )
+              }
+              else{
+                return(
+                  <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems}/> 
+                  )
+              }
             })
           }
         </Row>

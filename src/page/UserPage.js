@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
 import Badge from 'react-bootstrap/Badge';
 import { useParams, useNavigate } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
+import Row from 'react-bootstrap/Row';
 
 const getLevel = (level) => {
   if (level <= 4){
@@ -77,6 +79,8 @@ function UserPage() {
   let [level, setLevel] = useState(0);
   let [commentCount, setCommentCount] = useState(0);
   let [dailyCount, setDailyCount] = useState(0);
+  let [tableCount, setTableCount] = useState(0);
+
   // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
   
 
@@ -87,6 +91,7 @@ function UserPage() {
       setLevel(user_data.level)
       setCommentCount(user_data.comment_cnt)
       setDailyCount(user_data.daily_cnt)
+      setTableCount(user_data.table_cnt)
     }).catch(function (error) {
       alert('유저 정보를 가져오는데 실패했습니다.');
       navigate(-1)
@@ -114,6 +119,34 @@ function UserPage() {
         </H4>
         <div className='mb-3'>
           {level != 0 ? getLevel(level):<div></div>}
+          <ReactTooltip 
+                id='level'
+                getContent={dataTip =>
+                  <div>
+                    <Row> 
+                      level 1: 가입
+                    </Row>
+                    <Row>
+                      level 2: 출석 7일 + 댓글 수 10
+                      </Row>
+                    <Row>
+                      level 3: 출석 15일 + 댓글 수 30 + 게시글 수 5
+                      </Row>
+                    <Row>
+                      level 4: 출석 30일 + 댓글 수 60 + 게시글 수 10
+                    </Row>
+                    <Row>
+                      level 5 이상: 커뮤니티 활동에 따른 비율 별 정책 적용
+                    </Row>
+                  </div>
+                }
+              />
+              <Badge 
+                bg='secondary'
+                style={{borderRadius: "50%", "marginLeft": "3px"}}
+                data-for="level"
+                data-tip
+                >?</Badge>
         </div>
         <div>
           {level != 0 ? 
@@ -128,7 +161,7 @@ function UserPage() {
           }
         </div>
         <H6 c={a == "light" ? "dark":"white"} className='mt-3'>
-          작성한 댓글 수: {commentCount}, 출첵 수: {dailyCount}
+          작성 게시물 수: {tableCount}, 작성한 댓글 수: {commentCount}, 출첵 수: {dailyCount}
         </H6>
       </Card>
     </div>

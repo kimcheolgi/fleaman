@@ -223,7 +223,7 @@ function App() {
               }> */}
               <div className='no-gutters'>
                 <div style={{margin: "10px"}}>
-                <div>
+                <div className="mt-3 mb-5" style={{ height: "30vh"}}>
                   <AdSense.Google
                     style={{ display: 'block' }}
                     client='ca-pub-3213525149688431'
@@ -284,6 +284,14 @@ function App() {
             {/* </Suspense> */}
               </div>
             </div>
+            <div className='mt-5'>
+            <AdSense.Google
+              style={{ display: 'block' }}
+              client='ca-pub-3213525149688431'
+              slot='1373843183'
+              format='autorelaxed'
+            />
+          </div>
           </div>
           {
             resize > 1080 ? 
@@ -303,14 +311,7 @@ function App() {
             null
           }      
           </div>
-          <div>
-            <AdSense.Google
-              style={{ display: 'block' }}
-              client='ca-pub-3213525149688431'
-              slot='1373843183'
-              format='autorelaxed'
-            />
-          </div>
+
           <div style={{color: "gray"}}>
             <p>
               Copyright 2022. 플리맨 all rights reserved.

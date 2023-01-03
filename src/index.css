@@ -39,7 +39,7 @@ code {
 .adfit_right{
   position: fixed;
   right: 5%;
-  bottom: 10%;
+  top: 10%;
   z-index: 1;
 }
 
@@ -47,7 +47,7 @@ code {
 .adfit_left{
   position: fixed;
   left: 5%;
-  bottom: 10%;
+  top: 10%;
   z-index: 1;
 }
 

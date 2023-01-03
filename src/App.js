@@ -223,13 +223,15 @@ function App() {
               }> */}
               <div className='no-gutters'>
                 <div style={{margin: "10px"}}>
-                <div className="mt-3 mb-5">
-                  <AdSense.Google
-                    style={{ display: 'inline-block', width: "900px", height: "160px" }}
-                    client='ca-pub-3213525149688431'
-                    slot='5111538528'
-                  />
-                </div>
+                  <div className="mt-3 mb-5" style={{height: "100px"}}>
+                    <AdSense.Google
+                      style={{ display: 'block' }}
+                      client='ca-pub-3213525149688431'
+                      slot='5111538528'
+                      format='auto'
+                      responsive='true'
+                    />
+                  </div>
               <Routes>
                 <Route path='/' element={           
                   <SearchInput main={true}></SearchInput>

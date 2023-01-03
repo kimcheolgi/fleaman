@@ -173,20 +173,32 @@ function Write() {
           
           onDrop={(files, event) => {
             console.log('onDrop!', files, event)
+            console.log(files[0])
             const formdata = new FormData();
             formdata.append(
               "file",
               files[0],
             )
             const headers={'Content-Type': files[0].type}
-            axios.post("https://api.fleaman.shop/table/upload-image", 
+            if (files[0].size >= 5000000){
+              alert("5MB 이상 파일은 업로드가 불가능합니다.")  
+            }
+            else if (files[0].type == 'image/png' || files[0].type == 'image/jpeg' || files[0].type == 'image/jpg' ){
+              axios.post("https://api.fleaman.shop/table/upload-image", 
               formdata, headers)
               .then(function (response) {
                 let imageName = response.data
+                
                 let newValue = value + "\n\n !["+ files[0].name +"](https://image.fleaman.shop/"+ imageName + ")"
                 setValue(newValue)
+                
                 console.log(response); //"dear user, please check etc..."
               });
+            }
+            else {
+              alert("png, jpg, jpeg 파일이 아닙니다.")
+            }
+            
             setBoardColor(false)
           }}
         >

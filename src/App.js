@@ -204,10 +204,16 @@ function App() {
           {
             resize > 1080 ?
             <div className="col-md-3 col-sm-0 no-gutters">
-              <div style={{paddingTop: "100px"}}>
+              <div 
+                // className='adfit_left'
+              >
 
                 <AdSense.Google
-                  style={{ display: 'inline-block', width: "250px", height: "800px" }}
+                  className='adfit_left'
+                  style={{ 
+                    paddingTop: "100px",
+                    display: 'inline-block', width: "200px", height: "600px" 
+                  }}
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
                 />
@@ -299,7 +305,11 @@ function App() {
               {/* <div className="adfit adfit_right"></div> */}
               <div style={{ paddingTop: "100px"}}>
                 <AdSense.Google
-                  style={{ display: 'inline-block', width: "250px", height: "800px" }}
+                  className='adfit_right'
+                  style={{ 
+                    paddingTop: "100px",
+                    display: 'inline-block', width: "200px", height: "600px" 
+                  }}
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
                 />

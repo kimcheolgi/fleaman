@@ -229,13 +229,13 @@ function App() {
               }> */}
               <div className='no-gutters'>
                 <div style={{margin: "10px"}}>
-                  <div className="mt-3 mb-3">
+                  {/* <div className="mt-3 mb-3"> */}
                     <AdSense.Google
                       style={{ display: 'inline-block',width: "700px", height: "90px" }}
                       client='ca-pub-3213525149688431'
                       slot='5111538528'
                     />
-                  </div>
+                  {/* </div> */}
               <Routes>
                 <Route path='/' element={           
                   <SearchInput main={true}></SearchInput>

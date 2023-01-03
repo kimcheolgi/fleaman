@@ -223,13 +223,11 @@ function App() {
               }> */}
               <div className='no-gutters'>
                 <div style={{margin: "10px"}}>
-                <div className="mt-3 mb-5" style={{ height: "20vh"}}>
+                <div className="mt-3 mb-5">
                   <AdSense.Google
-                    style={{ display: 'block' }}
+                    style={{ display: 'inline-block', width: "900px", height: "160px" }}
                     client='ca-pub-3213525149688431'
                     slot='5111538528'
-                    format='auto'
-                    responsive='true'
                   />
                 </div>
               <Routes>

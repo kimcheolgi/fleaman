@@ -223,6 +223,15 @@ function App() {
               }> */}
               <div className='no-gutters'>
                 <div style={{margin: "10px"}}>
+                <div>
+                  <AdSense.Google
+                    style={{ display: 'block' }}
+                    client='ca-pub-3213525149688431'
+                    slot='5111538528'
+                    format='auto'
+                    responsive='true'
+                  />
+                </div>
               <Routes>
                 <Route path='/' element={           
                   <SearchInput main={true}></SearchInput>
@@ -293,6 +302,14 @@ function App() {
             // <div className="adfit"></div>
             null
           }      
+          </div>
+          <div>
+            <AdSense.Google
+              style={{ display: 'block' }}
+              client='ca-pub-3213525149688431'
+              slot='1373843183'
+              format='autorelaxed'
+            />
           </div>
           <div style={{color: "gray"}}>
             <p>

@@ -223,7 +223,7 @@ function App() {
               }> */}
               <div className='no-gutters'>
                 <div style={{margin: "10px"}}>
-                <div className="mt-3 mb-5" style={{ height: "30vh"}}>
+                <div className="mt-3 mb-5" style={{ height: "20vh"}}>
                   <AdSense.Google
                     style={{ display: 'block' }}
                     client='ca-pub-3213525149688431'

@@ -337,6 +337,7 @@ function MainContentsList() {
                 </a>
               </Card.Text>  
             </Card.Header>
+
             </Card>
 
             {/* <Card.Body> */}
@@ -358,6 +359,18 @@ function MainContentsList() {
                   }
                 })
               }
+            <a href="/commented">
+                <Button 
+                  className="mt-3 mb-5"
+                  variant={a == "light"? "outline-secondary":"secondary"} 
+                  style={{padding: "10px"}}
+                  onClick={() => {
+                    // window.location.href("/commented")
+                    // navigate("/commented")
+                  }}> 
+                  더 보기..
+                </Button>
+                </a>
           {/* </Card.Body> */}
         </Row>
         }

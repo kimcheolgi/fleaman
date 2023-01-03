@@ -25,10 +25,17 @@ let H6 = styled.h6`
 const getDateDiff = (d) => {
   const date1 = new Date();
   const date2 = new Date(d);
-  
   const diffDate = date1.getTime() - date2.getTime();
   
   return Math.floor(diffDate / (1000 * 60 * 60 * 24));
+}
+
+const getDateMatch = (d) => {
+  const date1 = new Date();
+  const date2 = new Date(d);
+  const diffDate = date1.getDay() - date2.getDay();
+  console.log(diffDate)
+  return diffDate == 0;
 }
 
 const getLevel = (level) => {
@@ -88,7 +95,7 @@ function Tables() {
   }, [])
 
   return (
-    <div style={{height: "100vh"}}>
+    <div>
       <H4 c={a == "light" ? "dark":"white"}>
         플리 게시판
       </H4>
@@ -110,7 +117,7 @@ function Tables() {
           <tbody style={{fontSize: "0.8rem"}}>
             {
               dataList.map((data, idx) => {
-                let data_date = getDateDiff(data.reg_date) >= 1 ? data.reg_date.split(" ")[0].replaceAll("-", ".").slice(5) : data.reg_date.split(" ")[1].slice(0, 5)
+                let data_date = !getDateMatch(data.reg_date) ? data.reg_date.split(" ")[0].replaceAll("-", ".").slice(5) : data.reg_date.split(" ")[1].slice(0, 5)
                 return (
                   <tr key={idx}>
                     <td>{data.category}</td>

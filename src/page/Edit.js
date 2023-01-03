@@ -12,6 +12,8 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
+import MDEditor from '@uiw/react-md-editor';
+import { FileDrop } from 'react-file-drop'
 
 const getLevel = (level) => {
   if (level <= 4){
@@ -81,8 +83,10 @@ function Edit() {
   let [category, setCategory] = useState("분류");
   let [title, setTitle] = useState("");
   let [content, setContent] = useState("");
+  let [value, setValue] = useState("");
   let [categoryList, setCategoryList] = useState(["자유", "질문", "잡담"]);
   let [token, setToken] = useState("");
+  const [boardColor, setBoardColor] = useState(false)
 
   useEffect(() => {
     let cred = localStorage.getItem('googleAccount')
@@ -97,9 +101,10 @@ function Edit() {
           navigate('/community/1')
         }
         else {
-          setTitle(contentData.title[0])
+          setTitle(contentData.title)
           setContent(contentData.content[0])
-          setCategory(contentData.category[0])
+          setValue(contentData.content)
+          setCategory(contentData.category)
         }
       }).catch(function (error) {
         console.log(error, '정보를 가져오는데 실패했습니다.');
@@ -156,7 +161,7 @@ function Edit() {
           value={title}
         />
       </InputGroup>
-      <InputGroup>
+      {/* <InputGroup>
         <Form.Control 
           as="textarea" 
           aria-label="With textarea"
@@ -171,7 +176,47 @@ function Edit() {
             setContent(e.target.value)
           }}
         />
-      </InputGroup>
+      </InputGroup> */}
+      <FileDrop
+          // onFrameDragEnter={(event) => console.log('onFrameDragEnter', event)}
+          // onFrameDragLeave={(event) => console.log('onFrameDragLeave', event)}
+          // onFrameDrop={(event) => console.log('onFrameDrop', event)}
+          onDragOver={(event) => {
+            console.log('onDragOver', event)
+            setBoardColor(true)
+          }}
+          onDragLeave={(event) => {
+            console.log('onDragLeave', event)
+            setBoardColor(false)
+          }}
+          
+          onDrop={(files, event) => {
+            console.log('onDrop!', files, event)
+            const formdata = new FormData();
+            formdata.append(
+              "file",
+              files[0],
+            )
+            const headers={'Content-Type': files[0].type}
+            axios.post("https://api.fleaman.shop/table/upload-image", 
+              formdata, headers)
+              .then(function (response) {
+                let imageName = response.data
+                let newValue = value + "\n\n !["+ files[0].name +"](https://image.fleaman.shop/"+ imageName + ")"
+                setValue(newValue)
+                console.log(response); //"dear user, please check etc..."
+              });
+            setBoardColor(false)
+          }}
+        >
+        <MDEditor
+          value={value}
+          onChange={setValue}
+          style={{
+            backgroundColor: boardColor ? "#adb5bd": null
+          }}
+        />
+      </FileDrop>
       <Button 
         className='mt-3'
         size="xl"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function TopButton() {
+function TopButton({ outside }) {
 
   const [showButton, setShowButton] = useState(false);
 
@@ -28,7 +28,7 @@ function TopButton() {
   }, [])
 
   return showButton && (
-      <div className="scroll__container">
+      <div className={outside ? "scroll__container__out" : "scroll__container"}>
           <button id="top" onClick={scrollToTop} type="button" > Top</button>
       </div>
 

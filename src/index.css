@@ -28,6 +28,14 @@ code {
   z-index: 1;
 }
 
+
+.scroll__container__out{
+  position: fixed;
+  right: 20%;
+  bottom: 5%;
+  z-index: 1;
+}
+
 .adfit_right{
   position: fixed;
   right: 5%;

@@ -314,7 +314,7 @@ function App() {
                   slot='5098246021'
                 />
               </div>
-              <TopButton></TopButton>
+              <TopButton outside={true}></TopButton>
             </div> 
             : 
             // <div className="adfit"></div>

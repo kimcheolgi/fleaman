@@ -223,7 +223,7 @@ function App() {
               }> */}
               <div className='no-gutters'>
                 <div style={{margin: "10px"}}>
-                  <div className="mt-3 mb-5" style={{height: "100px"}}>
+                  {/* <div className="mt-3 mb-5" style={{height: "100px"}}>
                     <AdSense.Google
                       style={{ display: 'block' }}
                       client='ca-pub-3213525149688431'
@@ -231,7 +231,7 @@ function App() {
                       format='auto'
                       responsive='true'
                     />
-                  </div>
+                  </div> */}
               <Routes>
                 <Route path='/' element={           
                   <SearchInput main={true}></SearchInput>
@@ -312,7 +312,7 @@ function App() {
           }      
           </div>
 
-          <div style={{color: "gray"}}>
+          <div className='mt-5' style={{color: "gray"}}>
             <p>
               Copyright 2022. 플리맨 all rights reserved.
             </p>

@@ -494,23 +494,28 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                     <Button variant="outline-secondary" id="button-addon" size='sm'
                       onClick={() => {
                         let google_token = localStorage.getItem('googleAccount')
-                        axios.post("https://api.fleaman.shop/product/insert-comment", {
-                          google_token: google_token,
-                          comment: inputValue,
-                          data: cData,
-                          product_link: cData.link
-                        }).then(function (response) {
-                          let commentsData = response.data
-                          if (commentsData == "F"){
-                            alert('글자수 규칙에 위반됩니다.');
-                          }
-                          else {
-                            setComments(commentsData)
-                          }
-                        }).catch(function (error) {
-                          alert('댓글 달기에 실패하였습니다.');
-                        });
-                        setInputValue("")
+                        if (inputValue != ""){
+                          axios.post("https://api.fleaman.shop/product/insert-comment", {
+                            google_token: google_token,
+                            comment: inputValue,
+                            data: cData,
+                            product_link: cData.link
+                          }).then(function (response) {
+                            let commentsData = response.data
+                            if (commentsData == "F"){
+                              alert('글자수 규칙에 위반됩니다.');
+                            }
+                            else {
+                              setComments(commentsData)
+                            }
+                          }).catch(function (error) {
+                            alert('댓글 달기에 실패하였습니다.');
+                          });
+                          setInputValue("")
+                        }
+                        else {
+                          alert("댓글을 입력해주세요.")
+                        }
                       }}
                     >
                       작성

@@ -255,13 +255,33 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
             >
 
             <Row>
-              <Col xs={3} md={3}>
+              <Col 
+                xs={3} md={3}
+                style={{
+                  width: "20%",
+                  height: "0",
+                  paddingBottom: "20%",
+                  position: "relative"
+                }}
+              >
                 <a href={cData.link} target="_blank">
-                  <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl} height="100" width={"100"}
-                  style={{backgroundColor: "white", borderRadius: "0%"}}/>
+                  <Card.Img referrerPolicy='no-referrer' variant="top" src={imgUrl}
+                  style={{
+                    backgroundColor: "white", 
+                    position: "absolute",
+                    top: "0",
+                    left: "8%",
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "0%", 
+                    objectFit: "cover"
+                  }}/>
                 </a>
               </Col>
-              <Col xs={9} md={9}>
+              <Col xs={9} md={9} style={{ 
+                marginLeft: "2%",
+                width: "78%",
+              }}>
                 <Row>
                   <Col xs={8} md={8}>
                     

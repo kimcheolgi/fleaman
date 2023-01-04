@@ -290,28 +290,31 @@ function App() {
               </div>
             </div>
             <div className='mt-5'>
-            <AdSense.Google
-              style={{ display: 'block' }}
-              client='ca-pub-3213525149688431'
-              slot='1373843183'
-              format='autorelaxed'
-            />
-          </div>
+              <AdSense.Google
+                style={{ display: 'block' }}
+                client='ca-pub-3213525149688431'
+                slot='5111538528'
+                format='auto'
+                responsive="true"
+              />
+            </div>
           </div>
           {
             resize > 1080 ? 
             <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
-              <div style={{ paddingTop: "100px"}}>
+              <div>
                 <AdSense.Google
-                  className='adfit_right'
-                  style={{ 
-                    paddingTop: "100px",
-                    display: 'inline-block', width: "200px", height: "600px" 
-                  }}
-                  client='ca-pub-3213525149688431'
-                  slot='5098246021'
-                />
+                    className='adfit_right'
+                    style={{ 
+                      display: 'block'
+                    }}
+                    client='ca-pub-3213525149688431'
+                    slot='5098246021'
+                    format='auto'
+                    responsive="true"
+                  />
+                
               </div>
               <TopButton outside={true}></TopButton>
             </div> 

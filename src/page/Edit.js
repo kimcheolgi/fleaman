@@ -244,7 +244,7 @@ function Edit() {
           else {
             axios.post("https://api.fleaman.shop/table/update", {
               type: "table",
-              content: content,
+              content: value,
               google_token: token,
               category: category,
               title: title,

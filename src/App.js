@@ -205,7 +205,7 @@ function App() {
             resize > 1080 ?
             <div className="col-md-3 col-sm-0 no-gutters">
               <div 
-                style={{paddingTop: "100px"}}
+                style={{paddingTop: "100px", paddingLeft: "30px"}}
               >
 
                 <AdSense.Google
@@ -304,7 +304,7 @@ function App() {
             <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
               <div
-                style={{paddingTop: "100px"}}
+                style={{paddingTop: "100px", paddingRight: "30px"}}
               >
                 <AdSense.Google
                     // className='adfit_right'

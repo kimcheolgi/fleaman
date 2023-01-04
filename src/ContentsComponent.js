@@ -233,7 +233,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
             client='ca-pub-3213525149688431'
             slot='3555964020'
             format='fluid'
-            layoutKey="-fr+6b-1s-cn+te"
+            layoutKey="-fw+68+s-gb+qa"
           />
         </Card>
       </Col>

@@ -211,11 +211,12 @@ function App() {
                 <AdSense.Google
                   className='adfit_left'
                   style={{ 
-                    paddingTop: "100px",
-                    display: 'inline-block', width: "200px", height: "600px" 
+                    display: 'block'
                   }}
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
+                  format='auto'
+                  responsive="true"
                 />
               </div>
               {/* <div className="adfit adfit_left"></div> */}

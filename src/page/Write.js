@@ -14,7 +14,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import MDEditor from '@uiw/react-md-editor';
 import { FileDrop } from 'react-file-drop'
-
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const getLevel = (level) => {
   if (level <= 4){
@@ -99,6 +100,9 @@ function Write() {
     }
   }, [])
 
+  useEffect(() =>{
+    console.log(value)
+  }, [value])
   return (
     <div style={{height: "100vh"}}>
       <MetaTag title="Community Write" desc="플리맨 게시판 작성 페이지 FleaMan Community Write Page" url="https://fleaman.shop/write" keywords=", Write Page"/>
@@ -158,58 +162,77 @@ function Write() {
           }}
         />
       </InputGroup> */}
-      <FileDrop
-          // onFrameDragEnter={(event) => console.log('onFrameDragEnter', event)}
-          // onFrameDragLeave={(event) => console.log('onFrameDragLeave', event)}
-          // onFrameDrop={(event) => console.log('onFrameDrop', event)}
-          onDragOver={(event) => {
-            console.log('onDragOver', event)
-            setBoardColor(true)
-          }}
-          onDragLeave={(event) => {
-            console.log('onDragLeave', event)
-            setBoardColor(false)
-          }}
-          
-          onDrop={(files, event) => {
-            console.log('onDrop!', files, event)
-            console.log(files[0])
-            const formdata = new FormData();
-            formdata.append(
-              "file",
-              files[0],
-            )
-            const headers={'Content-Type': files[0].type}
-            if (files[0].size >= 5000000){
-              alert("5MB 이상 파일은 업로드가 불가능합니다.")  
-            }
-            else if (files[0].type == 'image/png' || files[0].type == 'image/jpeg' || files[0].type == 'image/jpg' ){
-              axios.post("https://api.fleaman.shop/table/upload-image", 
-              formdata, headers)
-              .then(function (response) {
-                let imageName = response.data
-                
-                let newValue = value + "\n\n !["+ files[0].name +"](https://image.fleaman.shop/"+ imageName + ")"
-                setValue(newValue)
-                
-                console.log(response); //"dear user, please check etc..."
-              });
-            }
-            else {
-              alert("png, jpg, jpeg 파일이 아닙니다.")
-            }
+      
+      <Row>
+        <Col sm={12} md={6}>
+          <FileDrop
+            // onFrameDragEnter={(event) => console.log('onFrameDragEnter', event)}
+            // onFrameDragLeave={(event) => console.log('onFrameDragLeave', event)}
+            // onFrameDrop={(event) => console.log('onFrameDrop', event)}
+            onDragOver={(event) => {
+              console.log('onDragOver', event)
+              setBoardColor(true)
+            }}
+            onDragLeave={(event) => {
+              console.log('onDragLeave', event)
+              setBoardColor(false)
+            }}
             
-            setBoardColor(false)
-          }}
-        >
-        <MDEditor
-          value={value}
-          onChange={setValue}
-          style={{
-            backgroundColor: boardColor ? "#adb5bd": null
-          }}
-        />
-      </FileDrop>
+            onDrop={(files, event) => {
+              console.log('onDrop!', files, event)
+              console.log(files[0])
+              const formdata = new FormData();
+              formdata.append(
+                "file",
+                files[0],
+              )
+              const headers={'Content-Type': files[0].type}
+              if (files[0].size >= 5000000){
+                alert("5MB 이상 파일은 업로드가 불가능합니다.")  
+              }
+              else if (files[0].type == 'image/png' || files[0].type == 'image/jpeg' || files[0].type == 'image/jpg' ){
+                axios.post("https://api.fleaman.shop/table/upload-image", 
+                formdata, headers)
+                .then(function (response) {
+                  let imageName = response.data
+                  
+                  let newValue = value + "\n\n !["+ files[0].name +"](https://image.fleaman.shop/"+ imageName + ")"
+                  setValue(newValue)
+                  
+                  console.log(response); //"dear user, please check etc..."
+                });
+              }
+              else {
+                alert("png, jpg, jpeg 파일이 아닙니다.")
+              }
+              
+              setBoardColor(false)
+            }}
+          >
+          <MDEditor
+            value={value}
+            onChange={setValue}
+            preview="edit"
+            height={500}
+            style={{
+              backgroundColor: boardColor ? "#adb5bd": null
+            }}
+          />
+          </FileDrop>
+        </Col>
+        <Col sm={12} md={6}>
+          <MDEditor.Markdown 
+            source={value} 
+            style={{ 
+              whiteSpace: 'pre-wrap',  
+              backgroundColor: a == "light" ? "#f2f3f4":"#343a40",
+              textAlign: "left",
+              height: "500px",
+              overflow: "scroll"
+            }} 
+          />
+        </Col>
+      </Row>
       <Button 
         className='mt-3'
         size="xl"

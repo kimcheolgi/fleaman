@@ -405,6 +405,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
 
             
             <Card 
+              className='mt-3'
               body={false} 
               border={!onComment ? "light" : a == "dark" ? "light" : null } 
               style={{padding: "5px"}}

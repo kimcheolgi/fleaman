@@ -184,7 +184,12 @@ function CommunityContent() {
             </Row>
           </Card.Header>
           <Card.Body>
-            <MDEditor.Markdown source={content.content} style={{ whiteSpace: 'pre-wrap' }} />
+            <MDEditor.Markdown source={content.content} 
+              style={{ 
+                whiteSpace: 'pre-wrap',  
+                backgroundColor: a == "light" ? "#f2f3f4":"#343a40"
+              }} 
+            />
 
             {/* <Card.Text style={{whiteSpace: "pre-wrap"}}>
               {content.content}

@@ -205,18 +205,18 @@ function App() {
             resize > 1080 ?
             <div className="col-md-3 col-sm-0 no-gutters">
               <div 
-                // className='adfit_left'
+                style={{paddingTop: "100px"}}
               >
 
                 <AdSense.Google
-                  className='adfit_left'
+                  // className='adfit_left'
                   style={{ 
                     display: 'block'
                   }}
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
                   format='auto'
-                  responsive="true"
+                  responsive='true'
                 />
               </div>
               {/* <div className="adfit adfit_left"></div> */}
@@ -303,9 +303,11 @@ function App() {
             resize > 1080 ? 
             <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
-              <div>
+              <div
+                style={{paddingTop: "100px"}}
+              >
                 <AdSense.Google
-                    className='adfit_right'
+                    // className='adfit_right'
                     style={{ 
                       display: 'block'
                     }}

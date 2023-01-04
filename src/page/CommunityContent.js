@@ -360,17 +360,22 @@ function CommunityContent() {
                             />
                             <Button variant="outline-secondary" id="button-addon" size='sm'
                               onClick={() => {
-                                axios.post("https://api.fleaman.shop/table/insert", {
-                                  type: "comment",
-                                  content: inputComments[idx],
-                                  google_token: token,
-                                  parent_comment_id: comment._id,
-                                  table_id: id
-                                }).then(function (response) {
-                                  window.location.reload()
-                                }).catch(function (error) {
-                                  alert('댓글 입력에 실패했습니다.');
-                                });
+                                if (inputComments[idx] != ""){
+                                  axios.post("https://api.fleaman.shop/table/insert", {
+                                    type: "comment",
+                                    content: inputComments[idx],
+                                    google_token: token,
+                                    parent_comment_id: comment._id,
+                                    table_id: id
+                                  }).then(function (response) {
+                                    window.location.reload()
+                                  }).catch(function (error) {
+                                    alert('댓글 입력에 실패했습니다.');
+                                  });
+                                }
+                                else {
+                                  "댓글을 입력해주세요."
+                                }
                               }}
                             >
                               작성

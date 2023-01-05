@@ -38,16 +38,16 @@ code {
 
 .adfit_right{
   position: fixed;
-  right: 5%;
-  top: 5%;
+  right: 2%;
+  top: 15%;
   z-index: 1;
 }
 
 
 .adfit_left{
   position: fixed;
-  left: 5%;
-  top: 5%;
+  left: 2%;
+  top: 15%;
   z-index: 1;
 }
 

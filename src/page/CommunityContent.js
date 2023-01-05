@@ -374,7 +374,7 @@ function CommunityContent() {
                                   });
                                 }
                                 else {
-                                  "댓글을 입력해주세요."
+                                  alert("댓글을 입력해주세요.")
                                 }
                               }}
                             >

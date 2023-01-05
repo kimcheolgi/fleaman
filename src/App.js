@@ -100,9 +100,11 @@ function App() {
 
   useEffect(()=>{
     let inner = document.createElement('script');
+    let scr = document.createElement("script")
+    scr.src = "https://ads-partners.coupang.com/g.js"
     inner.innerHTML = `new PartnersCoupang.G({"id":629094,"template":"carousel","trackingCode":"AF7144675","width":"100%","height":"100%"})`;
     document.querySelector('.coupang').appendChild(inner);
-
+    document.querySelector('.coupang').appendChild(scr);
   }, [])
 
   return (

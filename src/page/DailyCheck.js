@@ -303,7 +303,7 @@ function DailyCheck() {
           }}> More...</Button> : null
         }
         {
-          resize <= 1350 ? 
+          resize <= 1260 ? 
           <TopButton></TopButton> : null
         }
       </div>

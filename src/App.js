@@ -98,21 +98,20 @@ function App() {
     ]
   );
 
-  // useEffect(()=>{
-  //   let ins = document.createElement('ins');
-  //   let scr = document.createElement('script');
-  //   ins.className = 'kakao_ad_area';
-  //   ins.style = "display:none;";
-  //   scr.async = 'true';
-  //   scr.type = "text/javascript";
-  //   scr.src = "//t1.daumcdn.net/kas/static/ba.min.js";
-  //   ins.setAttribute('data-ad-width','300');
-  //   ins.setAttribute('data-ad-height','250');
-  //   ins.setAttribute('data-ad-unit','DAN-SW7c6hDuKSq24TvA');
-  //   document.querySelector('.adfit').appendChild(ins);
-  //   document.querySelector('.adfit').appendChild(scr);
+  useEffect(()=>{
+    let scr = document.createElement('script');
 
-  // }, [])
+    scr.src = "https://ads-partners.coupang.com/g.js";
+    scr.innerHTML = `         
+      function initCoupang() {
+          var coupang = new PartnersCoupang.G({"id":629094,"template":"carousel","trackingCode":"AF7144675","width":"100%","height":"100%"})
+      }
+      
+      initCoupang();
+    `;
+    document.querySelector('.coupang').appendChild(scr);
+
+  }, [])
 
   return (
     <div className={"App no-gutters"}>
@@ -230,13 +229,18 @@ function App() {
               }> */}
               <div className='no-gutters'>
                 <div style={{margin: "10px"}}>
-                  {/* <div className="mt-3 mb-3"> */}
+                  <div className="mt-3 mb-3 coupang"
+                    style={{
+                      height: "100px"
+                    }}
+                  >
                     {/* <AdSense.Google
                       style={{ display: 'inline-block',width: "700px", height: "90px" }}
                       client='ca-pub-3213525149688431'
                       slot='5111538528'
                     /> */}
-                  {/* </div> */}
+                    
+                  </div>
               <Routes>
                 <Route path='/' element={           
                   <SearchInput main={true}></SearchInput>

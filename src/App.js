@@ -230,7 +230,7 @@ function App() {
                   >
                     {
                       <iframe 
-                        src={"https://ads-partners.coupang.com/widgets.html?id=629094&template=carousel&trackingCode=AF7144675&subId="} 
+                        src={"https://ads-partners.coupang.com/widgets.html?id=629138&template=carousel&trackingCode=AF7144675&subId="} 
                         width="100%" 
                         height="100%" 
                         frameBorder="0" 

@@ -202,7 +202,7 @@ function App() {
               >
 
                 <AdSense.Google
-                  // className='adfit_left'
+                  className='adfit_left'
                   style={{ 
                     display: 'block'
                   }}
@@ -323,7 +323,7 @@ function App() {
                 style={{paddingTop: "100px", paddingRight: "30px"}}
               >
                 <AdSense.Google
-                    // className='adfit_right'
+                    className='adfit_right'
                     style={{ 
                       display: 'block'
                     }}

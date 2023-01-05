@@ -200,8 +200,7 @@ function App() {
               <div 
                 style={{paddingTop: "100px", paddingLeft: "30px"}}
               >
-
-                <AdSense.Google
+                {/* <AdSense.Google
                   // className='adfit_left'
                   style={{ 
                     display: 'block'
@@ -210,6 +209,16 @@ function App() {
                   slot='5098246021'
                   format='auto'
                   responsive='true'
+                /> */}
+                <AdSense.Google
+                  className='adfit_left'
+                  style={{ 
+                    display: 'inline-block',
+                    width: "320px",
+                    height: "600px"
+                  }}
+                  client='ca-pub-3213525149688431'
+                  slot='5098246021'
                 />
               </div>
               {/* <div className="adfit adfit_left"></div> */}
@@ -322,16 +331,26 @@ function App() {
               <div
                 style={{paddingTop: "100px", paddingRight: "30px"}}
               >
-                <AdSense.Google
-                    // className='adfit_right'
-                    style={{ 
-                      display: 'block'
-                    }}
-                    client='ca-pub-3213525149688431'
-                    slot='5098246021'
-                    format='auto'
-                    responsive="true"
-                  />
+                {/* <AdSense.Google
+                  // className='adfit_right'
+                  style={{ 
+                    display: 'block'
+                  }}
+                  client='ca-pub-3213525149688431'
+                  slot='5098246021'
+                  format='auto'
+                  responsive="true"
+                /> */}
+                  <AdSense.Google
+                  className='adfit_right'
+                  style={{ 
+                    display: 'inline-block',
+                    width: "320px",
+                    height: "600px"
+                  }}
+                  client='ca-pub-3213525149688431'
+                  slot='5098246021'
+                />
                 
               </div>
               <TopButton outside={true}></TopButton>

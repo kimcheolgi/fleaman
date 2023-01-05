@@ -102,9 +102,9 @@ function App() {
     let inner = document.createElement('script');
     let scr = document.createElement("script")
     scr.src = "https://ads-partners.coupang.com/g.js"
-    inner.innerHTML = `new PartnersCoupang.G({"id":629094,"template":"carousel","trackingCode":"AF7144675","width":"100%","height":"100%"})`;
+    // inner.innerHTML = `new PartnersCoupang.G({"id":629094,"template":"carousel","trackingCode":"AF7144675","width":"100%","height":"100%"})`;
     // document.querySelector('.coupang').appendChild(scr);
-    document.querySelector('.coupang').appendChild(inner);
+    // document.querySelector('.coupang').appendChild(inner);
   }, [])
 
   return (
@@ -228,6 +228,17 @@ function App() {
                       height: "100px"
                     }}
                   >
+                    {
+                      <iframe 
+                        src={"https://ads-partners.coupang.com/widgets.html?id=629094&template=carousel&trackingCode=AF7144675&subId="} 
+                        width="100%" 
+                        height="100%" 
+                        frameBorder="0" 
+                        scrolling="no" 
+                        referrerPolicy="unsafe-url"
+                      ></iframe>
+                    }
+                    
                     {/* <AdSense.Google
                       style={{ display: 'inline-block',width: "700px", height: "90px" }}
                       client='ca-pub-3213525149688431'

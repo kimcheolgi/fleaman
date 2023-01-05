@@ -16,6 +16,7 @@ import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import AdSense from 'react-adsense';
 
 const getLevel = (level) => {
   if (level <= 4){

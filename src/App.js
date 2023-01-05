@@ -214,7 +214,7 @@ function App() {
                   className='adfit_left'
                   style={{ 
                     display: 'inline-block',
-                    width: "320px",
+                    width: "250px",
                     height: "600px"
                   }}
                   client='ca-pub-3213525149688431'
@@ -345,7 +345,7 @@ function App() {
                   className='adfit_right'
                   style={{ 
                     display: 'inline-block',
-                    width: "320px",
+                    width: "250px",
                     height: "600px"
                   }}
                   client='ca-pub-3213525149688431'

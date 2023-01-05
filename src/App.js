@@ -195,10 +195,10 @@ function App() {
         </Navbar>
         <div className='row no-gutters'>
           {
-            resize > 1080 ?
+            resize > 1350 ?
             <div className="col-md-3 col-sm-0 no-gutters">
               <div 
-                style={{paddingTop: "100px", paddingLeft: "30px"}}
+                // style={{paddingTop: "100px", paddingLeft: "30px"}}
               >
                 {/* <AdSense.Google
                   // className='adfit_left'
@@ -225,7 +225,7 @@ function App() {
             </div>
             : null 
           }
-          <div className={resize > 1080 ? 'col-md-6  no-gutters': ' no-gutters'}>
+          <div className={resize > 1350 ? 'col-md-6  no-gutters': ' no-gutters'}>
             {/* <Suspense 
               fallback={
                 <Loader type="spokes" color="#E5FFCC" message="로딩중입니다" />
@@ -325,11 +325,11 @@ function App() {
             </div>
           </div>
           {
-            resize > 1080 ? 
+            resize > 1350 ? 
             <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
               <div
-                style={{paddingTop: "100px", paddingRight: "30px"}}
+                // style={{paddingTop: "100px", paddingRight: "30px"}}
               >
                 {/* <AdSense.Google
                   // className='adfit_right'

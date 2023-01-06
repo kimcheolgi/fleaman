@@ -420,7 +420,10 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                     let hourDiffComment = getHourDiffComment(comment.create_date);
                     let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "d" : hourDiffComment > 0 ? hourDiffComment + "h" : "방금"
                     return (
-                      <Row key={idx} style={{fontSize: "0.8rem"}}>
+                      <Row key={idx} style={{
+                        fontSize: "0.8rem",
+                        whiteSpace: 'pre-wrap',  
+                      }}>
                         <Col xs={3} md={3} style={{textAlign: "center", fontWeight: "bold"}}>
                           <a href={"/page/"+comment.nick_name} style={{color: a == "light" ? "black" : "white"}}>
                             {getLevel(comment.level)}{comment.nick_name}
@@ -478,6 +481,7 @@ function ContentsComponent({cData, resize, scrap, setSearchItems, reco, cate, re
                 <Row>
                   <InputGroup className="mb-1 mt-3">
                     <Form.Control
+                      as="textarea" 
                       placeholder="의견 작성하기(100자 미만)"
                       aria-label="comment"
                       aria-describedby="basic-addon"

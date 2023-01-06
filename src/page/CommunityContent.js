@@ -221,7 +221,9 @@ function CommunityContent() {
                       borderBottom: a == "light" ? "1px solid #6c757d" : "1px solid #6c757d",
                       padding: "5px",
                     }}>
-                    <Row key={idx} style={{fontSize: "0.8rem"}}>
+                    <Row key={idx} style={{
+                      fontSize: "0.8rem",
+                    }}>
                       <Col xs={10} md={10} style={{textAlign: "left", fontWeight: "bold"}}>
                         <a href={"/page/"+comment.name} style={{color: a == "light" ? "black" : "white"}}>
                           {getLevel(comment.level)} {comment.name}
@@ -233,7 +235,7 @@ function CommunityContent() {
                         
                       </Row>
                       <Row>
-                        <Col xs={8} md={8} style={{textAlign: "left"}}>
+                        <Col xs={8} md={8} style={{textAlign: "left", whiteSpace: 'pre-wrap' }}>
                           {comment.content}
                         </Col>
                         <Col xs={4} md={4} style={{textAlign: "right", color: "gray"}}>
@@ -289,7 +291,9 @@ function CommunityContent() {
                           let diffDateComment = dateDiffComment >= 1 ? dateDiffComment + "d" : hourDiffComment > 0 ? hourDiffComment + "h" : "방금"
                           return (
                             <div style={{paddingLeft: "20px"}}>
-                              <Row key={idx} style={{fontSize: "0.8rem"}}>
+                              <Row key={idx} style={{
+                                fontSize: "0.8rem",
+                              }}>
                                 
                                 <Col xs={10} md={10} style={{textAlign: "left", fontWeight: "bold"}}>
                                   <a href={"/page/"+c.name} style={{color: a == "light" ? "black" : "white"}}>
@@ -301,7 +305,7 @@ function CommunityContent() {
                                 </Col>
                                 </Row>
                                 <Row>
-                                  <Col xs={9} md={9} style={{textAlign: "left"}}>
+                                  <Col xs={9} md={9} style={{textAlign: "left", whiteSpace: 'pre-wrap'}}>
                                     {c.content}
                                   </Col>
                                   <Col xs={3} md={3} style={{textAlign: "right", color: "gray"}}>
@@ -343,6 +347,7 @@ function CommunityContent() {
                         <Row>
                           <InputGroup className="mb-1 mt-1">
                             <Form.Control
+                              as="textarea" 
                               placeholder="의견 작성하기(100자 미만)"
                               aria-label="comment"
                               aria-describedby="basic-addon"
@@ -398,6 +403,7 @@ function CommunityContent() {
                 <Row>
                   <InputGroup className="mb-1 mt-3">
                     <Form.Control
+                      as="textarea" 
                       placeholder="의견 작성하기(100자 미만)"
                       aria-label="comment"
                       aria-describedby="basic-addon"

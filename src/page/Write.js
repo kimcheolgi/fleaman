@@ -233,38 +233,42 @@ function Write() {
           />
         </Col>
       </Row>
-      <Button 
-        className='mt-3'
-        size="xl"
-        variant={a == "light" ? "outline-secondary":"secondary"}
-        onClick={() => {
-          if (category == "분류"){
-            alert("게시물 분류를 선택해주세요.")
-          }
-          else if (title == ""){
-            alert("제목을 입력해주세요.")
-          }
-          else if (value == ""){
-            alert("내용을 입력해주세요.")
-          }
-          else {
-            axios.post("https://api.fleaman.shop/table/insert", {
-              type: "table",
-              content: value,
-              google_token: token,
-              category: category,
-              title: title
-            }).then(function (response) {
-              alert('게시물이 등록되었습니다.')
-              navigate('/community/1')
-            }).catch(function (error) {
-              alert('게시물 작성에 실패했습니다.');
-            });
-          }
-        }}
-      >
-        글쓰기
-      </Button>
+      <Row>
+        <Col>
+          <Button 
+            className='mt-3'
+            size="xl"
+            variant={a == "light" ? "outline-secondary":"secondary"}
+            onClick={() => {
+              if (category == "분류"){
+                alert("게시물 분류를 선택해주세요.")
+              }
+              else if (title == ""){
+                alert("제목을 입력해주세요.")
+              }
+              else if (value == ""){
+                alert("내용을 입력해주세요.")
+              }
+              else {
+                axios.post("https://api.fleaman.shop/table/insert", {
+                  type: "table",
+                  content: value,
+                  google_token: token,
+                  category: category,
+                  title: title
+                }).then(function (response) {
+                  alert('게시물이 등록되었습니다.')
+                  navigate('/community/1')
+                }).catch(function (error) {
+                  alert('게시물 작성에 실패했습니다.');
+                });
+              }
+            }}
+          >
+            글쓰기
+          </Button>
+        </Col>
+      </Row>
     </div>
   )
   

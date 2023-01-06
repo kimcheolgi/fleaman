@@ -121,7 +121,7 @@ function Edit() {
   }, [])
 
   return (
-    <div style={{height: "100vh"}}>
+    <div>
       <MetaTag title="Community Edit" desc="플리맨 게시판 작성 페이지 FleaMan Community Edit Page" url="https://fleaman.shop/edit" keywords=", Edit Page"/>
       <H4 c={a == "light" ? "dark":"white"}>게시물 수정</H4>
       <H6 c={a == "light" ? "dark":"white"}>광고 또는 욕설 및 음란물의 경우 경고없이 삭제 및 제재합니다</H6>

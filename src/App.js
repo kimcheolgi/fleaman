@@ -198,9 +198,9 @@ function App() {
             resize > 1260 ?
             <div className="col-md-3 col-sm-0 no-gutters">
               <div 
-                // style={{paddingTop: "100px", paddingLeft: "30px"}}
+                style={{paddingTop: "100px", paddingLeft: "30px"}}
               >
-                {/* <AdSense.Google
+                <AdSense.Google
                   // className='adfit_left'
                   style={{ 
                     display: 'block'
@@ -209,8 +209,8 @@ function App() {
                   slot='5098246021'
                   format='auto'
                   responsive='true'
-                /> */}
-                <AdSense.Google
+                />
+                {/* <AdSense.Google
                   className='adfit_left'
                   style={{ 
                     display: 'inline-block',
@@ -219,7 +219,7 @@ function App() {
                   }}
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
-                />
+                /> */}
               </div>
               {/* <div className="adfit adfit_left"></div> */}
             </div>
@@ -249,21 +249,21 @@ function App() {
                         referrerPolicy="unsafe-url"
                       ></iframe>
                     } */}
-                    <amp-ad
+                    {/* <amp-ad
                         layout="fixed"
                         width="700"
                         height="100"
                         type="adsense"
                         data-ad-client="ca-pub-3213525149688431"
                         data-ad-slot="7753684162">
-                    </amp-ad>
-                    {/* <AdSense.Google
-                      style={{ display: 'block' }}
+                    </amp-ad> */}
+                    <AdSense.Google
+                      style={{ display: 'inline-block', width: "700px", height: "100px" }}
                       client='ca-pub-3213525149688431'
                       slot='7753684162'
-                      format='auto'
-                      responsive='true'
-                    /> */}
+                      // format='auto'
+                      // responsive='true'
+                    />
                     
                   </div>
               <Routes>
@@ -319,20 +319,20 @@ function App() {
               </div>
             </div>
             <div className='mt-5'>
-              {/* <AdSense.Google
+              <AdSense.Google
                 style={{ display: 'block' }}
                 client='ca-pub-3213525149688431'
                 slot='5111538528'
                 format='auto'
                 responsive="true"
-              /> */}
-              <AdSense.Google
+              />
+              {/* <AdSense.Google
                 style={{ display: 'block' }}
                 client='ca-pub-3213525149688431'
                 slot='1373843183'
                 format='autorelaxed'
                 // responsive="true"
-              />
+              /> */}
             </div>
           </div>
           {
@@ -340,9 +340,9 @@ function App() {
             <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
               <div
-                // style={{paddingTop: "100px", paddingRight: "30px"}}
+                style={{paddingTop: "100px", paddingRight: "30px"}}
               >
-                {/* <AdSense.Google
+                <AdSense.Google
                   // className='adfit_right'
                   style={{ 
                     display: 'block'
@@ -351,8 +351,8 @@ function App() {
                   slot='5098246021'
                   format='auto'
                   responsive="true"
-                /> */}
-                  <AdSense.Google
+                />
+                  {/* <AdSense.Google
                   className='adfit_right'
                   style={{ 
                     display: 'inline-block',
@@ -361,7 +361,7 @@ function App() {
                   }}
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
-                />
+                /> */}
                 
               </div>
               <TopButton outside={true}></TopButton>

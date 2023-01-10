@@ -258,7 +258,7 @@ function App() {
                         data-ad-slot="7753684162">
                     </amp-ad> */}
                     <AdSense.Google
-                      style={{ display: 'inline-block', width: "700px", height: "100px" }}
+                      style={{ display: 'inline-block', width: resize > 1260 ? "700px" : "300px", height: "100px" }}
                       client='ca-pub-3213525149688431'
                       slot='7753684162'
                       // format='auto'

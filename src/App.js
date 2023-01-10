@@ -235,8 +235,8 @@ function App() {
                   <div className="mt-3 mb-3"
                     style={{
                       // width: "728px",
-                      height: "100px",
-                      maxHeight: "100px"
+                      // height: "100px",
+                      // maxHeight: "100px"
                     }}
                   >
                     {/* {

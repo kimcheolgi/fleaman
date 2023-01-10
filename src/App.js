@@ -198,9 +198,9 @@ function App() {
             resize > 1260 ?
             <div className="col-md-3 col-sm-0 no-gutters">
               <div 
-                style={{paddingTop: "100px", paddingLeft: "30px"}}
+                // style={{paddingTop: "100px", paddingLeft: "30px"}}
               >
-                <AdSense.Google
+                {/* <AdSense.Google
                   // className='adfit_left'
                   style={{ 
                     display: 'block'
@@ -209,8 +209,8 @@ function App() {
                   slot='5098246021'
                   format='auto'
                   responsive='true'
-                />
-                {/* <AdSense.Google
+                /> */}
+                <AdSense.Google
                   className='adfit_left'
                   style={{ 
                     display: 'inline-block',
@@ -219,7 +219,7 @@ function App() {
                   }}
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
-                /> */}
+                />
               </div>
               {/* <div className="adfit adfit_left"></div> */}
             </div>
@@ -232,12 +232,14 @@ function App() {
               }> */}
               <div className='no-gutters'>
                 <div style={{margin: "10px"}}>
-                  <div className="mt-3 mb-3 coupang"
+                  <div className="mt-3 mb-3"
                     style={{
-                      height: "100px"
+                      // width: "728px",
+                      height: "100px",
+                      maxHeight: "100px"
                     }}
                   >
-                    {
+                    {/* {
                       <iframe 
                         src={"https://ads-partners.coupang.com/widgets.html?id=629138&template=carousel&trackingCode=AF7144675&subId="} 
                         width="100%" 
@@ -246,12 +248,21 @@ function App() {
                         scrolling="no" 
                         referrerPolicy="unsafe-url"
                       ></iframe>
-                    }
-                    
+                    } */}
+                    <amp-ad
+                        layout="fixed"
+                        width="700"
+                        height="100"
+                        type="adsense"
+                        data-ad-client="ca-pub-3213525149688431"
+                        data-ad-slot="7753684162">
+                    </amp-ad>
                     {/* <AdSense.Google
-                      style={{ display: 'inline-block',width: "700px", height: "90px" }}
+                      style={{ display: 'block' }}
                       client='ca-pub-3213525149688431'
-                      slot='5111538528'
+                      slot='7753684162'
+                      format='auto'
+                      responsive='true'
                     /> */}
                     
                   </div>
@@ -329,9 +340,9 @@ function App() {
             <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
               <div
-                style={{paddingTop: "100px", paddingRight: "30px"}}
+                // style={{paddingTop: "100px", paddingRight: "30px"}}
               >
-                <AdSense.Google
+                {/* <AdSense.Google
                   // className='adfit_right'
                   style={{ 
                     display: 'block'
@@ -340,8 +351,8 @@ function App() {
                   slot='5098246021'
                   format='auto'
                   responsive="true"
-                />
-                  {/* <AdSense.Google
+                /> */}
+                  <AdSense.Google
                   className='adfit_right'
                   style={{ 
                     display: 'inline-block',
@@ -350,7 +361,7 @@ function App() {
                   }}
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
-                /> */}
+                />
                 
               </div>
               <TopButton outside={true}></TopButton>

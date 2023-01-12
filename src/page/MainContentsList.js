@@ -66,6 +66,18 @@ function MainContentsList() {
           console.log('데이터 로드 실패')
         })
   }, [])
+  let [communityData, setCommunityData] = useState([])
+  useEffect(() => {
+    let url = "https://api.fleaman.shop/table/tables?type=table&page=1"
+      axios.get(url)
+        .then((result) => {
+          let coData = result.data
+          setCommunityData(coData[0].slice(0, 5))
+        })
+        .catch(() => {
+          console.log('데이터 로드 실패')
+        })
+  }, [])
   const [resize, setResize] = useState(window.innerWidth);
   let [searchItems, setSearchItems] = useState([]);
   let [isScrap, setIsScrap] = useState(true);
@@ -210,16 +222,7 @@ function MainContentsList() {
             text={a == "light" ? "dark" : "light" }
           >
             <Card.Header>
-              {/* <Card.Text>
-                <img
-                  alt=""
-                  src="/logo.png"
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                />{' '}
-                스크랩
-              </Card.Text> */}
+              
               <Row>
                 스크랩
                 <Col 
@@ -284,22 +287,51 @@ function MainContentsList() {
             }
             {
               searchItems.map((cData, idx)=>{
-                if (idx % 10 == 3){
-                  return(
-                    <>
-                      <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false} ads={true}/> 
-                      <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} real={true}/> 
-                    </>
+                return(
+                  <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} real={true}/> 
                   )
-                }
-                else{
-                  return(
-                    <ContentsComponent key={idx} cData={cData} resize={resize} scrap={isScrap} setSearchItems={setSearchItems} real={true}/> 
-                    )
-                }
               })
             }
             {/* </Card.Body> */}
+        </Row>
+        <Row xs={1} md={1} className="g-1 mt-5">      
+          <Card
+            // border={a == "light" ? null : "secondary"}
+            className="mb-2"
+            style={{
+              textAlign: "left",
+              border: "1px solid #00000000"
+            }}
+            bg={a == "light" ? null : "dark"}
+            text={a == "light" ? "dark" : "light" }
+          >
+            <Card.Header>
+
+              <Card.Text>
+                최근 게시물
+                <a href="/community/1">
+                <Button 
+                  className="more"
+                  variant={a == "light"? "outline-secondary":"secondary"} 
+                  style={{padding: "2px"}}
+                  onClick={() => {
+                    // window.location.href("/commented")
+                    // navigate("/commented")
+                  }}> 
+                  더 보기..
+                </Button>
+                </a>
+              </Card.Text>
+            </Card.Header>
+          </Card>
+
+          {
+            communityData.map((cData, idx)=>{
+              return(
+                  <CommunityComponent key={idx} cData={cData} a={a}/> 
+                )
+            })
+          }
         </Row>
         {viewItems.length == 0 ? 
           <Row xs={1} md={1} className="g-1" style={{height: "1024px"}}>      
@@ -321,7 +353,7 @@ function MainContentsList() {
           >
             <Card.Header>
               <Card.Text>
-                <Badge bg="warning" style={{margin: "2px"}}> New</Badge>
+                {/* <Badge bg="warning" style={{margin: "2px"}}> New</Badge> */}
                 최근 댓글 달린 물건
                 <a href="/commented">
                 <Button 
@@ -423,6 +455,32 @@ function MainContentsList() {
       </div>
     )
   }
+}
+
+
+function CommunityComponent({ cData, a }) {
+  console.log(cData)
+  return (
+    <Card 
+      className='mt-1'
+      body={false} 
+      style={{padding: "5px", textAlign: "left"}}
+      bg={a == "light" ? null : "dark"}
+      text={a == "light" ? "dark" : "light" }
+    >
+      <Row>
+        <Col md={12}>
+          <Badge style={{marginRight: "10px"}} bg="light" text='dark'>
+            {cData.category}
+          </Badge>
+          {cData.title} 
+          <span style={{color: "gray"}}>
+            [{cData.comment_cnt}]
+          </span>
+        </Col>
+      </Row>
+    </Card>
+  )
 }
 
 export default MainContentsList;

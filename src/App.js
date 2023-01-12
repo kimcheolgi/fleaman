@@ -162,11 +162,11 @@ function App() {
                   핫딜 정보
                 </Nav.Link>
                 <Nav.Link href="/community/1">
-                  <Badge bg='warning' size="sm">new</Badge>
+                  {/* <Badge bg='warning' size="sm">new</Badge> */}
                   플리 게시판
                 </Nav.Link>
                 <Nav.Link href="/dailycheck">
-                  <Badge bg='info' size="sm">?!</Badge>
+                  {/* <Badge bg='info' size="sm">?!</Badge> */}
                   출석체크
                 </Nav.Link>
 

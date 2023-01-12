@@ -16,6 +16,7 @@ import Badge from 'react-bootstrap/Badge';
 import ReactTooltip from "react-tooltip";
 // import S3 from 'react-aws-s3';
 import Loader from '../Loader';
+import AdSense from 'react-adsense';
 
 
 const getLevel = (level) => {
@@ -185,6 +186,22 @@ function Login() {
             alignItems: 'center',
           }}><GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" /></div>
         </Card>
+        <div className='mt-5'>
+          <AdSense.Google
+            style={{ display: 'block' }}
+            client='ca-pub-3213525149688431'
+            slot='5111538528'
+            format='auto'
+            responsive="true"
+          />
+          {/* <AdSense.Google
+            style={{ display: 'block' }}
+            client='ca-pub-3213525149688431'
+            slot='1373843183'
+            format='autorelaxed'
+            // responsive="true"
+          /> */}
+        </div>
       </div>
     );
   }
@@ -277,6 +294,22 @@ function Login() {
               </Button> 
             </div>
           </Card>
+          <div className='mt-5'>
+            <AdSense.Google
+              style={{ display: 'block' }}
+              client='ca-pub-3213525149688431'
+              slot='5111538528'
+              format='auto'
+              responsive="true"
+            />
+            {/* <AdSense.Google
+              style={{ display: 'block' }}
+              client='ca-pub-3213525149688431'
+              slot='1373843183'
+              format='autorelaxed'
+              // responsive="true"
+            /> */}
+          </div>
         </div>
 
       )

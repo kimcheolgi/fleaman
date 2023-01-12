@@ -323,22 +323,7 @@ function App() {
             {/* </Suspense> */}
               </div>
             </div>
-            <div className='mt-5'>
-              <AdSense.Google
-                style={{ display: 'block' }}
-                client='ca-pub-3213525149688431'
-                slot='5111538528'
-                format='auto'
-                responsive="true"
-              />
-              {/* <AdSense.Google
-                style={{ display: 'block' }}
-                client='ca-pub-3213525149688431'
-                slot='1373843183'
-                format='autorelaxed'
-                // responsive="true"
-              /> */}
-            </div>
+            
           </div>
           {
             resize > 1260 ? 

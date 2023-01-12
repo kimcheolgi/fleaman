@@ -11,6 +11,7 @@ import Badge from 'react-bootstrap/Badge';
 import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
 import { MDBPagination, MDBPaginationItem, MDBPaginationLink } from 'mdb-react-ui-kit';
+import AdSense from 'react-adsense';
 
 
 let H4 = styled.h4`
@@ -166,6 +167,22 @@ function Tables() {
         </Col>
       </Row>
       
+      <div className='mt-5'>
+        <AdSense.Google
+          style={{ display: 'block' }}
+          client='ca-pub-3213525149688431'
+          slot='5111538528'
+          format='auto'
+          responsive="true"
+        />
+        {/* <AdSense.Google
+          style={{ display: 'block' }}
+          client='ca-pub-3213525149688431'
+          slot='1373843183'
+          format='autorelaxed'
+          // responsive="true"
+        /> */}
+      </div>
     </div>
   );
 }

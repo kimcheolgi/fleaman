@@ -468,17 +468,25 @@ function CommunityComponent({ cData, a }) {
       bg={a == "light" ? null : "dark"}
       text={a == "light" ? "dark" : "light" }
     >
-      <Row>
-        <Col md={12}>
-          <Badge style={{marginRight: "10px"}} bg="light" text='dark'>
-            {cData.category}
-          </Badge>
-          {cData.title} 
-          <span style={{color: "gray"}}>
-            [{cData.comment_cnt}]
-          </span>
-        </Col>
-      </Row>
+      <a 
+        href={'/content/'+cData._id}
+        onClick={() => {
+          console.log("test")
+        }}
+        style={{color: a == "light" ? "black" : "white"}}
+      >
+        <Row>
+          <Col md={12}>
+            <Badge style={{marginRight: "10px"}} bg="light" text='dark'>
+              {cData.category}
+            </Badge>
+            {cData.title} 
+            <span style={{color: "gray"}}>
+              [{cData.comment_cnt}]
+            </span>
+          </Col>
+        </Row>
+      </a>
     </Card>
   )
 }

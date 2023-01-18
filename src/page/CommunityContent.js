@@ -147,7 +147,7 @@ function CommunityContent() {
 
   return (
     <div>
-      <MetaTag title="Community Content" desc="플리맨 게시물 페이지 FleaMan Community Content Page" url="https://fleaman.shop/content" keywords=", Content Page"/>
+      <MetaTag title={content.title} desc="플리맨 게시물 페이지 FleaMan Community Content Page" url="https://fleaman.shop/content" keywords=", Content Page"/>
       <H4 c={a == "light" ? "dark":"white"}>플리 게시판</H4>
       <H6 c={a == "light" ? "dark":"white"}>광고 또는 욕설 및 음란물의 경우 경고없이 삭제 및 제재합니다</H6>
       <Card

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
 import { MDBPagination, MDBPaginationItem, MDBPaginationLink } from 'mdb-react-ui-kit';
 import AdSense from 'react-adsense';
+import MetaTag from '../SEOMetaTag';
 
 
 let H4 = styled.h4`
@@ -97,6 +98,7 @@ function Tables() {
 
   return (
     <div>
+      <MetaTag title="플리 게시판" desc="플리맨 게시판 FleaMan Community Page" url="https://fleaman.shop/content" keywords=", 플리 게시판, Community Page"/>
       <H4 c={a == "light" ? "dark":"white"}>
         플리 게시판
       </H4>

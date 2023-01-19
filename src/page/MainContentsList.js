@@ -91,6 +91,7 @@ function MainContentsList() {
   let [empty, setEmpty] = useState(false)
   useEffect(() => {
     setMoreFlag(true)
+    setEmpty(false)
     if (searchKeyword.length == 0 || searchKeyword == '_'){
       setIsScrap(true)
       setSearchItems(JSON.parse(localStorage.getItem('watched')))

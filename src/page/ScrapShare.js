@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useDispatch, useSelector } from "react-redux"
 import styled from 'styled-components'
+import { type } from "@testing-library/user-event/dist/type";
 
 function ScrapShare() {
   let a = useSelector((state) => state.bg )
@@ -46,10 +47,31 @@ function ScrapShare() {
 
   const sumPrice = (data) => {
     let sumP = 0
+    let alpha = 0
     data.map((d, i) => {
-      sumP += d.price
+      console.log(typeof(d.price))
+      if (typeof(d.price) == "number"){
+        sumP += d.price
+      }
+      else {
+        alpha = 1
+      }
     })
     return sumP
+  }
+  const sumAlpha = (data) => {
+    let sumP = 0
+    let alpha = 0
+    data.map((d, i) => {
+      if (typeof(d.price) == "number"){
+        sumP += d.price
+      }
+      else {
+        alpha = 1
+      }
+    })
+    console.log(alpha)
+    return alpha
   }
 
   return(
@@ -91,7 +113,7 @@ function ScrapShare() {
         >
         <Card.Footer>
           <Card.Text style={{textAlign: "right"}}>
-              합산 가격: {sumPrice(shareItems).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+              합산 가격: {sumPrice(shareItems).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} {sumAlpha(shareItems) != 0 ?  "+ a"  : ""}원
             </Card.Text>
         </Card.Footer>
       </Card>

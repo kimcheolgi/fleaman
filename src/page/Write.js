@@ -84,7 +84,7 @@ function Write() {
   let [category, setCategory] = useState("분류");
   let [title, setTitle] = useState("");
   let [content, setContent] = useState("");
-  let [categoryList, setCategoryList] = useState(["자유", "질문", "잡담"]);
+  let [categoryList, setCategoryList] = useState(["자유", "질문", "정보"]);
   let [token, setToken] = useState("");
   const [value, setValue] = useState("**내용을 입력해주세요.**");
   const [boardColor, setBoardColor] = useState(false)

@@ -86,7 +86,7 @@ function Edit() {
   let [title, setTitle] = useState("");
   let [content, setContent] = useState("");
   let [value, setValue] = useState("");
-  let [categoryList, setCategoryList] = useState(["자유", "질문", "잡담"]);
+  let [categoryList, setCategoryList] = useState(["자유", "질문", "정보"]);
   let [token, setToken] = useState("");
   const [boardColor, setBoardColor] = useState(false)
 

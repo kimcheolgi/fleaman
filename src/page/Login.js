@@ -187,13 +187,13 @@ function Login() {
           }}><GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" /></div>
         </Card>
         <div className='mt-5'>
-          <AdSense.Google
+          {/* <AdSense.Google
             style={{ display: 'block' }}
             client='ca-pub-3213525149688431'
             slot='5111538528'
             format='auto'
             responsive="true"
-          />
+          /> */}
           {/* <AdSense.Google
             style={{ display: 'block' }}
             client='ca-pub-3213525149688431'
@@ -295,13 +295,13 @@ function Login() {
             </div>
           </Card>
           <div className='mt-5'>
-            <AdSense.Google
+            {/* <AdSense.Google
               style={{ display: 'block' }}
               client='ca-pub-3213525149688431'
               slot='5111538528'
               format='auto'
               responsive="true"
-            />
+            /> */}
             {/* <AdSense.Google
               style={{ display: 'block' }}
               client='ca-pub-3213525149688431'

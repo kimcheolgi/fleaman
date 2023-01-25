@@ -97,6 +97,7 @@ function App() {
       },
     ]
   );
+  console.log(window.location.pathname)
 
   useEffect(()=>{
     let inner = document.createElement('script');
@@ -195,8 +196,9 @@ function App() {
         </Navbar>
         <div className='row no-gutters'>
           {
-            resize > 1260 ?
-            <div className="col-md-3 col-sm-0 no-gutters">
+            resize > 1260?
+            <div className="col-md-3 col-sm-0 no-gutters"> 
+              {window.location.pathname != "/login"?
               <div 
                 // style={{paddingTop: "100px", paddingLeft: "30px"}}
               >
@@ -220,8 +222,8 @@ function App() {
                   client='ca-pub-3213525149688431'
                   slot='5098246021'
                 />
-              </div>
-              {/* <div className="adfit adfit_left"></div> */}
+              </div>: null}
+              {/* <div className="adfit adfit_left"></div> */} 
             </div>
             : null 
           }
@@ -232,6 +234,7 @@ function App() {
               }> */}
               <div className='no-gutters'>
                 <div style={{margin: "10px"}}>
+                {window.location.pathname != "/login"?
                   <div className="mt-3 mb-3"
                     style={{
                       // width: "728px",
@@ -270,7 +273,7 @@ function App() {
                       // responsive='true'
                     />
                     
-                  </div>
+                  </div>:null}
               <Routes>
                 <Route path='/' element={           
                   <SearchInput main={true}></SearchInput>
@@ -329,6 +332,8 @@ function App() {
             resize > 1260 ? 
             <div className="col-md-3 col-sm-0 no-gutters">
               {/* <div className="adfit adfit_right"></div> */}
+              {window.location.pathname != "/login"?
+
               <div
                 // style={{paddingTop: "100px", paddingRight: "30px"}}
               >
@@ -353,7 +358,7 @@ function App() {
                   slot='5098246021'
                 />
                 
-              </div>
+              </div>:null}
               <TopButton outside={true}></TopButton>
             </div> 
             : 

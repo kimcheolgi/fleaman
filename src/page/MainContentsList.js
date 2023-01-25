@@ -20,6 +20,7 @@ import QueryString from 'qs';
 import AdSense from 'react-adsense';
 
 function MainContentsList() {
+  
   let a = useSelector((state) => state.bg )
   const [ref, inView] = useInView();
   let navigate = useNavigate();

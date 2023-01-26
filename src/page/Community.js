@@ -35,8 +35,7 @@ const getDateDiff = (d) => {
 const getDateMatch = (d) => {
   const date1 = new Date();
   const date2 = new Date(d);
-  const diffDate = date1.getDay() - date2.getDay();
-  console.log(diffDate)
+  const diffDate = date1.getDate() - date2.getDate();
   return diffDate == 0;
 }
 

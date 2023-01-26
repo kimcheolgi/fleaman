@@ -75,7 +75,7 @@ function ScrapShare() {
   }
 
   return(
-    <div style={{height: "1024px"}}>
+    <div style={{height: "100vh"}}>
       <MetaTag title={"스크랩"} desc={"플리맨 스크랩 공유"} url={"https://fleaman.shop/share/scrap" + hash} keywords={"스크랩, 공유"} />
       <Card
         // border="warning" 

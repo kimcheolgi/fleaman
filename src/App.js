@@ -162,19 +162,18 @@ function App() {
                   <Badge bg='danger' size="sm">hot</Badge>
                   핫딜 정보
                 </Nav.Link>
-                <Nav.Link href="/community/1">
-                  {/* <Badge bg='warning' size="sm">new</Badge> */}
+                {/* <Nav.Link href="/community/1">
                   플리 게시판
                 </Nav.Link>
                 <Nav.Link href="/dailycheck">
-                  {/* <Badge bg='info' size="sm">?!</Badge> */}
                   출석체크
-                </Nav.Link>
+                </Nav.Link> */}
 
-                {/* <NavDropdown key={"community"} title={"플리판"} id="basic-nav-dropdown">
-                  <NavDropdown.Item key={"community"} onClick={()=>{ navigate("/community/1")}}>{"플리 게시판"}</NavDropdown.Item>
-                  <NavDropdown.Item key={"dailycheck"} onClick={()=>{ navigate("/dailycheck")}}>{"출석체크"}</NavDropdown.Item>
-                </NavDropdown> */}
+                <NavDropdown key={"community"} title={"플리판"} id="basic-nav-dropdown">
+                  <NavDropdown.Item key={"notice"} href={"/notice/1"}>{"공지 게시판"}</NavDropdown.Item>
+                  <NavDropdown.Item key={"community"} href={"/community/1"}>{"플리 게시판"}</NavDropdown.Item>
+                  <NavDropdown.Item key={"dailycheck"} href={"/dailycheck"}>{"출석체크"}</NavDropdown.Item>
+                </NavDropdown>
               </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">
@@ -297,6 +296,9 @@ function App() {
                 <Route path='/community/:page' element={
                     <Tables />
                   } />
+                <Route path='/notice/:page' element={
+                    <Tables />
+                  } />
                 <Route path='/write' element={
                     <Write />
                   } />
@@ -305,9 +307,6 @@ function App() {
                   } />
                 <Route path='/commented' element={
                     <Commented />
-                  } />
-                <Route path='/community/:nick' element={
-                    <UserPage />
                   } />
                 <Route path='/content/:id' element={
                     <CommunityContent />

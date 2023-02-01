@@ -89,6 +89,26 @@ function Write() {
   const [value, setValue] = useState("**내용을 입력해주세요.**");
   const [boardColor, setBoardColor] = useState(false)
 
+  let [isAdmin, setIsAdmin] = useState(false);
+
+  let cred = localStorage.getItem('googleAccount')
+
+  useEffect(() => {
+    if (cred != undefined){
+      axios.post("https://api.fleaman.shop/user/login", {
+        google_token: cred
+      }).then(function (response) {
+        let user_data = response.data;
+        if (user_data.admin){
+          setIsAdmin(true)
+          setCategoryList(["공지", "자유", "질문", "정보"])
+        }
+      }).catch(function (error) {
+        alert('유저 정보를 가져오는데 실패했습니다.');
+      });
+    }
+  }, [])
+
   useEffect(() => {
     let cred = localStorage.getItem('googleAccount')
     if (cred != undefined){

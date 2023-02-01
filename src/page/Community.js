@@ -64,12 +64,15 @@ const getLevel = (level) => {
 }
 
 function Tables() {
+  const location = useLocation()
+  let isNotice = location.pathname.substring(1, 7) == "notice"
   let navigate = useNavigate();
   let a = useSelector((state) => state.bg )
   let { page } = useParams();
-  let cred = localStorage.getItem('googleAccount')
   let [lastPage, setLastPage] = useState(5);
   let [dataList, setDataList] = useState([]);
+  let [noticeDataList, setNoticeDataList] = useState([]);
+  let [isAdmin, setIsAdmin] = useState(false);
 
   const [resize, setResize] = useState(window.innerWidth);
 
@@ -85,7 +88,8 @@ function Tables() {
   }, []);
 
   useEffect(() => {
-    axios.get("https://api.fleaman.shop/table/tables?type=table&page="+page)
+    let url = isNotice ? "https://api.fleaman.shop/table/tables?type=table&table_type=공지&page="+page : "https://api.fleaman.shop/table/tables?type=table&page="+page
+    axios.get(url)
     .then(function (response) {
       let data_list = response.data;
       setDataList(data_list[0])
@@ -95,14 +99,46 @@ function Tables() {
     });
   }, [])
 
+  useEffect(() => {
+    if (!isNotice && page == 1){ 
+      let url = "https://api.fleaman.shop/table/tables?type=table&table_type=공지&page=1"
+      axios.get(url)
+      .then(function (response) {
+        let data_list = response.data;
+        setNoticeDataList(data_list[0].slice(0, 3))
+      }).catch(function (error) {
+        console.log(error, '게시판 정보를 가져오는데 실패했습니다.');
+      });
+    }
+  }, [])
+
+
+
+  let cred = localStorage.getItem('googleAccount')
+
+  useEffect(() => {
+    if (cred != undefined){
+      axios.post("https://api.fleaman.shop/user/login", {
+        google_token: cred
+      }).then(function (response) {
+        let user_data = response.data;
+        if (user_data.admin){
+          setIsAdmin(true)
+        }
+      }).catch(function (error) {
+        alert('유저 정보를 가져오는데 실패했습니다.');
+      });
+    }
+  }, [])
+
   return (
     <div>
-      <MetaTag title="플리 게시판" desc="플리맨 게시판 FleaMan Community Page" url="https://fleaman.shop/content" keywords=", 플리 게시판, Community Page"/>
+      <MetaTag title={isNotice ? "공지 게시판" : "플리 게시판"} desc="플리맨 게시판 FleaMan Community Page" url="https://fleaman.shop/content" keywords=", 플리 게시판, Community Page"/>
       <H4 c={a == "light" ? "dark":"white"}>
-        플리 게시판
+        {isNotice ? "공지 게시판": "플리 게시판"}
       </H4>
       <H6 c={a == "light" ? "dark":"white"}>
-        자유롭게 정보를 공유하는 게시판입니다.
+        {isNotice ? "플리맨 공지사항을 확인하실 수 있습니다." : "자유롭게 정보를 공유하는 게시판입니다."}
       </H6>
       <Row xs={1} md={1} className="g-1">
             
@@ -118,10 +154,15 @@ function Tables() {
           </thead>
           <tbody style={{fontSize: "0.8rem"}}>
             {
-              dataList.map((data, idx) => {
+              noticeDataList.concat(dataList).map((data, idx) => {
                 let data_date = !getDateMatch(data.reg_date) ? data.reg_date.split(" ")[0].replaceAll("-", ".").slice(5) : data.reg_date.split(" ")[1].slice(0, 5)
                 return (
-                  <tr key={idx}>
+                  <tr key={idx} 
+                    style={{
+                      fontWeight: data.category == "공지" && !isNotice ? "bold": null,
+                      border: data.category == "공지"  && !isNotice? "3px solid":null
+                    }}
+                  >
                     <td>{data.category}</td>
                     <td>
                       <a 
@@ -154,10 +195,10 @@ function Tables() {
       <Row>
         <Col className='right_button'>
           <div className='paging'>
-            <Paging currentPage={Number(page)} lastPage={lastPage}/>
+            <Paging currentPage={Number(page)} lastPage={lastPage} path={isNotice ? "/notice/":"/community/"}/>
           </div>
         {
-          cred != undefined ? 
+          (isNotice && isAdmin) || (!isNotice && cred != undefined) ? 
           <div>
             <Button size="sm" variant={a == "light" ? "outline-secondary":"secondary"} href="/write">
               글쓰기
@@ -211,7 +252,7 @@ function range(start, stop, step) {
   return result;
 };
 
-function Paging({ currentPage, lastPage }) {
+function Paging({ currentPage, lastPage, path }) {
   let a = useSelector((state) => state.bg )
 
   let pageList = []
@@ -219,7 +260,7 @@ function Paging({ currentPage, lastPage }) {
   let fButton = currentPage != 1 ? currentPage - 1 : currentPage
   let llButton = lastPage
   let lButton = currentPage != lastPage ? currentPage + 1 : lastPage
-  let path = '/community/'
+  // let path = '/community/'
 
   
   pageList = range(currentPage - 2 >= 1 ? currentPage - 2 : 1, currentPage + 3 <= lastPage + 1 ? currentPage + 3 : lastPage + 1)

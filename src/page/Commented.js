@@ -119,7 +119,6 @@ function Commented() {
       }).then(function (response) {
         linkHash = response.data;
         setLinkHash(linkHash)
-        console.log(linkHash)
       }).catch(function (error) {
         alert('링크 복사에 실패하였습니다.');
       });

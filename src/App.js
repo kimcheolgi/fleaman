@@ -97,7 +97,6 @@ function App() {
       },
     ]
   );
-  console.log(window.location.pathname)
 
   useEffect(()=>{
     let inner = document.createElement('script');
@@ -397,7 +396,6 @@ function LoginButton({ a }) {
         alert('유저 정보를 가져오는데 실패했습니다.');
       });
     }
-    console.log(userData)
   }, [cred])
   let navigate = useNavigate();
 

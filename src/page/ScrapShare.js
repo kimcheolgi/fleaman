@@ -49,7 +49,6 @@ function ScrapShare() {
     let sumP = 0
     let alpha = 0
     data.map((d, i) => {
-      console.log(typeof(d.price))
       if (typeof(d.price) == "number"){
         sumP += d.price
       }
@@ -70,7 +69,6 @@ function ScrapShare() {
         alpha = 1
       }
     })
-    console.log(alpha)
     return alpha
   }
 

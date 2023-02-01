@@ -89,7 +89,6 @@ function Write() {
   const [value, setValue] = useState("**내용을 입력해주세요.**");
   const [boardColor, setBoardColor] = useState(false)
 
-  let [isAdmin, setIsAdmin] = useState(false);
 
   let cred = localStorage.getItem('googleAccount')
 
@@ -100,7 +99,6 @@ function Write() {
       }).then(function (response) {
         let user_data = response.data;
         if (user_data.admin){
-          setIsAdmin(true)
           setCategoryList(["공지", "자유", "질문", "정보"])
         }
       }).catch(function (error) {

@@ -100,12 +100,10 @@ function MainContentsList() {
     else{
       setIsScrap(false)
       setLoading(true)
-      console.log(loading)
       let url = "https://api.fleaman.shop/product/main-search?keyword="+searchKeyword
       if (searchPlatform != undefined){
         url = "https://api.fleaman.shop/product/main-search?keyword="+searchKeyword+"&platform="+searchPlatform
       }
-      console.log(url)
       axios.get(url)
         .then((result) => {
           let searchData = result.data
@@ -153,7 +151,6 @@ function MainContentsList() {
       }).then(function (response) {
         linkHash = response.data;
         setLinkHash(linkHash)
-        console.log(linkHash)
       }).catch(function (error) {
         alert('링크 복사에 실패하였습니다.');
       });
@@ -478,7 +475,6 @@ function MainContentsList() {
 
 
 function CommunityComponent({ cData, a }) {
-  console.log(cData)
   return (
     <Card 
       className='mt-1'

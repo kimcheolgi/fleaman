@@ -55,7 +55,6 @@ function TestContentsList() {
     setLoading(true)
     setEmpty(false)
     let url = "https://api.fleaman.shop/product/search?category_large="+categoryName+"&category_medium="+newItemName+"&keyword="+searchKeyword+"&scroll_id=first&platform="+searchPlatform
-    console.log(url)
     axios.get(url)
       .then((result) => {
         let productData = result.data.data

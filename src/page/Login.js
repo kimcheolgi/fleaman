@@ -106,14 +106,12 @@ function Login() {
     doubleClick.current.isDoubleClick = true;
 
     const { credential } = res;
-    console.log(handleCredentialResponse(res))
     localStorage.setItem('googleAccount', credential)
     axios.post("https://api.fleaman.shop/user/login", {
         google_token: credential
       }).then(function (response) {
         let nickName = response.data.nick_name;
         localStorage.setItem('userNickName', nickName)
-        console.log(nickName)
       }).catch(function (error) {
         alert('유저 정보를 가져오는데 실패했습니다.');
       }).finally(() =>{
@@ -131,7 +129,6 @@ function Login() {
   };
 
   useEffect(() => {
-    console.log(isUpdate, isLogin)
     if (!isUpdate) return;
     setIsLoading(true)
     setTimeout(()=>{ navigate('/') }, 500);
@@ -213,7 +210,6 @@ function Login() {
     }
     else {
       let userInfo = parseJwt(cred)
-      console.log(userInfo)
       return (      
         <div style={{height: "100vh"}}>
           <MetaTag title="My Page" desc="플리맨 마이 페이지 FleaMan My Page" url="https://fleaman.shop/login" keywords=", My Page"/>

@@ -366,7 +366,6 @@ function CommunityContent() {
                             />
                             <Button variant="outline-secondary" id="button-addon" size='sm'
                               onClick={() => {
-                                console.log(inputComment[idx])
                                 if (inputComments[idx] != undefined){
                                   // console.log(inputComments[idx])
                                   axios.post("https://api.fleaman.shop/table/insert", {

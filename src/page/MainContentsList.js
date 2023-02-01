@@ -379,7 +379,7 @@ function MainContentsList() {
 
               {
                 viewItems.map((item, idx) => {
-                  if (idx % 10 == 3){
+                  if (idx % 5 == 3){
                     return(
                       <>
                         <ContentsComponent key={idx} cData={item} resize={resize} scrap={false} reco={false} ads={true}/> 
@@ -440,7 +440,7 @@ function MainContentsList() {
         <Row xs={1} md={1} className="g-1">         
           {
             viewItems.map((cData, idx)=>{
-              if (idx % 10 == 3){
+              if (idx % 5 == 3){
                 return(
                   <>
                     <ContentsComponent key={idx} cData={cData} resize={resize} scrap={false} reco={false} ads={true}/> 

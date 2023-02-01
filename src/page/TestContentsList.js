@@ -47,6 +47,7 @@ function TestContentsList() {
   let [empty, setEmpty] = useState(false)
   let [avgPrice, setAvgPrice] = useState(0)
   let [perPrice, setPerPrice] = useState([0, 0, 0])
+  let [perPriceTrade, setPerPriceTrade] = useState([0, 0, 0])
   let priceState = ['저렴', '적당', '비쌈']
 
   useEffect(() => {
@@ -60,10 +61,12 @@ function TestContentsList() {
         let productScrollId = result.data.scroll_id
         let productAvgPrice = result.data.agg_res.avg_aggs.value
         let productPerPrice = result.data.agg_res.percent_aggs.values
+        let productPerPriceTrade = result.data.agg_res_trade.percent_aggs.values
         setTotalData(productData)
         setScrollId(productScrollId)
         setAvgPrice(productAvgPrice)
         setPerPrice(productPerPrice)
+        setPerPriceTrade(productPerPriceTrade)
         if (productData.length == 0){
           setMoreFlag(false)
           setEmpty(true)
@@ -147,6 +150,7 @@ function TestContentsList() {
           >
             <thead>
               <tr>
+                <th key={'key'}>{"구분"}</th>
                 {
                   Object.keys(perPrice).map((key, i)=>{
                     return <th key={i}>{priceState[i]}</th>
@@ -156,8 +160,17 @@ function TestContentsList() {
             </thead>
             <tbody>
               <tr>
+                <td key={"all"}>전체매물</td>
                 {
                   Object.values(perPrice).map((value, i)=>{
+                    return <td key={i}>{getNewPrice(value)}원</td>
+                  })
+                }            
+              </tr>
+              <tr>
+                <td key={"trade"}>판매완료</td>
+                {
+                  Object.values(perPriceTrade).map((value, i)=>{
                     return <td key={i}>{getNewPrice(value)}원</td>
                   })
                 }            

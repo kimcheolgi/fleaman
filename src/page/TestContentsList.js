@@ -14,6 +14,7 @@ import QueryString from 'qs';
 
 function TestContentsList() {
   let a = useSelector((state) => state.bg )
+  let cred = localStorage.getItem('googleAccount')
   const [ref, inView] = useInView();
   const location = useLocation()
   const queryData = QueryString.parse(location.search, { ignoreQueryPrefix: true });
@@ -171,7 +172,7 @@ function TestContentsList() {
                 <td key={"trade"}>판매완료</td>
                 {
                   Object.values(perPriceTrade).map((value, i)=>{
-                    return <td key={i}>{getNewPrice(value)}원</td>
+                    return <td key={i}>{cred != undefined ? getNewPrice(value)+"원" : "로그인 시 확인 가능"}</td>
                   })
                 }            
               </tr>

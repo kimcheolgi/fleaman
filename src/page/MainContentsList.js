@@ -80,6 +80,18 @@ function MainContentsList() {
           console.log('데이터 로드 실패')
         })
   }, [])
+  let [noticeData, setNoticeData] = useState([])
+  useEffect(() => {
+    let url = "https://api.fleaman.shop/table/tables?type=table&table_type=공지&page=1"
+      axios.get(url)
+        .then((result) => {
+          let coData = result.data
+          setNoticeData(coData[0].slice(0, 5))
+        })
+        .catch(() => {
+          console.log('데이터 로드 실패')
+        })
+  }, [])
   const [resize, setResize] = useState(window.innerWidth);
   let [searchItems, setSearchItems] = useState([]);
   let [isScrap, setIsScrap] = useState(true);
@@ -293,6 +305,46 @@ function MainContentsList() {
               })
             }
             {/* </Card.Body> */}
+        </Row>
+        <Row xs={1} md={1} className="g-1 mt-5">      
+          <Card
+            // border={a == "light" ? null : "secondary"}
+            className="mb-2"
+            style={{
+              textAlign: "left",
+              border: "1px solid #00000000"
+            }}
+            bg={a == "light" ? null : "dark"}
+            text={a == "light" ? "dark" : "light" }
+          >
+            <Card.Header>
+
+              <Card.Text>
+                <Badge bg="warning" style={{margin: "2px"}}> New</Badge>
+                공지사항
+                <a href="/notice/1">
+                <Button 
+                  className="more"
+                  variant={a == "light"? "outline-secondary":"secondary"} 
+                  style={{padding: "2px"}}
+                  onClick={() => {
+                    // window.location.href("/commented")
+                    // navigate("/commented")
+                  }}> 
+                  더 보기..
+                </Button>
+                </a>
+              </Card.Text>
+            </Card.Header>
+          </Card>
+
+          {
+            noticeData.map((cData, idx)=>{
+              return(
+                  <CommunityComponent key={idx} cData={cData} a={a}/> 
+                )
+            })
+          }
         </Row>
         <Row xs={1} md={1} className="g-1 mt-5">      
           <Card

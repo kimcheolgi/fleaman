@@ -59,12 +59,12 @@ function TestContentsList() {
       .then((result) => {
         let productData = result.data.data
         let productScrollId = result.data.scroll_id
-        let productAvgPrice = result.data.agg_res.avg_aggs.value
+        // let productAvgPrice = result.data.agg_res.avg_aggs.value
         let productPerPrice = result.data.agg_res.percent_aggs.values
         let productPerPriceTrade = result.data.agg_res_trade.percent_aggs.values
         setTotalData(productData)
         setScrollId(productScrollId)
-        setAvgPrice(productAvgPrice)
+        // setAvgPrice(productAvgPrice)
         setPerPrice(productPerPrice)
         setPerPriceTrade(productPerPriceTrade)
         if (productData.length == 0){

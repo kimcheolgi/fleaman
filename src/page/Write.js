@@ -181,7 +181,7 @@ function Write() {
         />
       </InputGroup> */}
       <Row>
-        <Col sm={12} md={6}>
+        <Col sm={12} md={12}>
           <FileDrop
             // onFrameDragEnter={(event) => console.log('onFrameDragEnter', event)}
             // onFrameDragLeave={(event) => console.log('onFrameDragLeave', event)}
@@ -237,7 +237,7 @@ function Write() {
           />
           </FileDrop>
         </Col>
-        <Col sm={12} md={6}>
+        <Col sm={12} md={12}>
           <MDEditor.Markdown 
             source={value} 
             style={{ 

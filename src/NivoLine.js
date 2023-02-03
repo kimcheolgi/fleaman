@@ -37,7 +37,15 @@ function PriceChart({ data, a /* see data tab */ }){
         {showChart ? "일자 별 시세 차트" : "레벨 2 이상부터 일자 별 시세 차트 확인 가능"}
       </div>
     
-    <div className={showChart ? null: "blurEffect"} style={{ width: '100%', height: '200px', margin: '0 auto' }}>
+    <div 
+      className={showChart ? null: "blurEffect"} 
+      style={{ 
+        width: '100%', 
+        height: '200px', 
+        margin: '0 auto',
+        backgroundColor: a == 'light' ? null : '#343a40'
+      }}
+    >
       <ResponsiveLine
           data={data}
           margin={{ top: 10, right: 10, bottom: 10, left: 60 }}
@@ -55,7 +63,7 @@ function PriceChart({ data, a /* see data tab */ }){
           axisTop={null}
           axisRight={null}
           colors={{ scheme: 'set1' }}
-
+          
           pointSize={5}
           pointColor={{ theme: 'background' }}
           pointBorderWidth={2}

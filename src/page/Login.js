@@ -273,7 +273,17 @@ function Login() {
               }
             </div>
             <H6 c={a == "light" ? "dark":"white"} className='mt-3'>
-              작성 게시물 수: {tableCount}, 작성한 댓글 수: {commentCount}, 출첵 수: {dailyCount}
+            <div style={{textAlign: "center"}}>
+              <div>
+                작성 게시물 수: {tableCount}
+              </div>
+              <div>
+                작성한 댓글 수: {commentCount}
+              </div>
+              <div>
+                출첵 수: {dailyCount}
+              </div>
+            </div>
             </H6>
             <div>
               <NickNameModal credential={cred} a={a} ></NickNameModal>

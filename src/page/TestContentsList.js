@@ -10,7 +10,7 @@ import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from "react-redux"
 import { useInView } from 'react-intersection-observer';
 import QueryString from 'qs';
-
+import PriceChart from "../NivoLine";
 
 function TestContentsList() {
   let a = useSelector((state) => state.bg )
@@ -46,7 +46,7 @@ function TestContentsList() {
   let newItemName = itemName.replace(' ', '_').replace(' ', '_')
   let [loading, setLoading] = useState(true)
   let [empty, setEmpty] = useState(false)
-  let [avgPrice, setAvgPrice] = useState(0)
+  let [avgPrice, setAvgPrice] = useState([])
   let [perPrice, setPerPrice] = useState([0, 0, 0])
   let [perPriceTrade, setPerPriceTrade] = useState([0, 0, 0])
   let priceState = ['저렴', '적당', '비쌈']
@@ -59,14 +59,60 @@ function TestContentsList() {
       .then((result) => {
         let productData = result.data.data
         let productScrollId = result.data.scroll_id
-        // let productAvgPrice = result.data.agg_res.avg_aggs.value
+        let productAvgPrice = result.data.agg_res.daily.buckets
         let productPerPrice = result.data.agg_res.percent_aggs.values
         let productPerPriceTrade = result.data.agg_res_trade.percent_aggs.values
+        let dailyData50 = productAvgPrice.slice(productAvgPrice.length - 30, productAvgPrice.length).map((data, key) => {
+          return(
+            {
+              "x": new Date(data.key * 1000).toDateString(),
+              "y": data.avg_aggs.values['50.0']
+            }
+          )
+        })
+        let dailyData25 = productAvgPrice.slice(productAvgPrice.length - 30, productAvgPrice.length).map((data, key) => {
+          return(
+            {
+              "x": new Date(data.key * 1000).toDateString(),
+              "y": data.avg_aggs.values['25.0']
+            }
+          )
+        })
+        let dailyData75 = productAvgPrice.slice(productAvgPrice.length - 30, productAvgPrice.length).map((data, key) => {
+          return(
+            {
+              "x": new Date(data.key * 1000).toDateString(),
+              "y": data.avg_aggs.values['75.0']
+            }
+          )
+        })
         setTotalData(productData)
         setScrollId(productScrollId)
-        // setAvgPrice(productAvgPrice)
+        setAvgPrice([
+
+          {
+            "id": "비쌈",
+            "data": dailyData75
+          },
+          {
+            "id": "적당",
+            "data": dailyData50
+          },
+          
+          {
+            "id": "저렴",
+            "data": dailyData25
+          },
+        ])
+        // console.log([
+        //   {
+        //     "id": newItemName + searchKeyword,
+        //     "data": dailyData
+        //   }
+        // ])
         setPerPrice(productPerPrice)
         setPerPriceTrade(productPerPriceTrade)
+        console.log(productAvgPrice.slice(productAvgPrice.length - 30, productAvgPrice.length))
         if (productData.length == 0){
           setMoreFlag(false)
           setEmpty(true)
@@ -176,9 +222,11 @@ function TestContentsList() {
                 }            
               </tr>
             </tbody>
-
           </Table>
           
+          <PriceChart data={avgPrice} a={a}/>
+
+
           {
             totalData.map((cData, idx)=>{
               if (idx % 5 == 3){

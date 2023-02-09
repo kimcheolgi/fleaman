@@ -222,7 +222,8 @@ function MainContentsList() {
   else if (isScrap) {
     return(
       <div>
-        <Row xs={1} md={1} className="g-1">      
+        <Row xs={1} md={1} className="g-1">    
+           
           <Card
             // border={a == "light" ? null : "secondary"}
             className="mb-2"
@@ -427,6 +428,7 @@ function MainContentsList() {
             {/* <Card.Body> */}
 
               {
+                
                 viewItems.map((item, idx) => {
                   if (idx % 5 == 3){
                     return(
@@ -487,6 +489,16 @@ function MainContentsList() {
         <MetaTag title={searchKeyword} desc="플리맨 통합 검색" url={"https://fleaman.shop/?query=" + searchKeyword}/>
         {/* <MetaTag title={searchKeyword}/> */}
         <Row xs={1} md={1} className="g-1">         
+          <div
+              className="mb-3 mt-1"
+              style={{
+                color: a == "light" ? "black" : "white"
+              }}
+            >
+            {
+              searchKeyword != "_" ? '"' + searchKeyword + '"' + " 검색 결과입니다." : null
+            }
+          </div> 
           {
             viewItems.map((cData, idx)=>{
               if (idx % 5 == 3){

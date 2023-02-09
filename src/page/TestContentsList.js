@@ -190,6 +190,16 @@ function TestContentsList() {
           :
         
         <Row xs={1} md={1} className="g-1">
+          <div
+            className="mb-3 mt-1"
+            style={{
+              color: a == "light" ? "black" : "white"
+            }}
+          >
+            {
+              searchKeyword != "_" ? '"' + searchKeyword + '"' + " 검색 결과입니다." : null
+            }
+          </div>
           <Table striped bordered className="mb-3"
             variant={a}
           >

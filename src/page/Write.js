@@ -84,7 +84,7 @@ function Write() {
   let [category, setCategory] = useState("분류");
   let [title, setTitle] = useState("");
   let [content, setContent] = useState("");
-  let [categoryList, setCategoryList] = useState(["자유", "질문", "정보"]);
+  let [categoryList, setCategoryList] = useState(["자유", "질문", "정보", "건의"]);
   let [token, setToken] = useState("");
   const [value, setValue] = useState("**내용을 입력해주세요.**");
   const [boardColor, setBoardColor] = useState(false)
@@ -99,7 +99,7 @@ function Write() {
       }).then(function (response) {
         let user_data = response.data;
         if (user_data.admin){
-          setCategoryList(["공지", "자유", "질문", "정보"])
+          setCategoryList(["공지", "자유", "질문", "정보", "건의"])
         }
       }).catch(function (error) {
         alert('유저 정보를 가져오는데 실패했습니다.');

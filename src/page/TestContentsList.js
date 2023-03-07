@@ -62,7 +62,8 @@ function TestContentsList() {
         let productAvgPrice = result.data.agg_res.daily.buckets
         let productPerPrice = result.data.agg_res.percent_aggs.values
         let productPerPriceTrade = result.data.agg_res_trade.percent_aggs.values
-        let dailyData50 = productAvgPrice.slice(productAvgPrice.length - 31, productAvgPrice.length -1).map((data, key) => {
+        let maxDate = productAvgPrice.length < 31 ? productAvgPrice.length : 31
+        let dailyData50 = productAvgPrice.slice(productAvgPrice.length - maxDate, productAvgPrice.length -1).map((data, key) => {
           return(
             {
               "x": new Date(data.key * 1000).toDateString(),
@@ -70,7 +71,7 @@ function TestContentsList() {
             }
           )
         })
-        let dailyData25 = productAvgPrice.slice(productAvgPrice.length - 31, productAvgPrice.length -1).map((data, key) => {
+        let dailyData25 = productAvgPrice.slice(productAvgPrice.length - maxDate, productAvgPrice.length -1).map((data, key) => {
           return(
             {
               "x": new Date(data.key * 1000).toDateString(),
@@ -78,7 +79,7 @@ function TestContentsList() {
             }
           )
         })
-        let dailyData75 = productAvgPrice.slice(productAvgPrice.length - 31, productAvgPrice.length -1).map((data, key) => {
+        let dailyData75 = productAvgPrice.slice(productAvgPrice.length - maxDate, productAvgPrice.length -1).map((data, key) => {
           return(
             {
               "x": new Date(data.key * 1000).toDateString(),
@@ -86,6 +87,7 @@ function TestContentsList() {
             }
           )
         })
+        console.log(dailyData75)
         setTotalData(productData)
         setScrollId(productScrollId)
         setAvgPrice([

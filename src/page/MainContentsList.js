@@ -321,7 +321,6 @@ function MainContentsList() {
             <Card.Header>
 
               <Card.Text>
-                <Badge bg="warning" style={{margin: "2px"}}> New</Badge>
                 공지사항
                 <a href="/notice/1">
                 <Button 
@@ -537,6 +536,14 @@ function MainContentsList() {
   }
 }
 
+const getDateDiff = (d) => {
+  const date1 = new Date();
+  const date2 = new Date(d);
+  
+  const diffDate = date1.getTime() - date2.getTime();
+  
+  return Math.floor(diffDate / (1000 * 60 * 60 * 24));
+}
 
 function CommunityComponent({ cData, a }) {
   return (
@@ -563,6 +570,7 @@ function CommunityComponent({ cData, a }) {
             <span style={{color: "gray"}}>
               [{cData.comment_cnt}]
             </span>
+            {getDateDiff(cData.reg_date) < 1 ? <Badge bg="warning" style={{margin: "2px"}}> New</Badge> : null}
           </Col>
         </Row>
       </a>
